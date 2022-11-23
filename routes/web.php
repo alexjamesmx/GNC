@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AccessController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+
+Route::get('/admin', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('admin');
+
+Route::get('/', [AccessController::class, 'index'])->middleware(['auth', 'verified'])->name('access');
+
+
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
