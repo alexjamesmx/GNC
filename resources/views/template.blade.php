@@ -32,11 +32,11 @@
 `
             setTimeout(() => {
                 console.log(notification)
-                notification.remove()
+                notification.innerHTML = ""
             }, 4000);
         }
     </script>
-    <p class='text max-w-sm'></p>
+    {{-- <p class='text max-w-sm'></p> --}}
     @include('admin._modal')
     <div class="container-scroller">
         @yield('content')

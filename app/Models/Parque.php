@@ -17,5 +17,11 @@ class Parque extends Model
         'calle',
         'municipio',
         'codigo',
+        'status',
     ];
+
+    public function status()
+    {
+        return $this->hasOne(Status::class, 'foreign_key', 'status_id');
+    }
 }

@@ -20,7 +20,8 @@ class ParqueFactory extends Factory
             'parque' => fake()->name(),
             'calle' => fake()->streetAddress(),
             'municipio' => fake()->city(),
-            'codigo' => fake()->postcode()
+            'codigo' => fake()->postcode(),
+            'status_id' => 2,
         ];
     }
 }

@@ -1,5 +1,5 @@
 <!--Modal-->
-<div class="modal opacity-0 pointer-events-none fixed w-full h-full left-0 flex items-center justify-center">
+<div hidden class="modal opacity-0 pointer-events-none fixed w-full h-full left-0 flex items-center justify-center">
     <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
 
     <div
@@ -65,16 +65,16 @@
 
                         <!--Footer-->
                         <div class="flex justify-end">
-                            <a href="#" id="modal_close"
-                                class="modal-close text-decoration-none rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-purple-600 active:shadow-none shadow-lg bg-gradient-to-tr from-purple-600 to-purple-500 border-purple-700 text-white">
+                            <button type="button"id="modal_close"
+                                class="border-none modal-close  rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-purple-600 active:shadow-none shadow-lg bg-gradient-to-tr from-purple-600 to-purple-500 border-purple-700 text-white">
                                 <span
                                     class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
                                 <span class="relative tracking-wider">
                                     Cerrar
                                 </span>
-                            </a>
+                            </button>
                             <button type="submit"
-                                class="border-none text-decoration-none rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-green-600 active:shadow-none shadow-lg bg-gradient-to-tr from-green-700 to-green-600 border-green-700 text-white">
+                                class="border-none rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-green-600 active:shadow-none shadow-lg bg-gradient-to-tr from-green-700 to-green-600 border-green-700 text-white">
                                 <span
                                     class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
                                 <span class="relative font-semibold tracking-wider">

@@ -25,6 +25,7 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
+                                <th>Id</th>
                                 <th>Nombre</th>
                                 <th>Calle</th>
                                 <th>Municipio</th>
@@ -33,8 +34,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($parques as $parque)
-                                <tr>
+                            @forelse ($parques as $parque)
+                                <tr id="row_{{ $parque->id }}">
+                                    <td> {{ $parque->id }}</td>
                                     <td> {{ $parque->parque }}</td>
                                     <td> {{ $parque->calle }}</td>
                                     <td> {{ $parque->municipio }}</td>
@@ -45,14 +47,20 @@
                                                 type="button"class="modal-open text-lime-600 border-none bg-transparent mr-5 hover:text-lime-500"
                                                 data-modal="edit"><i class="fa-solid fa-pen-fancy"></i>
                                                 Editar</button>
-                                            <button type="button"
-                                                class="modal-open text-red-600 border-none bg-transparent  hover:text-red-500"><i
+                                            <button
+                                                onclick="document.getElementById('delete-id').value = {{ $parque->id }}"
+                                                type="button"
+                                                class="modal-open text-red-600 border-none bg-transparent  hover:text-red-500"
+                                                data-bs-toggle="modal" data-bs-target="#modal-delete"><i
                                                     class="fa-solid fa-trash-can"data-modal="delete"></i>
                                                 Eliminar</button>
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+
+                            @empty
+                                <h1>No hay parques </h1>
+                            @endforelse
                         </tbody>
                     </table>
                     <div class="mt-4">
@@ -63,82 +71,67 @@
         </div>
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Launch demo modal
-    </button>
-
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+    <div class="modal fade" id="modal-delete" tabi1ndex="-1" aria-labelledby="modal-delete" aria-hidden="true">
+        <div class="modal-dialog w-fit">
+            <div class="modal-content w-fit">
+                <div class="modal-body w-fit py-4">
+                    <div class="flex justify-start w-fit mb-4">
+                        <p class="modal-title text-center p-0 text-2xl m-0" id="exampleModalLabel">¿Estás
+                            seguro de esta acción?</p>
+                        <input hidden id="delete-id">"
+                        {{-- <button type="button" data-bs-dismiss="modal" aria-label="Close"
+                            class='bg-transparent border-none mr-4'>
+                            <i id="modal_close_times" class="fa-solid fa-times"></i>
+                        </button> --}}
+                    </div>
+                    <div class="flex
+                            justify-between mx-4">
+                        <button data-bs-dismiss="modal" aria-label="Close"
+                            class="p-2 px-2  transition-colors duration-700 transform bg-purple-500 hover:bg-purple-400 text-gray-100 text-sm rounded-lg focus:border-4 border-purple-300">
+                            Volver atrás</button>
+                        <button onclick="handleDelete()" data-bs-dismiss="modal" aria-label="Close"
+                            class="p-2 px-2 transition-colors duration-700 transform bg-red-500 hover:bg-red-400 text-gray-100 text-sm rounded-lg focus:border-4 border-red-300">
+                            <i class="fa-solid fa-trash-can-arrow-up"></i> Confirmar</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Launch demo modal
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
 
 
 
     <script>
+        function handleDelete() {
+            const id = document.getElementById('delete-id').value
+            console.log('Eliminar', id)
+            let url = '{{ route('parques.delete', ':id') }}';
+            url = url.replace(':id', id)
+            console.log(url)
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}"
+                },
+                dataType: 'json',
+            }).done((json) => {
+                console.log(json)
+                if (json.response === 1) {
+                    message('Eliminado correctamente')
+                    document.querySelector('#row_' + id).remove()
+                } else {
+                    message('Hubo un problema con la petición')
+                }
+
+            }).fail((err) => {
+                console.log(err)
+
+            })
+        }
+        document.getElementById('modal-delete').setAttribute('data-bs-keyboard', 'true');
+        document.getElementById('modal-delete').setAttribute('data-bs-backdrop', 'static');
+        // $('#modal-delete').data('modal').options.backdrop = 'static';
         document.querySelector('#page-title').innerHTML = 'GNC - Parques';
         let session = @json(session()->all());
         let old_data = @json(old())
@@ -148,6 +141,7 @@
 
         // Al cerrar modal
         function closeModal(e) {
+            document.querySelector('.modal').hidden = true
             console.log('Cerrar modal')
             document.querySelector('#parque').value = ''
             document.querySelector('#calle').value = ''
@@ -165,6 +159,7 @@
         }
 
         function handleCreate() {
+            document.querySelector('.modal').hidden = false
             if (document.querySelector('#method-form') !== null) {
                 document.querySelector('#method-form').remove()
             }
@@ -178,6 +173,7 @@
         }
 
         function handleEdit(id) {
+            document.querySelector('.modal').hidden = false
             document.querySelector('#modal-title').innerHTML = 'Editar parque'
             let tmp = '{{ route('parques.update', ':id') }}'
             const route = tmp.replace(':id', id)

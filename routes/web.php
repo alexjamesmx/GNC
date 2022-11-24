@@ -25,6 +25,7 @@ Route::get('/admin', [AdminController::class, 'index'])->middleware(['auth', 've
 // Route::get('/admin/parques', [AdminController::class, 'parques'])->middleware(['auth', 'verified'])->name('admin');
 
 Route::resource('/admin/parques', ParqueController::class)->middleware(['auth', 'verified']);
+Route::post('/admin/parques/delete/{id}', [ParqueController::class, 'delete'])->middleware(['auth', 'verified'])->name('parques.delete');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

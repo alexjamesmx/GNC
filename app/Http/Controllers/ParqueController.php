@@ -20,7 +20,7 @@ class ParqueController extends Controller
      */
     public function index()
     {
-        $parques = Parque::whereNotNull('parque',)->paginate(10);
+        $parques = Parque::where('status_id', '!=', '1')->paginate(10);
         // dd($parques);
         // dd($parques);
 
@@ -163,6 +163,14 @@ class ParqueController extends Controller
      */
     public function destroy($id)
     {
-        //
     }
+
+    public function delete($id)
+    {
+        $response = Parque::where('id', $id)->update(['status_id' => 1]);
+        return response()->json(['response' => $response]);
+        // return back()->with('response',   $response);
+    }
+    // destroy
+    // dd($id);
 }
