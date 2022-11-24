@@ -7,8 +7,10 @@ module.exports = {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
     ],
-    prefix: 'tw-',
-
+    corePlugins: {
+        preflight: false,
+     },
+     important: true,
     theme: {
         extend: {
             fontFamily: {

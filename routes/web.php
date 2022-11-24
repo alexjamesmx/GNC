@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AccessController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ParqueController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,21 +18,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
-Route::get('/admin', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('admin');
-
 Route::get('/', [AccessController::class, 'index'])->middleware(['auth', 'verified'])->name('access');
 
 
+Route::get('/admin', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('admin');
+// Route::get('/admin/parques', [AdminController::class, 'parques'])->middleware(['auth', 'verified'])->name('admin');
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::resource('/admin/parques', ParqueController::class)->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 require __DIR__ . '/auth.php';

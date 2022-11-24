@@ -17,7 +17,10 @@ class ParqueFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'parque' => fake()->name(),
+            'calle' => fake()->streetAddress(),
+            'municipio' => fake()->city(),
+            'codigo' => fake()->postcode()
         ];
     }
 }

@@ -527,6 +527,37 @@
         border-radius: 100%;
         border: 2px solid #fff;
         display: block; }
+
+
+
+/* SIDEBAR ACTIVE VISUAL CHANGE */
+        .sidebar > .nav > .nav-item:not(.nav-profile).nav-item.active > .nav-link:before {
+          content: "";
+          position: absolute;
+          left: 30px;
+          right: 50%;
+          width: 10px;
+          height: 10px;
+          border-radius: 100%;
+          border: 2px solid rgb(71, 221, 1);
+          display: block; 
+        background-color: rgb(71, 221, 1);
+      }
+
+      .sidebar > .nav > .nav-item:not(.nav-profile).nav-item.active > .nav-link:after {
+        content: "";
+        position: absolute;
+        left: 0px;
+        right: 0%;
+        width: 100%;
+        height: 100%;
+        border: 2px solid rgb(88, 88, 88);
+        display: block; 
+      background-color: rgb(88, 88, 88);
+      z-index: -1;
+    }
+
+
     .sidebar > .nav:not(.sub-menu) > .nav-item > .nav-link {
       background: transparent;
       transition-duration: 0.3s;

@@ -46,6 +46,7 @@ class ParquesTableSeeder extends Seeder
                 'municipio' => 'Santa Rosa Jáuregui, Qro',
                 'codigo' => '76220',
             ],
+
         ];
 
         foreach ($parques as $key => $value) {
