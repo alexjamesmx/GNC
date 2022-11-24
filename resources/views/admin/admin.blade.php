@@ -8,19 +8,14 @@
         <!-- sidebar -->
         @include('admin._sidebar')
 
-
         <div class="main-panel">
             <!-- Body -->
-
-
             @if ($section === 'parques')
                 @include('admin._body_parques')
             @endif
             @if ($section === 'dashboard')
                 @include('admin._body_dashboard')
             @endif
-
-
             <!-- footer -->
             @include('admin._footer')
         </div>

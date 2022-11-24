@@ -25,17 +25,13 @@ var lightColor = getComputedStyle(document.body).getPropertyValue('--light');
         if (current === "") {
           //for root url
           if ($this.attr('href').indexOf("index.html") !== -1) {
-            // $(this).parents('.nav-item').last().addClass('active');
             if ($(this).parents('.sub-menu').length) {
-              // $(this).addClass('active');
             }
           }
         } else {
           //for other url
           if ($this.attr('href').indexOf(current) !== -1) {
-            // $(this).parents('.nav-item').last().addClass('active');
             if ($(this).parents('.sub-menu').length) {
-              // $(this).addClass('active');
             }
             if (current !== "index.html") {
               $(this).parents('.nav-item').last().find(".nav-link").attr("aria-expanded", "true");
@@ -44,29 +40,9 @@ var lightColor = getComputedStyle(document.body).getPropertyValue('--light');
               }
             }            
           }
-
-          console.log(window.location)
-          console.log('base', base_url )
-          // if (window.location.href=== base_url + '/admin') {
-          //   console.log('entro')
-          //   $('.nav-item.dashboard').addClass('active')
-          // }
-          // else if(window.location.href.match('\parques')) {
-          //   console.log('entro2')
-          //   $('.nav-item.parques').addClass('active')
-          // }
         }
       })
-
-
-   
-  
-
     }
-
-  
-
-
     //Close other submenu in sidebar on opening any
     $("#sidebar > .nav > .nav-item > a[data-toggle='collapse']").on("click", function () {
       $("#sidebar > .nav > .nav-item").find('.collapse.show').collapse('hide');

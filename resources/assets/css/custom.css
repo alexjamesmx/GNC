@@ -1,50 +1,68 @@
-input {
-    all: unset;
+    .input-custom {
+        all: unset;
+    }
+
+    .input-custom:focus {
+        outline: none;
+    }
+
+    .input-group-custom {
+        position: relative;
+    }
+
+    .input-custom {
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        font: inherit;
+        color: rgb(0, 0, 0);
+        background-color: transparent;
+        outline: 2px solid rgba(41, 76, 92, 0.487)
+    }
+
+    .input-label-custom {
+        color: rgba(96, 96, 96, 0.796);
+        cursor: text;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(10px, 10px);
+        transition: transform .25s
+    }
+
+    .input-custom:focus {
+        outline: 2px solid rgba(0, 152, 222, 0.854)
+    }
+
+    .input-custom:focus+.input-label-custom,
+    .input-custom:valid+.input-label-custom {
+        transform:
+            translate(10px, -14px) scale(.8);
+        color: rgb(255, 255, 255);
+        padding-inline: 5px;
+        background-color: #181052;
+    }
+
+    .input-custom:is(:focus, :valid) {
+        outline-color: '#d1c5fc'
+    } 
+.spinner-position{
+    position: absolute;
+    top: calc(50% - 24px);
+    left: calc(50% - 24px);
 }
 
-input:focus {
-    outline: none;
+
+.message{
+    position: fixed;
+top: 5%;
+z-index: 10000;
+width: fit-content;
+left: calc(50% - 150px);
+min-width: fit-content;
+height: fit-content;
 }
-
-.input-group-custom {
-    position: relative!important;
+#info_message{
+    filter: invert(100%) sepia(100%) saturate(1%) hue-rotate(238deg) brightness(109%) contrast(101%);
 }
-
-.input-custom {
-    padding: 10px !important;
-    border: none !important;
-    border-radius: 4px !important;
-    font: inherit !important;
-    color: rgb(0, 0, 0) !important;
-    background-color: transparent !important;
-    outline: 2px solid rgba(41, 76, 92, 0.487) !important
-}
-
-.input-label-custom {
-    color: rgba(96, 96, 96, 0.796) !important;
-    cursor: text !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    transform: translate(10px, 10px) !important;
-    transition: transform .25s !important
-}
-
-.input-custom:focus {
-    outline: 2px solid rgba(0, 152, 222, 0.854) !important
-}
-
-.input-custom:focus+.input-label-custom,
-.input-custom:valid+.input-label-custom {
-    transform:
-        translate(10px, -14px) scale(.8) !important;
-    color: rgb(255, 255, 255);
-    padding-inline: 5px;
-    background-color: #2305bae8;
-}
-
-.input-custom:is(:focus, :valid) {
-    outline-color: '#d1c5fc' !important
-} 
-
 
