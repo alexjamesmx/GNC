@@ -27,8 +27,9 @@ class EnterprisesTableSeeder extends Seeder
                 'phone' => '4424865389',
                 'fax' => '000000',
                 'location' => 'https://www.google.com.mx/maps/place/Impactos',
-                'status_id' => 1,
+                'status_id' => 2,
                 'user_id' => 1,
+                'parque_id' => 1,
             ],
             [
                 'enterprise' => 'FIBRA PROLOGIS MÉXICO ',
@@ -41,8 +42,9 @@ class EnterprisesTableSeeder extends Seeder
                 'phone' => '5511052900',
                 'fax' => 'Taxmexico@prologis.com',
                 'location' => 'CIUDAD DE MÉXICO',
-                'status_id' => 1,
+                'status_id' => 2,
                 'user_id' => 2,
+                'parque_id' => 2,
             ],
 
         ];

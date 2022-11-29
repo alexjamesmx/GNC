@@ -27,8 +27,10 @@ return new class extends Migration
             $table->string('location');
             $table->unsignedBigInteger('status_id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('parque_id');
             $table->foreign('status_id')->references('id')->on('status');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('parque_id')->references('id')->on('parques');
         });
     }
 

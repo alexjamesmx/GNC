@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('calle');
             $table->string('municipio');
             $table->integer('codigo');
-            $table->unsignedBigInteger('status_id');
+            $table->unsignedBigInteger('status_id')->default(2);
             $table->foreign('status_id')->references('id')->on('status');
         });
     }

@@ -24,4 +24,8 @@ class Parque extends Model
     {
         return $this->hasOne(Status::class, 'foreign_key', 'status_id');
     }
+    public function enterprises()
+    {
+        return $this->hasMany(Enterprise::class, 'foreign_key', 'parque_id');
+    }
 }

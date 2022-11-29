@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\ControlController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AccessController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\EnterpriseController;
 use App\Http\Controllers\ParqueController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,15 +19,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', [AccessController::class, 'index'])->middleware(['accesos'])->name('access');
 
-Route::get('/', [AccessController::class, 'index'])->middleware(['auth', 'verified'])->name('access');
+
+Route::get('/admin', [AdminController::class, 'index'])->middleware(['accesos', 'admin'])->name('admin');
+Route::prefix('/admin/parques')->middleware(['accesos', 'admin'])->controller(ParqueController::class)->group(function () {
+    Route::get('/',                 'home')         ->name('parques.home');
+    Route::post('/message',         'message')      ->name('parques.message');
+    Route::post('/store',           'store')        ->name('parques.store');
+    Route::post('/actualizar/{id}', 'actualizar')   ->name('parques.actualizar');
+    Route::patch('/update/{id}',    'update')       ->name('parques.update');
+    Route::get('/get/{id}',         'get')          ->name('parques.get');
+    Route::post('/delete/{id}',     'delete')       ->name('parques.delete');
+});
 
 
-Route::get('/admin', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('admin');
-// Route::get('/admin/parques', [AdminController::class, 'parques'])->middleware(['auth', 'verified'])->name('admin');
+Route::prefix('/admin/empresas')->middleware(['accesos','admin'])->controller(EnterpriseController::class)->group(function () {
+    Route::get('/',                 'home')         ->name('empresas.home');
+    Route::post('/store',           'store')        ->name('enterprise.store');
+    Route::post('/delete/{id}',     'delete')       ->name('enterprise.delete');
+});
 
-Route::resource('/admin/parques', ParqueController::class)->middleware(['auth', 'verified']);
-Route::post('/admin/parques/delete/{id}', [ParqueController::class, 'delete'])->middleware(['auth', 'verified'])->name('parques.delete');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -33,9 +47,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/', [ControlController::class, 'error401'])->middleware('accesos')->name('error401');
+
+Route::fallback(function () {
+    return view('errors.404');
+});
 
 
 require __DIR__ . '/auth.php';

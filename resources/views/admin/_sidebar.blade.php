@@ -1,6 +1,6 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav mt-3">
-        <li class="nav-item nav-profile flex justify-center m-0">
+        <li class="nav-item nav-profile flex justify-center m-0 mb-4">
             <a href="#" class="nav-link relative w-[95%]">
                 <div class="profile-image">
 
@@ -25,13 +25,13 @@
         </li>
 
         <li class="nav-item {{ $section === 'parques' ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('parques.index') }}">
+            <a class="nav-link" href="{{ route('parques.home') }}">
                 <i class="menu-icon typcn typcn-shopping-bag"></i>
                 <span class="menu-title">Parques</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="../../pages/charts/chartjs.html">
+        <li class="nav-item {{ $section === 'enterprises' ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('empresas.home') }}">
                 <i class="menu-icon typcn typcn-th-large-outline"></i>
                 <span class="menu-title">Empresas</span>
             </a>

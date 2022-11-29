@@ -1,4 +1,3 @@
-<div class="content-wrapper">
 
     <div class="row">
         <div class="message"></div>
@@ -10,8 +9,8 @@
                         <p class="text-xl p-0 m-0 text-center self-center">
                             Listado de parques
                         </p>
-                        <a href="#" id="modal_open"
-                            class="modal-open text-decoration-none rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-purple-600 active:shadow-none shadow-lg bg-gradient-to-tr from-purple-600 to-purple-500 border-purple-700 text-white"
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#modal-parques"
+                            class="text-decoration-none rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-purple-600 active:shadow-none shadow-lg bg-gradient-to-tr from-purple-600 to-purple-500 border-purple-700 text-white"
                             data-modal='crear' onclick="handleCreate(this)">
                             <span
                                 class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
@@ -22,29 +21,30 @@
                         </a>
                     </div>
                     <hr>
-                    <table class="table table-striped">
-                        <thead>
+                    <table class="table table-striped table-sm">
+                        <thead class="table-dark text-white">
                             <tr>
-                                <th>Id</th>
-                                <th>Nombre</th>
-                                <th>Calle</th>
-                                <th>Municipio</th>
-                                <th>Código</th>
-                                <th>Acciones</th>
+                                <th class="text-white">Id</th>
+                                <th class="text-white">Nombre</th>
+                                <th class="text-white">Calle</th>
+                                <th class="text-white">Municipio</th>
+                                <th class="text-white">Código</th>
+                                <th class="text-white">Acciones</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="table-group-divider">
                             @forelse ($parques as $parque)
                                 <tr id="row_{{ $parque->id }}">
-                                    <td> {{ $parque->id }}</td>
-                                    <td> {{ $parque->parque }}</td>
-                                    <td> {{ $parque->calle }}</td>
-                                    <td> {{ $parque->municipio }}</td>
-                                    <td> {{ $parque->codigo }}</td>
-                                    <td>
+                                    <td scope="row" id="id_{{ $parque->id }}"> {{ $parque->id }}</td>
+                                    <td scope="row" id="parque_{{ $parque->id }}"> {{ $parque->parque }}</td>
+                                    <td scope="row" id="calle_{{ $parque->id }}"> {{ $parque->calle }}</td>
+                                    <td scope="row" id="municipio_{{ $parque->id }}"> {{ $parque->municipio }}</td>
+                                    <td scope="row" id="codigo_{{ $parque->id }}"> {{ $parque->codigo }}</td>
+                                    <td scope="row">
                                         <div class="flex justify-start">
-                                            <button onclick="handleEdit({{ $parque->id }})"
-                                                type="button"class="modal-open text-lime-600 border-none bg-transparent mr-5 hover:text-lime-500"
+                                            <button data-bs-toggle="modal"
+                                                data-bs-target="#modal-parques"onclick="handleEdit({{ $parque->id }})"
+                                                type="button"class="text-lime-600 border-none bg-transparent mr-5 hover:text-lime-500"
                                                 data-modal="edit"><i class="fa-solid fa-pen-fancy"></i>
                                                 Editar</button>
                                             <button
@@ -72,7 +72,8 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="modal-delete" tabi1ndex="-1" aria-labelledby="modal-delete" aria-hidden="true">
+    <div class="modal fade" id="modal-delete" tabi1ndex="-1" aria-labelledby="modal-delete" aria-hidden="true"
+        data-bs-backdrop="static" data-bs-keyboard="true">
         <div class="modal-dialog w-fit">
             <div class="modal-content w-fit">
                 <div class="modal-body w-fit py-4">
@@ -80,10 +81,6 @@
                         <p class="modal-title text-center p-0 text-2xl m-0" id="exampleModalLabel">¿Estás
                             seguro de esta acción?</p>
                         <input hidden id="delete-id">"
-                        {{-- <button type="button" data-bs-dismiss="modal" aria-label="Close"
-                            class='bg-transparent border-none mr-4'>
-                            <i id="modal_close_times" class="fa-solid fa-times"></i>
-                        </button> --}}
                     </div>
                     <div class="flex
                             justify-between mx-4">
@@ -97,11 +94,21 @@
                 </div>
             </div>
         </div>
-    </div>
-
-
-
+    
     <script>
+        // let session = @json(session()->all());
+        // let old_data = @json(old())
+        const codigo_error = document.querySelector('#codigo_error')
+        const parque = document.querySelector('#parque')
+        const calle = document.querySelector('#calle')
+        const municipio = document.querySelector('#municipio')
+        const codigio = document.querySelector('#codigo')
+        const parque_error = document.querySelector('#parque_error')
+        const calle_error = document.querySelector('#calle_error')
+        const municipio_error = document.querySelector('#municipio_error')
+        document.querySelector('#page-title').innerHTML = 'GNC - {{ $section_cute }}';
+
+        //ELIMINAR 
         function handleDelete() {
             const id = document.getElementById('delete-id').value
             console.log('Eliminar', id)
@@ -111,172 +118,211 @@
             $.ajax({
                 url: url,
                 type: 'POST',
-                data: {
-                    _token: "{{ csrf_token() }}"
-                },
                 dataType: 'json',
             }).done((json) => {
                 console.log(json)
-                if (json.response === 1) {
+                if (json.response) {
                     message('Eliminado correctamente')
                     document.querySelector('#row_' + id).remove()
                 } else {
                     message('Hubo un problema con la petición')
                 }
-
             }).fail((err) => {
-                console.log(err)
-
+                message('Hubo un problema con la petición')
             })
         }
-        document.getElementById('modal-delete').setAttribute('data-bs-keyboard', 'true');
-        document.getElementById('modal-delete').setAttribute('data-bs-backdrop', 'static');
-        // $('#modal-delete').data('modal').options.backdrop = 'static';
-        document.querySelector('#page-title').innerHTML = 'GNC - Parques';
-        let session = @json(session()->all());
-        let old_data = @json(old())
-
-        const body = document.querySelector('body')
-        const modal = document.querySelector('.modal')
-
-        // Al cerrar modal
-        function closeModal(e) {
-            document.querySelector('.modal').hidden = true
-            console.log('Cerrar modal')
-            document.querySelector('#parque').value = ''
-            document.querySelector('#calle').value = ''
-            document.querySelector('#municipio').value = ''
-            document.querySelector('#codigo').value = ''
-
-            document.querySelector('#parque_error').textContent = ''
-            document.querySelector('#calle_error').textContent = ''
-            document.querySelector('#municipio_error').textContent = ''
-            document.querySelector('#codigo_error').textContent = ''
-
-            modal.classList.toggle('opacity-0')
-            modal.classList.toggle('pointer-events-none')
-            body.classList.toggle('modal-active')
+        // CERRAR MODAL
+        function clearModal(e) {
+            parque.value = ''
+            calle.value = ''
+            municipio.value = ''
+            codigo.value = ''
+            parque_error.textContent = ''
+            calle_error.textContent = ''
+            municipio_error.textContent = ''
+            codigo_error.textContent = ''
         }
 
         function handleCreate() {
-            document.querySelector('.modal').hidden = false
-            if (document.querySelector('#method-form') !== null) {
-                document.querySelector('#method-form').remove()
-            }
-            console.log('Modal crear')
+            clearModal()
+            document.querySelector('#btn-submit').setAttribute('data-modal', 'create')
             document.querySelector('#modal-title').innerHTML = 'Crear parque'
-            document.querySelector('#modal-form').action = '{{ route('parques.store') }}'
-            modal.classList.toggle('opacity-0')
-            modal.classList.toggle('pointer-events-none')
-            body.classList.toggle('modal-active')
-            document.querySelector('#parque').focus()
+            setTimeout(() => {
+                // parque.focus()
+            }, 500);
         }
 
         function handleEdit(id) {
-            document.querySelector('.modal').hidden = false
+            document.querySelector('#btn-submit').setAttribute('data-modal', 'edit')
             document.querySelector('#modal-title').innerHTML = 'Editar parque'
-            let tmp = '{{ route('parques.update', ':id') }}'
-            const route = tmp.replace(':id', id)
-            const form = document.querySelector('#modal-form')
-            form.action = route
+            document.getElementById('edit-id').value = id
 
-            if (document.querySelector('#method-form') === null) {
-                let method = document.createElement('input')
-                method.id = 'method-form'
-                method.name = '_method'
-                method.setAttribute('value', 'PATCH')
-                method.setAttribute('type', 'hidden')
-                form.insertBefore(method, form.firstChild)
-            }
             document.querySelector('.spinner-position').style.opacity = 1
             document.querySelector('.spinner-hide').style.opacity = 0
 
-            modal.classList.toggle('opacity-0')
-            modal.classList.toggle('pointer-events-none')
-            body.classList.toggle('modal-active')
-
-            let url = '{{ route('parques.update', ':id') }}';
+            url = '{{ route('parques.get', ':id') }}';
             url = url.replace(':id', id);
+            $.ajax({
+                type: "get",
+                url: url,
+                dataType: "json"
+            }).done((json) => {
+                console.log()
+                const {
+                    id: id_resuesta,
+                    parque: parque_respuesta,
+                    calle: calle_respuesta,
+                    municipio: municipio_respuesta,
+                    codigo: codigo_respuesta,
+                    response
+                } = json
+                if (response === false) {
+                    message('Hubo un problema...')
+                    clearModal()
+                    return false;
+                }
+                document.querySelector('#id').value = id_resuesta
+                document.querySelector('#parque').value = parque_respuesta
+                document.querySelector('#calle').value = calle_respuesta
+                document.querySelector('#municipio').value = municipio_respuesta
+                document.querySelector('#codigo').value = codigo_respuesta
+                document.querySelector('#parque').focus()
+                document.querySelector('.spinner-position').style.opacity = 0
+                document.querySelector('.spinner-hide').style.opacity = 1
+            }).fail((err) => {
+                message('Hubo un problema con la petición')
+            })
+        }
+        const submit = document.getElementById("btn-submit")
+        submit.addEventListener("click", function(e) {
+            event.preventDefault()
+            cleanErrors()
+            const type = submit.getAttribute('data-modal')
+            //CREAR PARQUE  
+            if (type === 'create') {
+                console.log('entro aqui')
+                const route = '{{ route('parques.store') }}'
+                console.log(route)
 
-            fetch(url)
-                .then(response => response.json())
-                .then(json => {
-                    if (json.response === false) {
-                        message('Hubo un problema...')
-                        closeModal()
-                        return false;
-                    }
-                    document.querySelector('#id').value = json.id
-                    //LLENAR DATOS VIEJOS DEL INPUT EN  FORMULARIO EN CASO DE ERROR... MOSTAR UNA SOLA VEZ EL MODAL
-                    if (parseInt(json.id) === parseInt(old_data?.id)) {
-                        document.querySelector('#parque').value = old_data?.parque
-                        document.querySelector('#calle').value = old_data?.calle
-                        document.querySelector('#municipio').value = old_data?.municipio
-                        document.querySelector('#codigo').value = old_data?.codigo
+                let body = new FormData(document.getElementById("modal-form"))
+                $.ajax({
+                    url: route,
+                    type: 'POST',
+                    processData: false,
+                    contentType: false,
+                    data: body,
+                    dataType: 'json',
+                }).done((json) => {
+                    console.log(json)
+                    if (json.response === true) {
+                        const route = '{{ route('parques.message', '1') }}'
+                        const message = 1
+                        $.ajax({
+                            type: "post",
+                            url: route,
+                            data: {
+                                message
+                            },
+                            success: function(response) {
+                                console.log('message', response)
+                                location.replace('{{ route('parques.home') }}');
+                            },
+                            error: function(err) {
+                                message('Hubo un problema con la petición')
+                            }
+                        });
+                        // window.location.href = '{{ route('parques.home', 'created') }}'
                     } else {
-                        document.querySelector('#parque').value = json.parque
-                        document.querySelector('#calle').value = json.calle
-                        document.querySelector('#municipio').value = json.municipio
-                        document.querySelector('#codigo').value = json.codigo
+                        const errors = json.errors;
+                        const {
+                            parque: mensaje_parque,
+                            calle: mensaje_calle,
+                            municipio: mensaje_municipio,
+                            codigo: mensaje_codigo,
+                        } = errors
+
+                        if (mensaje_parque) {
+                            parque_error.innerHTML = mensaje_parque
+                        }
+                        if (mensaje_calle) {
+                            calle_error.innerHTML = mensaje_calle
+                        }
+                        if (mensaje_municipio) {
+                            municipio_error.innerHTML = mensaje_municipio
+                        }
+                        if (mensaje_codigo) {
+                            codigo_error.innerHTML = mensaje_codigo
+                        }
                     }
-                    document.querySelector('#parque').focus()
-                    document.querySelector('.spinner-position').style.opacity = 0
-                    document.querySelector('.spinner-hide').style.opacity = 1
-
-                    //BORRAMOS VALORES ANTIGUOS SI ES QUE LOS HAY
-                    @if (Session::has('_old_input'))
-                        old_data = {}
-                    @endif
-
+                }).fail((response) => {
+                    message('Hubo un problema con la petición')
                 })
-                .catch(error => console.log(error))
+            }
+            if (type === 'edit') {
+                const id = document.getElementById('edit-id').value
+                const tmp = '{{ route('parques.actualizar', ':id') }}'
+                const route = tmp.replace(':id', id)
+                const body = new FormData(document.getElementById("modal-form"))
+                $.ajax({
+                    url: route,
+                    type: 'POST',
+                    processData: false,
+                    contentType: false,
+                    data: body,
+                    dataType: 'json',
+                }).done((json) => {
+                    if (json.response) {
+                        message('Actualizado correctamente')
+                        $('#modal-parques').modal('toggle')
+                        e = document.querySelector('#row_' + id)
+                        document.querySelector('#parque_' + id).textContent = body.get('parque')
+                        document.querySelector('#calle_' + id).textContent = body.get('calle')
+                        document.querySelector('#municipio_' + id).textContent = body.get('municipio')
+                        document.querySelector('#codigo_' + id).textContent = body.get('codigo')
+                    } else {
+                        const errors = json.errors;
+                        const {
+                            parque: mensaje_parque,
+                            calle: mensaje_calle,
+                            municipio: mensaje_municipio,
+                            codigo: mensaje_codigo,
+                        } = errors
+                        if (mensaje_parque) {
+                            parque_error.innerHTML = mensaje_parque
+                        }
+                        if (mensaje_calle) {
+                            calle_error.innerHTML = mensaje_calle
+                        }
+                        if (mensaje_municipio) {
+                            municipio_error.innerHTML = mensaje_municipio
+                        }
+                        if (mensaje_codigo) {
+                            codigo_error.innerHTML = mensaje_codigo
+                        }
+                    }
+                }).fail((response) => {
+                    message('Hubo un problema con la petición')
+                })
+            }
+        });
+
+        function cleanErrors() {
+            parque_error.textContent = ''
+            calle_error.textContent = ''
+            municipio_error.textContent = ''
+            codigo_error.textContent = ''
         }
 
-        document.querySelector('#modal_close').addEventListener('click', closeModal)
-        document.querySelector('#modal_close_times').addEventListener('click', closeModal)
-    </script>
-</div>
+        jQuery(document).ready(function($) {
+            $('#modal-parques').on('hidden.bs.modal', (e) => {
+                clearModal()
+            })
+        });
 
-
-{{-- EN CASO DE ERRORES --}}
-<script>
-    @if ($errors->any())
-
-        let errors = JSON.parse(`<?= json_encode($errors->all()) ?>`)
-
-        @if (Session::get('modal') === 'update')
-            handleEdit(session.id)
-        @elseif (Session::get('modal') === 'crear')
-            handleCreate()
-        @endif
-        errors.forEach((e) => {
-            if (e.includes('parque')) {
-                document.querySelector('#parque_error').innerHTML = e
-            }
-            if (e.includes('calle')) {
-                document.querySelector('#calle_error').innerHTML = e
-            }
-            if (e.includes('municipio')) {
-                document.querySelector('#municipio_error').innerHTML = e
-            }
-            if (e.includes('postal')) {
-                document.querySelector('#codigo_error').innerHTML = e
-            }
-        })
-    @else
-        @if (Session::has('response'))
-            {{ Debugbar::info(session('response')) }}
-            {{ Debugbar::info('entro') }}
-
-            @if (Session::get('response') == 0)
-                console.log('No se actualizó')
-            @elseif (Session::get('response') == 1)
-                console.log('Si actualizó')
-                message('Parque actualizado')
-            @elseif (Session::get('response') == 'creado')
-                console.log('Si se actualizó')
-                message('Parque creado')
+        @if (Session::has('message'))
+            @if (Session::get('message') == 1)
+                message('Parque creado con éxito')
             @endif
         @endif
-    @endif
-</script>
+    </script>
+</div>

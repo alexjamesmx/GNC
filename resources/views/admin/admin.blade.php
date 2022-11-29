@@ -9,6 +9,7 @@
         @include('admin._sidebar')
 
         <div class="main-panel">
+            <div class="content-wrapper">
             <!-- Body -->
             @if ($section === 'parques')
                 @include('admin._body_parques')
@@ -16,8 +17,23 @@
             @if ($section === 'dashboard')
                 @include('admin._body_dashboard')
             @endif
-            <!-- footer -->
-            @include('admin._footer')
+            @if ($section === 'enterprises')
+            @include('admin._body_enterprises')
+            @endif
+        </div>
+        @include('admin._footer')
+
         </div>
     </div>
 @endsection
+
+
+
+
+
+@if ($section === 'parques')
+@include('admin._modal_parques')
+@endif
+@if ($section === 'enterprises')
+@include('admin._modal_enterprises')
+@endif

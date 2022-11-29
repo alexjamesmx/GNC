@@ -10,7 +10,7 @@ class AccessController extends Controller
     public function index()
     {
         //3 - ADMIN
-        if (Auth::user()->role_id === 3) {
+        if (Auth::user()->role_id === 1) {
             return redirect()->route('admin');
         }
         //2 - ENTERPRISE
