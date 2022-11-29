@@ -116,10 +116,5 @@ class ParqueController extends Controller
         $response = Parque::where('id', $id)->update(['status_id' => 1]);
         return response()->json(['response' =>  $response], 200);
     }
-    public function message(Request $request)
-    {
-        if ($request->input('message') == 1) {
-            session()->flash('message', '1');
-        }
-    }
+   
 }

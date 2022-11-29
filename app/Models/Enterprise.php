@@ -15,6 +15,7 @@ class Enterprise extends Model
     protected $fillable = [
         'enterprise',
         'razon_social',
+        'cp',
         'rfc',
         'address',
         'ciudad',

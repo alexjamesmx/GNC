@@ -25,11 +25,6 @@
 
         </div>
     </div>
-@endsection
-
-
-
-
 
 @if ($section === 'parques')
 @include('admin._modal_parques')
@@ -37,3 +32,9 @@
 @if ($section === 'enterprises')
 @include('admin._modal_enterprises')
 @endif
+
+@endsection
+
+
+
+

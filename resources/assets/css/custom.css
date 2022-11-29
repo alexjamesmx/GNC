@@ -30,25 +30,39 @@
     transition: transform 0.25s;
 }
 
-.input-custom:focus {
+.input-custom:focus:not(.input-validated) {
     outline: 2px solid rgba(32, 32, 32, 0.854);
+}
+.input-validated:focus {
+    outline: 2px solid rgba(21, 247, 0, 0.854);
 }
 
 .input-custom:focus + .input-label-custom,
-.input-custom:valid:not(#location):not(#fax) + .input-label-custom {
+.input-custom:valid:not(#location):not(#enterprise):not(#razon_social):not(#rfc):not(#regimen_fiscal):not(#phone):not(#ciudad):not(#cp):not(#address):not(#fax)
++ .input-label-custom  {
     transform: translate(10px, -14px) scale(0.8);
     color: rgb(255, 255, 255);
     padding-inline: 5px;
     background-color: #585858;
 }
-
-
-#fax:not(:placeholder-shown) + .input-label-custom ,
-#location:not(:placeholder-shown)  + .input-label-custom {
+#location:not(:placeholder-shown) + .input-label-custom,
+#enterprise:not(:placeholder-shown)  + .input-label-custom,
+#razon_social:not(:placeholder-shown) + .input-label-custom ,
+#rfc:not(:placeholder-shown)  + .input-label-custom,
+#regimen_fiscal:not(:placeholder-shown)  + .input-label-custom,
+#phone:not(:placeholder-shown) + .input-label-custom ,
+#ciudad:not(:placeholder-shown) + .input-label-custom ,
+#cp:not(:placeholder-shown)  + .input-label-custom,
+#address:not(:placeholder-shown)  + .input-label-custom,
+#fax:not(:placeholder-shown) + .input-label-custom 
+{
     transform: translate(10px, -14px) scale(0.8);
     color: rgb(255, 255, 255);
     padding-inline: 5px;
     background-color: #585858;
+}
+.input-validated {
+    outline: 2px solid rgba(21, 247, 0, 0.854);
 }
 .spinner-position {
     position: absolute;

@@ -20,12 +20,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [AccessController::class, 'index'])->middleware(['accesos'])->name('access');
+Route::post('/message', [AccessController::class, 'message'])->middleware(['accesos'])->name('message');
+
 
 
 Route::get('/admin', [AdminController::class, 'index'])->middleware(['accesos', 'admin'])->name('admin');
 Route::prefix('/admin/parques')->middleware(['accesos', 'admin'])->controller(ParqueController::class)->group(function () {
     Route::get('/',                 'home')         ->name('parques.home');
-    Route::post('/message',         'message')      ->name('parques.message');
     Route::post('/store',           'store')        ->name('parques.store');
     Route::post('/actualizar/{id}', 'actualizar')   ->name('parques.actualizar');
     Route::patch('/update/{id}',    'update')       ->name('parques.update');
@@ -36,6 +37,9 @@ Route::prefix('/admin/parques')->middleware(['accesos', 'admin'])->controller(Pa
 
 Route::prefix('/admin/empresas')->middleware(['accesos','admin'])->controller(EnterpriseController::class)->group(function () {
     Route::get('/',                 'home')         ->name('empresas.home');
+    Route::get('/get/{id}',         'get')          ->name('enterprise.get');
+    Route::get('/get_user/{id}',     'get_user')          ->name('enterprise.get_user');
+    Route::post('/validated',       'validated')    ->name('enterprise.validated');
     Route::post('/store',           'store')        ->name('enterprise.store');
     Route::post('/delete/{id}',     'delete')       ->name('enterprise.delete');
 });

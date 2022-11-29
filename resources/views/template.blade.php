@@ -13,14 +13,11 @@
 </head>
 
 <body class='m-0 p-0'>
-
     <script src="{{ asset('js/jquery-3.6.1.min.js') }}"></script>
     <script   src="https://code.jquery.com/jquery-3.6.1.min.js"
           integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="   crossorigin="anonymous"></script>
-
     <script>
         var base_url = "{{ url('/') }}";
-
         function message(text) {
             const notification = document.querySelector('.message')
             notification.innerHTML =
@@ -44,6 +41,7 @@
     {{-- <p class='text max-w-sm'></p> --}}
     {{-- @include('admin._modal_parques')
     @include('admin._modal_enterprises') --}}
+
     <div class="container-scroller">
         @yield('content')
     </div>
@@ -63,7 +61,8 @@
             });
         }(jQuery));
     </script>
-
 </body>
 
 </html>
+
+

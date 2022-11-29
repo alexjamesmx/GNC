@@ -11,28 +11,26 @@
                 <path d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z" fill="black" />
             </svg>
             <div class="spinner-hide" style="opacity:1">
-
-
                 <div class="modal-body p-8">
                     <div class="flex justify-between">
-                        <h1 class="modal-title fs-5" id="modal-title"></h1>
+
+                        <p class="modal-title text-2xl" id="modal-title"></p>
                         <button onclick="clearModal()" type="button" data-bs-dismiss="modal" aria-label="Close"
                             class="border-none bg-transparent"> <i class="fa-solid fa-times"></i></button>
 
                     </div>
-
                     <form id="modal-form" class='w-full relative'>
                         <input id="id"name="id" hidden>
                         <input type="hidden" id="edit-id">
                         <br>
                         <br>
-                        <p>Datos de la empresa *</p>
+                        <p class="font-bold text-lg">Datos de la empresa *</p>
                         <div class="row mb-4">
                             {{-- NOMRBE DE LA EMPRESA --}}
                             <div class="col-6">
                                 <div class="input-group-custom w-full flex">
                                     <input type="hidden" id="edit-id">
-                                    <input id="enterprise" name="enterprise" required class='input-custom w-full'>
+                                    <input type="text"id="enterprise" name="enterprise"  class='input-custom w-full' placeholder=" ">
                                     <label for="enterprise" class="input-label-custom"
                                         onclick="efecto(this)">Nombre</label>
                                 </div>
@@ -41,19 +39,18 @@
                             {{-- RAZON SOCIAL --}}
                             <div class="col-6">
                                 <div class="input-group-custom w-full flex">
-                                    <input type="hidden" id="edit-id">
-                                    <input id="razon_social" name="razon_social" required class='input-custom w-full'>
+                                    <input id="razon_social" name="razon_social"  class='input-custom w-full' placeholder=" ">
                                     <label for="razon_social" class="input-label-custom" onclick="efecto(this)">Razón
                                         social</label>
                                 </div>
                                 <label id="razon_social_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
                             </div>
-                        </div>  
+                        </div>
                         <div class="row mb-4">
                             {{-- RFC --}}
                             <div class="col-6">
                                 <div class="input-group-custom w-full flex">
-                                    <input id="rfc" name="rfc" required class='input-custom w-full'>
+                                    <input id="rfc" name="rfc"  class='input-custom w-full' placeholder=" ">
                                     <label for="rfc" class="input-label-custom" onclick="efecto(this)">RFC</label>
                                 </div>
                                 <label id="rfc_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
@@ -61,8 +58,8 @@
                             {{-- REGIMEN FISCAL --}}
                             <div class="col-6">
                                 <div class="input-group-custom w-full flex">
-                                    <input id="regimen_fiscal" name="regimen_fiscal" required
-                                        class='input-custom w-full'>
+                                    <input id="regimen_fiscal" name="regimen_fiscal" 
+                                        class='input-custom w-full' placeholder=" ">
                                     <label for="regimen_fiscal" class="input-label-custom"
                                         onclick="efecto(this)">Régimen
                                         fiscal</label>
@@ -75,7 +72,7 @@
                             {{-- TELEFONO --}}
                             <div class="col-6 ">
                                 <div class="input-group-custom w-full flex">
-                                    <input id="phone" name="phone" required class='input-custom w-full'>
+                                    <input id="phone" name="phone"  class='input-custom w-full' placeholder=" ">
                                     <label for="phone" class="input-label-custom"
                                         onclick="efecto(this)">Teléfono</label>
                                 </div>
@@ -83,17 +80,24 @@
                             </div>
                             {{-- PARQUE A ELEGIR --}}
                             <div class="col-6 mt-3">
-
-                                <select id="select-parque" required name="parque_id">
+                                <select id="select-parque"  name="parque_id">
                                 </select>
                                 <label id="parque_id_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
                             </div>
                         </div>
-                        <p>Dirección *</p>
+                        <p class="font-bold text-lg">Administrador *</p>
+                        <div class="row mb-4">
+                            <div class="col-6">
+                                <select id="select-administrador"  name="user_id">
+                                </select>
+                                <label id="user_id_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
+                            </div>
+                        </div>
+                        <p class="font-bold text-lg">Dirección *</p>
                         <div class="row mb-4">
                             <div class="col-6">
                                 <div class="input-group-custom w-full flex">
-                                    <input id="ciudad" name="ciudad" required class='input-custom w-full'>
+                                    <input id="ciudad" name="ciudad"  class='input-custom w-full' placeholder=" ">
                                     <label for="ciudad" class="input-label-custom"
                                         onclick="efecto(this)">Ciudad</label>
                                 </div>
@@ -101,7 +105,7 @@
                             </div>
                             <div class="col-6">
                                 <div class="input-group-custom w-full flex">
-                                    <input id="cp" name="cp" required class='input-custom w-full'>
+                                    <input id="cp" name="cp"  class='input-custom' placeholder=" ">
                                     <label for="cp" class="input-label-custom"
                                         onclick="efecto(this)">C.P.</label>
                                 </div>
@@ -109,23 +113,20 @@
                             </div>
                             <div class="col-6">
                                 <div class="input-group-custom w-full flex">
-                                    <input id="address" name="address" required class='input-custom w-full'>
+                                    <input id="address" name="address"  class='input-custom w-full' placeholder=" ">
                                     <label for="address" class="input-label-custom"
                                         onclick="efecto(this)">Dirección</label>
                                 </div>
                                 <label id="address_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
                             </div>
                         </div>
-                        <p>Otros (opcionales)</p>
+                        <p class="font-bold text-lg">Otros (opcionales)</p>
                         <div class="row mb-4">
                             {{-- FAX --}}
                             <div class="col-6">
                                 <div class="input-group-custom w-full flex">
-                                    <input type="text"
-                                    id="fax" 
-                                    name="fax"
-                                    placeholder=" " 
-                                    class='input-custom w-full'>
+                                    <input type="text" id="fax" name="fax" placeholder=" "
+                                        class='input-custom w-full'>
                                     <label for="fax" class="input-label-custom"
                                         onclick="efecto(this)">Fax</label>
                                 </div>
@@ -134,15 +135,10 @@
                             {{-- GOOGLE MAPS --}}
                             <div class="col-6">
                                 <div class="input-group-custom w-full flex">
-                                    <input id="location"
-                                     name="location" 
-                                     placeholder=" " 
-                                     type="text"
-                                     class='input-custom w-full location'>
-                                    <label for="location" 
-                                    class="input-label-custom" 
-                                    onclick="efecto(this)">
-                                    Ubicación - GOOGLE MAPS</label>
+                                    <input id="location" name="location" placeholder=" " type="text"
+                                        class='input-custom w-full location' placeholder=" ">
+                                    <label for="location" class="input-label-custom" onclick="efecto(this)">
+                                        Ubicación - GOOGLE MAPS</label>
                                 </div>
                                 <label id="location_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
                             </div>
@@ -155,7 +151,7 @@
                                 <span
                                     class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
                                 <span class="relative font-semibold tracking-wider">
-                                     Limpiar campos
+                                    Limpiar campos
                                 </span>
                             </button>
 

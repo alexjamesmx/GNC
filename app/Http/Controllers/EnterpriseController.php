@@ -3,20 +3,38 @@
 namespace App\Http\Controllers;
 use App\Models\Enterprise;
 use App\Models\Parque;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 class EnterpriseController extends Controller
 {
 
     public function home()
     {
-        $enterprises = Enterprise::join('parques','enterprises.parque_id', '=', 'parques.id')->where('enterprises.status_id', '!=', '1')->paginate(10);
-        $parques = Parque::where('status_id', '!=', '1')->get();
+        $enterprises = Enterprise::select('enterprises.id as enterprise_id','parques.id as parque_id', 'enterprises.*' ,'parques.*')->join('parques','enterprises.parque_id', '=', 'parques.id')
+        ->where('enterprises.status_id', '!=', '1')
+        ->paginate(10);
+
+        $parques = Parque::where('status_id', '!=', '1')
+        ->get();
+
+        $users = User::join('enterprises', 'users.id', '=' , 'enterprises.user_id')
+        ->where('enterprises.status_id', '!=', '1')
+        ->get();
+
+        $users = DB::table('users')->whereNotExists(function($query) {
+            $query->select('user_id')
+            ->where('status_id','!=','1')
+                  ->from('enterprises')
+                  ->whereColumn('enterprises.user_id','users.id');
+        })->where('status_id','!=', '1')->get();
+
         if (session()->has('message')) {
             session()->keep('message');
-            return view('admin.admin', ['enterprises' => $enterprises, 'section' => 'empresas', 'section_cute' => 'Empresas','parques' => $parques]);
+            return view('admin.admin', ['enterprises' => $enterprises, 'section' => 'empresas', 'section_cute' => 'Empresas','parques' => $parques,'users' => $users]);
         }
-        return view('admin.admin', ['enterprises' => $enterprises, 'section' => 'enterprises', 'section_cute' => 'Empresas','parques' => $parques]);
+        return view('admin.admin', ['enterprises' => $enterprises, 'section' => 'enterprises', 'section_cute' => 'Empresas','parques' => $parques,'users' => $users]);
     }
     public function delete($id)
     {
@@ -24,15 +42,21 @@ class EnterpriseController extends Controller
         return response()->json(['response' =>  $response], 200);
     }
     
-    public function store(Request $request)
+    public function validated(Request $request)
     {
         if (!$request->isMethod('post')) {
             return dd('error');
         }
+        $already_exists = Enterprise::where('parque_id', $request->parque_id)->where('enterprise', $request->enterprise)->first();
+
+        $exists = 'required|max:255';
+        $already_exists = $already_exists === null ? '' : '|unique:enterprises,enterprise';
+        $name_str = $exists.$already_exists;
+
         $validate = Validator::make(
             $request->all(),
             [
-                'enterprise' => 'required|max:255|unique:enterprises,enterprise',
+                'enterprise' => $name_str,
                 'razon_social' => 'required|max:255',
                 'rfc' => 'required|max:13|min:12|unique:enterprises,rfc',
                 'address' => 'required|max:255',
@@ -46,43 +70,44 @@ class EnterpriseController extends Controller
                 'parque_id' => 'required|not_in:0|max:255',
             ],
             [
-                'enterprise.required' => 'El nombre de la empresa es requerido.',
+                'enterprise.required' =>  'Este campo es requerido',
                 'enterprise.max' => 'El nombre de la empresa no debe exceder de 255 caracteres.',
-                'enterprise.unique' => 'El nombre del parque ya existe.',
+                $already_exists === null ? '' :'enterprise.unique' =>  $already_exists === null ? '' :'Esta empresa ya existe en este parque.',
 
-                'razon_social.required' =>'La razón social es requerida.',
+                'razon_social.required' =>'Este campo es requerido',
                 'razon_social.max' => 'La razón social no debe exceder 255 caracteres.',
 
-                'rfc.required' =>'El RFC es requerido.',
+                'rfc.required' =>'Este campo es requerido',
                 'rfc.max' => 'El RFC no debe exceder de 13 caracteres.',
                 'rfc.min' => 'El RFC debe contar con 12 o 13 carctetes',
-                'rfc.unique' => 'Esta RFC ya está registrado.',
+                'rfc.unique' => 'Este RFC ya está registrado.',
 
-                'address.required' => 'La dirección es requerida.',
+                'address.required' => 'Este campo es requerido',
                 'address.max' => 'La dirección no debe exceder 255 caracteres.',
 
-                'ciudad.required' => 'La ciudad es requerido.',
+                'ciudad.required' => 'Este campo es requerido.',
                 'ciudad.max' => 'La ciudad no debe exceder 255 caracteres.',
 
-                'cp.required' => 'El C.P. es requerido.',
+                'cp.required' => 'Este campo es requerido',
                 'cp.max' => 'El C.P. no debe exceder 255 caracteres.',
                 
-                'regimen_fiscal.required' => 'El régimen fiscal es requerido.',
+                'regimen_fiscal.required' => 'Este campo es requerido.',
                 'regimen_fiscal.max' => 'El régimen fiscal no debe exceder 255 caracteres.',
 
-                'phone.required' => 'El teléfono es requerido.',
+                'phone.required' => 'Este campo es requerido.',
                 'phone.max' => 'El teléfono no debe exceder 50 caracteres.',
                 'phone.unique' => 'El teléfono ya está registrado.',
                 'phone.numeric' => 'El teléfono debe ser numérico.',
+                'phone.digits_between' => 'El teléfono debe tener entre 1 y 20 dígitos.',
                 
                 'fax.max' => 'El fax no debe exceder 255 caracteres.',
 
                 'location.max' => 'La ubicación no debe exceder 255 caracteres.',
                      
-                'user_id.required' => 'El admnistrador de la empresa es requerido.',
+                'user_id.required' => 'Este campo es requerido',
                 'user_id.max' => 'El administrador de la empresa no debe exceder 255 caracteres.',
                  
-                'parque_id.required' => 'El parque es requerido',
+                'parque_id.required' => 'Este campo es requerido',
                 'parque_id.not_in' => 'El parque es requerido',
                 'parque_id.max' => 'El parque no debe exceder 255 caracteres.',
 
@@ -92,8 +117,31 @@ class EnterpriseController extends Controller
             $input = $request->except(['id', '_token', '_method']);
             return response()->json(['response' => false, 'errors' => $validate->errors(), 'input' => $input]);
         }
-        $parque = new Enterprise();
-        $parque->create($request->except('_token', 'id'));
+        // dd($request->all());
+        // if($request->button)
+        // $enterprise = new Enterprise();
+        // $enterprise->create($request->except('_token', 'id'));
         return response()->json(['response' => true,]);
+    }
+    public function store(Request $request){
+        $enterprise = new Enterprise();
+        $enterprise->create($request->except('id'));
+        return response()->json(['response' => true,]);
+    }
+    public function get($id)
+    {
+        $enterprise = Enterprise::where('id', $id)->firstOrFail();
+        if (!count(array($enterprise)) === 0) {
+            return response()->json(['response' => false]);
+        }
+        return response()->json($enterprise);
+    }
+    public function get_user($id)
+    {
+        $user = User::where('id', $id)->firstOrFail();
+        if (!count(array($user)) === 0) {
+            return response()->json(['response' => false]);
+        }
+        return response()->json($user);
     }
 }

@@ -23,9 +23,9 @@ return new class extends Migration
             $table->string('cp');
             $table->string('regimen_fiscal');
             $table->string('phone')->unique();
-            $table->string('fax');
-            $table->string('location');
-            $table->unsignedBigInteger('status_id');
+            $table->string('fax')->nullable();
+            $table->string('location')->nullable();
+            $table->unsignedBigInteger('status_id')->default(2);
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('parque_id');
             $table->foreign('status_id')->references('id')->on('status');
