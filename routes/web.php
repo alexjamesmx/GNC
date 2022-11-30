@@ -29,7 +29,6 @@ Route::prefix('/admin/parques')->middleware(['accesos', 'admin'])->controller(Pa
     Route::get('/',                 'home')         ->name('parques.home');
     Route::post('/store',           'store')        ->name('parques.store');
     Route::post('/actualizar/{id}', 'actualizar')   ->name('parques.actualizar');
-    Route::patch('/update/{id}',    'update')       ->name('parques.update');
     Route::get('/get/{id}',         'get')          ->name('parques.get');
     Route::post('/delete/{id}',     'delete')       ->name('parques.delete');
 });
@@ -39,8 +38,11 @@ Route::prefix('/admin/empresas')->middleware(['accesos','admin'])->controller(En
     Route::get('/',                 'home')         ->name('empresas.home');
     Route::get('/get/{id}',         'get')          ->name('enterprise.get');
     Route::get('/get_user/{id}',     'get_user')          ->name('enterprise.get_user');
+    Route::get('/get_parque/{id}',     'get_parque')          ->name('enterprise.get_parque');
     Route::post('/validated',       'validated')    ->name('enterprise.validated');
+    Route::post('/validated_update',       'validated_update')    ->name('enterprise.validated_update');
     Route::post('/store',           'store')        ->name('enterprise.store');
+    Route::post('/update/{id}',           'update_enterprise')        ->name('enterprise.update');
     Route::post('/delete/{id}',     'delete')       ->name('enterprise.delete');
 });
 
@@ -51,7 +53,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Route::get('/', [ControlController::class, 'error401'])->middleware('accesos')->name('error401');
 
 Route::fallback(function () {
     return view('errors.404');

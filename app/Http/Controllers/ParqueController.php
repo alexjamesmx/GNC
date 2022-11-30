@@ -11,10 +11,8 @@ use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 
-
 class ParqueController extends Controller
 {
-
     public function home()
     {
         $parques = Parque::where('status_id', '!=', '1')->paginate(10);
@@ -69,12 +67,9 @@ class ParqueController extends Controller
         }
         return response()->json($parque);
     }
-    public function edit($id)
-    {
-    }
+  
     public function actualizar(Request $request, $id)
     {
-
         $validate = Validator::make(
             $request->except('id'),
             [
@@ -106,9 +101,6 @@ class ParqueController extends Controller
         //RESPONSE 1 || 0
         $response = Parque::where('id', $id)->update($request->except('_token', '_method', 'id'));
         return response()->json(['response' => true], 200);
-    }
-    public function destroy($id)
-    {
     }
 
     public function delete($id)

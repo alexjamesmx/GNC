@@ -1,8 +1,21 @@
 @extends('template')
 
+@if ($section === 'parques')
+@include('admin._modal_parques')
+@endif
+@if ($section === 'enterprises')
+@include('admin._modal_enterprises')
+@endif
+@include('admin._modal_eliminar')
+
+
+
 @section('content')
     <!--navbar -->
     @include('admin._navbar')
+
+ 
+
 
     <div class="container-fluid page-body-wrapper">
         <!-- sidebar -->
@@ -26,12 +39,6 @@
         </div>
     </div>
 
-@if ($section === 'parques')
-@include('admin._modal_parques')
-@endif
-@if ($section === 'enterprises')
-@include('admin._modal_enterprises')
-@endif
 
 @endsection
 
