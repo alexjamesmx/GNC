@@ -51,11 +51,11 @@ class User extends Authenticatable
 
     public function role()
     {
-        return $this->hasOne(Role::class, 'foreign_key', 'role_id');
+        return $this->hasOne(Role::class, 'id', 'role_id');
     }
     public function status()
     {
-        return $this->hasOne(Status::class, 'foreign_key', 'status_id');
+        return $this->hasOne(Status::class, 'id', 'status_id');
     }
     public function enterprise()
     {

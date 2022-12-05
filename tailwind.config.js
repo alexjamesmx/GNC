@@ -16,8 +16,13 @@ module.exports = {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
+            collapse : {
+                'visibility': 'visible',
+            },
+        
         },
+    
     },
-
+  
     plugins: [require('@tailwindcss/forms')],
 };

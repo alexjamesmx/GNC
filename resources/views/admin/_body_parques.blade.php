@@ -161,7 +161,7 @@
                 }).done((json) => {
                     if (json.response) {
                         message('Actualizado correctamente')
-                        $('#modal-parques').modal('toggle')
+                        $('#button_close').click()
                         e = document.querySelector('#row_' + id)
                         document.querySelector('#parque_' + id).textContent = body.get('parque')
                         document.querySelector('#calle_' + id).textContent = body.get('calle')

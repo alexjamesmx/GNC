@@ -24,7 +24,7 @@ class UserFactory extends Factory
             'email' => preg_replace('/@example\..*/', '@gmail.com', fake()->unique()->safeEmail),
             'phone' => fake()->unique()->phoneNumber(),
             'role_id' => fake()->numberBetween(1, 3),
-            'status_id' => fake()->numberBetween(1, 2),
+            'status_id' => fake()->numberBetween(1, 3),
             'image' => fake()->imageUrl(640, 480),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password

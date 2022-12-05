@@ -17,7 +17,7 @@ class StatusFactory extends Factory
     public function definition()
     {
         return [
-            'status' => fake()->randomElement(['active', 'inactive', 0, 1])
+            'status' => fake()->randomElement(['Activo', 'Inactivo', 'En inspeccioón', 0, 1, 3])
         ];
     }
 }

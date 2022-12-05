@@ -17,7 +17,7 @@ class Parque extends Model
         'calle',
         'municipio',
         'codigo',
-        'status',
+        'status_id',
     ];
 
     public function status()

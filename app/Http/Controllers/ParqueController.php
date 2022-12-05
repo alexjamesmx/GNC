@@ -10,6 +10,7 @@ use App\Models\Parque;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Auth;
 
 class ParqueController extends Controller
 {
@@ -18,9 +19,19 @@ class ParqueController extends Controller
         $parques = Parque::where('status_id', '!=', '1')->paginate(10);
         if (session()->has('message')) {
             session()->keep('message');
-            return view('admin.admin', ['parques' => $parques, 'section' => 'parques', 'section_cute' => 'Parques']);
         }
-        return view('admin.admin', ['parques' => $parques, 'section' => 'parques', 'section_cute' => 'Parques']);
+
+        $role_type = Auth::user()->role_id; 
+        if($role_type=== 1){
+            $role = 'Admin';
+        }
+        else if($role_type === 2){
+            $role = 'Empresa';
+        }
+        else{
+            $role = 'Técnico';
+        }
+        return view('admin.admin', ['parques' => $parques, 'section' => 'parques', 'section_cute' => 'Parques', 'role'=> $role]);
     }
 
     public function store(Request $request)

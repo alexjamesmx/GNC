@@ -12,7 +12,7 @@
                 <div class="w-full py-3">
                     <p class="break-words whitespace-normal m-0 text-white  font-bold">
                         {{ Auth::user()->name }}</p>
-                    <p class="designation p-0 !mt-2">Admin</p>
+                    <p class="designation p-0 !mt-2">{{ $role }}</p>
                 </div>
             </a>
         </li>
@@ -21,6 +21,12 @@
             <a class="nav-link" href="{{ route('admin') }}">
                 <i class="menu-icon typcn typcn-document-text"></i>
                 <span class="menu-title">Dashboard</span>
+            </a>
+        </li>
+              <li class="nav-item {{ $section === 'users' ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('users.home') }}">
+                <i class="menu-icon typcn typcn-user-outline"></i>
+                <span class="menu-title">Usuarios</span>
             </a>
         </li>
 
@@ -36,22 +42,10 @@
                 <span class="menu-title">Empresas</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="../../pages/tables/basic-table.html">
+        <li class="nav-item  {{ $section === 'subestaciones' ? 'active' : '' }}" >
+            <a class="nav-link" href="{{ route('subestacion.home') }}">
                 <i class="menu-icon typcn typcn-bell"></i>
-                <span class="menu-title">Técnicos</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="../../pages/icons/font-awesome.html">
-                <i class="menu-icon typcn typcn-user-outline"></i>
-                <span class="menu-title">Reportes</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="../../pages/icons/font-awesome.html">
-                <i class="menu-icon typcn typcn-user-outline"></i>
-                <span class="menu-title">Calendario</span>
+                <span class="menu-title">Subestaciones</span>
             </a>
         </li>
         <li class="nav-item">
@@ -60,7 +54,7 @@
                 <span class="menu-title">test</span>
                 <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="auth">
+            <div class="collapse" id="auth" style="visibility:visible !important">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
                         <a class="nav-link" href="../../pages/samples/blank-page.html"> Blank Page </a>
@@ -79,6 +73,12 @@
                     </li>
                 </ul>
             </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="../../pages/icons/font-awesome.html">
+                <i class="menu-icon typcn typcn-user-outline"></i>
+                <span class="menu-title">Calendario</span>
+            </a>
         </li>
     </ul>
 </nav>

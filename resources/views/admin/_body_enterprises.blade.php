@@ -83,6 +83,7 @@
                                                 Eliminar</button>
                                         </div>
                                     </td>
+                                    
                                 </tr>
                             @empty
                                 <h1>No hay empresas</h1>
@@ -271,7 +272,6 @@
                 const route = '{{ route('enterprise.validated_update') }}'
                 const parque_text = selectParque[selectParque.selectedIndex].text
                 const administrador_text = selectAdministrador[selectAdministrador.selectedIndex].text
-                // body.append('parque_id', document.querySelector('#select-parque').value)
 
                 $.ajax({
                     url: route,
@@ -291,7 +291,6 @@
                                 console.log(res.status)
                                 if (res.status === 200) {
                                     message('Actualizado correctamente')
-                                    $('#modal-enterprises').modal('hide')
                                     document.querySelector('#address_' + id).innerHTML =
                                         body.get('address')
                                     document.querySelector('#enterprise_' + id).innerHTML =
@@ -308,7 +307,7 @@
                                         administrador_text
 
 
-
+                                        document.querySelector('#button_close').click() 
                                 } else {
                                     message('Hubo un problema con la petición')
                                 }

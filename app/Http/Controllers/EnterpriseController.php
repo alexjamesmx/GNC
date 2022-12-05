@@ -8,14 +8,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 class EnterpriseController extends Controller
 {
 
     public function home()
     {
-        $enterprises = Enterprise::select('enterprises.id as enterprise_id','parques.id as parque_id', 'enterprises.*' ,'parques.*', 'users.id as user_id', 'users.*')->join('parques','enterprises.parque_id', '=', 'parques.id')->join('users','enterprises.user_id', '=', 'users.id')->where('enterprises.status_id', '!=', '1')->paginate(10);
+        $enterprises = Enterprise::select('enterprises.id as enterprise_id','parques.id as parque_id', 'enterprises.*' ,'parques.*', 'users.id as user_id', 'users.*')->join('parques','enterprises.parque_id', '=', 'parques.id')->join('users','enterprises.user_id', '=', 'users.id')->where('enterprises.status_id', '!=', '1')->orderBy('parques.parque')->paginate(10);
 
-
+       
         $parques = Parque::where('status_id', '!=', '1')
         ->get();
 
@@ -33,7 +34,19 @@ class EnterpriseController extends Controller
         if (session()->has('message')) {
             session()->keep('message');
         }
-        return view('admin.admin', ['enterprises' => $enterprises, 'section' => 'enterprises', 'section_cute' => 'Empresas','parques' => $parques,'users' => $users]);
+
+        $role_type = Auth::user()->role_id; 
+        if($role_type=== 1){
+            $role = 'Admin';
+        }
+        else if($role_type === 2){
+            $role = 'Empresa';
+        }
+        else{
+            $role = 'Técnico';
+        }
+
+        return view('admin.admin', ['enterprises' => $enterprises, 'section' => 'enterprises', 'section_cute' => 'Empresas','parques' => $parques,'users' => $users, 'role' => $role]);
     }
     public function delete($id)
     {

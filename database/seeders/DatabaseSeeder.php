@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Parque;
 use App\Models\Role;
 use App\Models\Status;
+use App\Models\Subestacion;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -26,6 +27,8 @@ class DatabaseSeeder extends Seeder
         Parque::factory(10)->create();
         User::factory(10)->create();
         $this->call(EnterprisesTableSeeder::class);
+        $this->call(TypeTableSeeder::class);
+        Subestacion::factory(10)->create();
 
 
 

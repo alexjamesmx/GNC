@@ -30,7 +30,8 @@
                             <div class="col-6">
                                 <div class="input-group-custom w-full flex">
                                     <input type="hidden" id="edit-id">
-                                    <input type="text"id="enterprise" name="enterprise"  class='input-custom w-full' placeholder=" ">
+                                    <input type="text"id="enterprise" name="enterprise" class='input-custom w-full'
+                                        placeholder=" ">
                                     <label for="enterprise" class="input-label-custom"
                                         onclick="efecto(this)">Nombre</label>
                                 </div>
@@ -39,7 +40,8 @@
                             {{-- RAZON SOCIAL --}}
                             <div class="col-6">
                                 <div class="input-group-custom w-full flex">
-                                    <input id="razon_social" name="razon_social"  class='input-custom w-full' placeholder=" ">
+                                    <input id="razon_social" name="razon_social" class='input-custom w-full'
+                                        placeholder=" ">
                                     <label for="razon_social" class="input-label-custom" onclick="efecto(this)">Razón
                                         social</label>
                                 </div>
@@ -50,7 +52,7 @@
                             {{-- RFC --}}
                             <div class="col-6">
                                 <div class="input-group-custom w-full flex">
-                                    <input id="rfc" name="rfc"  class='input-custom w-full' placeholder=" ">
+                                    <input id="rfc" name="rfc" class='input-custom w-full' placeholder=" ">
                                     <label for="rfc" class="input-label-custom" onclick="efecto(this)">RFC</label>
                                 </div>
                                 <label id="rfc_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
@@ -58,8 +60,8 @@
                             {{-- REGIMEN FISCAL --}}
                             <div class="col-6">
                                 <div class="input-group-custom w-full flex">
-                                    <input id="regimen_fiscal" name="regimen_fiscal" 
-                                        class='input-custom w-full' placeholder=" ">
+                                    <input id="regimen_fiscal" name="regimen_fiscal" class='input-custom w-full'
+                                        placeholder=" ">
                                     <label for="regimen_fiscal" class="input-label-custom"
                                         onclick="efecto(this)">Régimen
                                         fiscal</label>
@@ -72,7 +74,7 @@
                             {{-- TELEFONO --}}
                             <div class="col-6 ">
                                 <div class="input-group-custom w-full flex">
-                                    <input id="phone" name="phone"  class='input-custom w-full' placeholder=" ">
+                                    <input id="phone" name="phone" class='input-custom w-full' placeholder=" ">
                                     <label for="phone" class="input-label-custom"
                                         onclick="efecto(this)">Teléfono</label>
                                 </div>
@@ -80,7 +82,7 @@
                             </div>
                             {{-- PARQUE A ELEGIR --}}
                             <div class="col-6 mt-3">
-                                <select id="select-parque"  name="parque_id">
+                                <select id="select-parque" name="parque_id">
                                 </select>
                                 <label id="parque_id_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
                             </div>
@@ -88,7 +90,7 @@
                         <p class="font-bold text-lg">Administrador *</p>
                         <div class="row mb-4">
                             <div class="col-6">
-                                <select id="select-administrador"  name="user_id">
+                                <select id="select-administrador" name="user_id">
                                 </select>
                                 <label id="user_id_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
                             </div>
@@ -97,7 +99,8 @@
                         <div class="row mb-4">
                             <div class="col-6">
                                 <div class="input-group-custom w-full flex">
-                                    <input id="ciudad" name="ciudad"  class='input-custom w-full' placeholder=" ">
+                                    <input id="ciudad" name="ciudad" class='input-custom w-full'
+                                        placeholder=" ">
                                     <label for="ciudad" class="input-label-custom"
                                         onclick="efecto(this)">Ciudad</label>
                                 </div>
@@ -105,7 +108,7 @@
                             </div>
                             <div class="col-6">
                                 <div class="input-group-custom w-full flex">
-                                    <input id="cp" name="cp"  class='input-custom' placeholder=" ">
+                                    <input id="cp" name="cp" class='input-custom' placeholder=" ">
                                     <label for="cp" class="input-label-custom"
                                         onclick="efecto(this)">C.P.</label>
                                 </div>
@@ -113,7 +116,8 @@
                             </div>
                             <div class="col-6">
                                 <div class="input-group-custom w-full flex">
-                                    <input id="address" name="address"  class='input-custom w-full' placeholder=" ">
+                                    <input id="address" name="address" class='input-custom w-full'
+                                        placeholder=" ">
                                     <label for="address" class="input-label-custom"
                                         onclick="efecto(this)">Dirección</label>
                                 </div>
@@ -156,7 +160,7 @@
                             </button>
 
                             <div class="">
-                                <button type="button"data-bs-dismiss="modal"onclick="clearModal()"
+                                <button id="button_close"type="button"data-bs-dismiss="modal"onclick="clearModal()"
                                     class="border-none modal-close  rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-purple-600 active:shadow-none shadow-lg bg-gradient-to-tr from-purple-600 to-purple-500 border-purple-700 text-white">
                                     <span
                                         class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
@@ -179,5 +183,4 @@
             </div>
         </div>
     </div>
-</div>
 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -13,7 +14,17 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.admin', ['section' => 'dashboard', 'section_cute' => 'Dashboard']);
+        $role_type = Auth::user()->role_id; 
+        if($role_type=== 1){
+            $role = 'Admin';
+        }
+        else if($role_type === 2){
+            $role = 'Empresa';
+        }
+        else{
+            $role = 'Técnico';
+        }
+        return view('admin.admin', ['section' => 'dashboard', 'section_cute' => 'Dashboard', 'role' => $role]);
     }
 
     /**

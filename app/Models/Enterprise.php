@@ -37,4 +37,7 @@ class Enterprise extends Model
     public function parque(){
         return $this->belongsTo(Parque::class, 'foreign_key', 'parque_id');
     }
+    public function subestaciones(){
+        return $this->hasMany(Subestacion::class, 'enterprise_id', 'enterprise_id');
+    }
 }

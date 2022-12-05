@@ -38,7 +38,23 @@
 }
 
 .input-custom:focus + .input-label-custom,
-.input-custom:valid:not(#location):not(#enterprise):not(#razon_social):not(#rfc):not(#regimen_fiscal):not(#phone):not(#ciudad):not(#cp):not(#address):not(#fax)
+.input-custom:valid:not(#location)
+:not(#enterprise)
+:not(#razon_social)
+:not(#rfc)
+:not(#regimen_fiscal)
+:not(#phone)
+:not(#ciudad)
+:not(#cp)
+:not(#address)
+:not(#fax)
+:not(#subestacion)
+:not(#name)
+:not(#last_name)
+:not(#email)
+:not(#phone_user)
+:not(#password)
+:not(#password_confirmation)
 + .input-label-custom  {
     transform: translate(10px, -14px) scale(0.8);
     color: rgb(255, 255, 255);
@@ -54,7 +70,13 @@
 #ciudad:not(:placeholder-shown) + .input-label-custom ,
 #cp:not(:placeholder-shown)  + .input-label-custom,
 #address:not(:placeholder-shown)  + .input-label-custom,
-#fax:not(:placeholder-shown) + .input-label-custom 
+#fax:not(:placeholder-shown) + .input-label-custom,
+#name:not(:placeholder-shown) + .input-label-custom ,
+#last_name:not(:placeholder-shown) + .input-label-custom ,
+#email:not(:placeholder-shown) + .input-label-custom ,
+#password:not(:placeholder-shown) + .input-label-custom ,
+#password_confirmation:not(:placeholder-shown) + .input-label-custom ,
+#phone_user:not(:placeholder-shown) + .input-label-custom 
 {
     transform: translate(10px, -14px) scale(0.8);
     color: rgb(255, 255, 255);
@@ -81,4 +103,55 @@
 #info_message {
     filter: invert(100%) sepia(100%) saturate(1%) hue-rotate(238deg)
         brightness(109%) contrast(101%);
+}
+
+
+input[type=checkbox] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+    position: absolute;
+}
+
+label {
+    align-self: center;
+    margin: 0;
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 50px;
+    height: 25px;
+    background: rgb(223, 0, 0);
+    display: block;
+    border-radius: 100px;
+    position: relative;
+}
+
+label:after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 5px;
+    width: 22.5px;
+    height: 22.5px;
+    background: #fff;
+    border-radius: 90px;
+    transition: 0.3s;
+}
+
+input:checked+label {
+    background: #00c60d;
+}
+
+input:checked+label:after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+}
+
+label:active:after {
+    width: 32.5px;
+}
+
+
+.deshabilitado {
+    opacity: 0.5;
 }
