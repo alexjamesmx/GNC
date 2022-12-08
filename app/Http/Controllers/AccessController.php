@@ -24,6 +24,6 @@ class AccessController extends Controller
 
     public function message(Request $request)
     {
-            session()->flash('message', $request->input('message'));
+        session()->flash('message', $request->input('message'));
     }
 }

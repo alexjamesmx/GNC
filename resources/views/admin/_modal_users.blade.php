@@ -85,14 +85,16 @@
                                 <div class="input-group-custom w-full flex">
                                     <input type="text"id="password" name="password" class='input-custom w-full'
                                         placeholder=" ">
-                                    <label for="password" class="input-label-custom" onclick="efecto(this)">Contraseña</label>
+                                    <label for="password" class="input-label-custom"
+                                        onclick="efecto(this)">Contraseña</label>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="input-group-custom w-full flex">
-                                    <input type="text"id="password_confirmation" name="password_confirmation" class='input-custom w-full'
-                                        placeholder=" ">
-                                    <label for="phone" class="input-label-custom" onclick="efecto(this)">Confirmar contraseña</label>
+                                    <input type="text"id="password_confirmation" name="password_confirmation"
+                                        class='input-custom w-full' placeholder=" ">
+                                    <label for="phone" class="input-label-custom" onclick="efecto(this)">Confirmar
+                                        contraseña</label>
                                 </div>
                             </div>
                         </div>
@@ -101,7 +103,8 @@
                                 <label id="password_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
                             </div>
                             <div class="col-6">
-                                <label id="password_confirmation_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
+                                <label id="password_confirmation_error"
+                                    class="text-sm text-red-500 tracking-wide mb-3"></label>
                             </div>
                         </div>
 
@@ -116,25 +119,36 @@
                                 </select>
                             </div>
                         </div>
-
-
                         <div class='row mb-4'>
                             <div class="col-12">
                                 <label id="role_id_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
                             </div>
                         </div>
+                        <div class="row mt-12">
+                            <div class="col-12">
+                                <p class="font-bold text-lg">Foto de perfil (opcional)</p>
+                                {{-- <button id="toggleInput"
+                                    type="button"class="border-none px-4 py-3 text-sm  bg-orange-500">Subir
+                                    foto de
+                                    perfil</button> --}}
+                                <input id="profile_photo"type="file" name="image"
+                                    accept="image/png, image/jpeg" class="">
+                            </div>
+                        </div>
+                        <div class='row mb-8'>
+                            <div class="col-12">
+                                <label id="image_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
+                            </div>
+                        </div>
 
 
                         <!--Footer-->
+                        <hr>
                         <div class="flex justify-between">
 
                             <button type="button" id="clean"
-                                class="border-none rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-gray-600 active:shadow-none shadow-lg bg-gradient-to-tr from-gray-700 to-gray-600 border-gray-700 text-white">
-                                <span
-                                    class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
-                                <span class="relative font-semibold tracking-wider">
-                                    Limpiar campos
-                                </span>
+                                class="border-none bg-transparent  rounded relative px-3.5 py-2 cursor-pointer  hover:bg-gray-700 bg-gray-600 text-white">
+                                Limpiar campos
                             </button>
 
                             <div class="">

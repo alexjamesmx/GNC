@@ -19,12 +19,12 @@ left: calc(50% - 24px);
             <div class="card-body">
                 <div class="flex justify-between">
                     <p class="text-xl p-0 m-0 text-center self-center">
-                        Listado de usuarios
+                        Habilitados
                     </p>
                     <div class="flex items-center">
 
                         <div class="rounded-full border-solid border border-black bg-green-500 w-3 h-3 mx-3"></div>
-                        Disponible
+                        Disponibles
                         <div class="rounded-full border-solid border border-black bg-yellow-500 w-3 h-3 mx-3"></div>
                         En inspección
 
@@ -41,235 +41,220 @@ left: calc(50% - 24px);
                     </a>
                 </div>
                 <hr>
-                <div class="table-responsive">
-                    <table class="table table-striped align-middle">
-                        <thead class="table-dark text-white">
-                            <tr>
-                                <th class="text-white font-bold w-1"scope="col">Id</th>
-                                <th class="text-white font-bold w-3/12"scope="col">Nombre</th>
-                                <th class="text-white font-bold w-1/12"scope="col">Tipo</th>
-                                <th class="text-white font-bold w-2/12"scope="col">Email</th>
-                                <th class="text-white font-bold w-2/12"scope="col">Status</th>
-                                <th class="text-white font-bold w-1/12"scope="col">Teléfono</th>
-                                <th class="text-white font-bold w-2/12"scope="col">Eliminar</th>
-                                <th class="text-white font-bold w-2/12"scope="col">Perfil</th>
-                            </tr>
-                        </thead>
-                        <tbody class="table-group-divider">
-                            @forelse ($users as $user)
-                                @if ($user->status->id !== 1)
-                                    <tr id="row_{{ $user->id }}"
-                                        class=" {{ $user->status->id > 1 ? '' : 'deshabilitado' }}">
-                                        {{-- ID --}}
-                                        <td scope="row" style="min-width:fit-content;width:1rem">
-                                            <p id="id_{{ $user->id }}"
-                                                class='p-0 m-0 text-xs text-gray-500 text-center'>
-                                                {{ $user->id }}
-                                        </td>
-                                        </p>
-                                        {{-- Name Last Name --}}
-                                        <td scope="row" style="min-width:fit-content;width:15rem">
-                                            <div class="flex">
-                                                <p id="user_name_{{ $user->id }}" class="p-0 m-0">
-                                                    {{ $user->name }}</p>&nbsp;
-                                                <p id="user_lastname_{{ $user->id }}" class="p-0 m-0">
-                                                    {{ $user->last_name }}</p>
-                                            </div>
-                                        </td>
-                                        {{-- TIPO --}}
-                                        <td scope="row"
-                                            style="min-width:fit-content;width:35px;"id="type_{{ $user->id }}">
-                                            @if ($user->role->id === 3)
-                                                <img src="{{ asset('images/worker-svgrepo-com.svg') }}"
-                                                    style="border-radius:0 !important"alt="{{ $user->role->role }}">
-                                            @endif
-                                            @if ($user->role->id === 2)
-                                                <img src="{{ asset('images/building-svgrepo-com.svg') }}"
-                                                    style="border-radius:0 !important"alt="{{ $user->role->role }}">
-                                            @endif
-                                            @if ($user->role->id === 1)
-                                                <p class="font-bold m-0">ADMIN</p>
-                                            @endif
-                                        </td>
-                                        <input type="text" id="type_id_{{ $user->id }}" hidden
-                                            value="{{ $user->role->id }}">
-                                        {{-- Email  --}}
-                                        <td scope="row" style="min-width:fit-content;width:5rem"
-                                            id="user_email_{{ $user->id }}">
-                                            {{ $user->email }}
-                                        </td>
-                                        {{-- Status --}}
-                                        <td scope="row"id="user_status_{{ $user->id }}">
-                                            @if ($user->status->id === 1)
-                                                {{-- <p class="font-bold m-0">deshabilitado</p> --}}
-                                            @endif
-                                            @if ($user->status->id === 2)
-                                                <div
-                                                    class="rounded-full border-solid border border-black bg-yellow-500 w-50 h-2 mx-3">
+                @if (count($users))
+                    <div class="table-responsive">
+                        <table class="table table-striped align-middle">
+                            <thead class="table-dark text-white">
+                                <tr>
+                                    <th class="text-white font-bold w-1/12"scope="col">Id</th>
+                                    <th class="text-white font-bold w-3/12"scope="col">Nombre</th>
+                                    <th class="text-white font-bold w-1/12"scope="col">Tipo</th>
+                                    <th class="text-white font-bold w-2/12"scope="col">Email</th>
+                                    <th class="text-white font-bold w-2/12"scope="col">Status</th>
+                                    <th class="text-white font-bold w-1/12"scope="col">Teléfono</th>
+                                    <th class="text-white font-bold w-2/12"scope="col">Perfil</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                @forelse ($users as $user)
+                                    @if ($user->status->id !== 1)
+                                        <tr id="row_{{ $user->id }}"
+                                            class=" {{ $user->status->id > 1 ? '' : 'deshabilitado' }}">
+                                            {{-- ID --}}
+                                            <td scope="row" style="min-width:fit-content;width:1rem">
+                                                <p id="id_{{ $user->id }}"
+                                                    class='p-0 m-0 text-xs text-gray-500 text-center'>
+                                                    {{ $user->id }}
+                                            </td>
+                                            </p>
+                                            {{-- Name Last Name --}}
+                                            <td scope="row" style="min-width:fit-content;width:15rem">
+                                                <div class="flex">
+                                                    <p id="user_name_{{ $user->id }}" class="p-0 m-0">
+                                                        {{ $user->name }}</p>&nbsp;
+                                                    <p id="user_lastname_{{ $user->id }}" class="p-0 m-0">
+                                                        {{ $user->last_name }}</p>
                                                 </div>
-                                            @endif
-                                            @if ($user->status->id === 3)
-                                                <div
-                                                    class="rounded-full border-solid border border-black bg-green-500 w-50 h-2 mx-3">
+                                            </td>
+                                            {{-- TIPO --}}
+                                            <td scope="row"
+                                                style="min-width:fit-content;width:35px;"id="type_{{ $user->id }}">
+                                                @if ($user->role->id === 3)
+                                                    <img src="{{ asset('images/worker-svgrepo-com.svg') }}"
+                                                        style="border-radius:0 !important"alt="{{ $user->role->role }}">
+                                                @endif
+                                                @if ($user->role->id === 2)
+                                                    <img src="{{ asset('images/building-svgrepo-com.svg') }}"
+                                                        style="border-radius:0 !important"alt="{{ $user->role->role }}">
+                                                @endif
+                                                @if ($user->role->id === 1)
+                                                    <p class="font-bold m-0">ADMIN</p>
+                                                @endif
+                                            </td>
+                                            <input type="text" id="type_id_{{ $user->id }}" hidden
+                                                value="{{ $user->role->id }}">
+                                            {{-- Email  --}}
+                                            <td scope="row" style="min-width:fit-content;width:5rem"
+                                                id="user_email_{{ $user->id }}">
+                                                {{ $user->email }}
+                                            </td>
+                                            {{-- Status --}}
+                                            <td scope="row"id="user_status_{{ $user->id }}">
+                                                @if ($user->status->id === 1)
+                                                    {{-- <p class="font-bold m-0">deshabilitado</p> --}}
+                                                @endif
+                                                @if ($user->status->id === 2)
+                                                    <div
+                                                        class="rounded-full border-solid border border-black bg-yellow-500 w-50 h-2 mx-3">
+                                                    </div>
+                                                @endif
+                                                @if ($user->status->id === 3)
+                                                    <div
+                                                        class="rounded-full border-solid border border-black bg-green-500 w-50 h-2 mx-3">
+                                                    </div>
+                                                @endif
+                                            </td>
+                                            {{-- PHONE --}}
+                                            <td scope="row" style="min-width:fit-content;width:1rem"
+                                                id="user_phone_{{ $user->id }}">
+                                                {{ $user->phone }}
+                                            </td>
+                                            {{-- ACCIONES --}}
+                                            <td scope="row" style="min-width:fit-content; white-space:initial">
+                                                <div class="flex justify-betstartween">
+                                                    <button
+                                                        class="bg-red-500 px-5 py-3 border-none font-bold text-white rounded hover:bg-red-600 hover:text-sm mr-3"
+                                                        onclick="handleToogle({{ $user->id }}, {{ $user->status->id }})">
+                                                        <i class="fas fa-trash"></i></button>
+                                                    <button
+                                                        class="bg-emerald-500 px-5 py-3 border-none font-bold text-white rounded hover:bg-emerald-600 hover:text-sm"
+                                                        onclick="profilePage({{ $user->id }})">
+                                                        <i class="fas fa-eye"></i></button>
                                                 </div>
-                                            @endif
-                                        </td>
-                                        {{-- PHONE --}}
-                                        <td scope="row" style="min-width:fit-content;width:1rem"
-                                            id="user_phone_{{ $user->id }}">
-                                            {{ $user->phone }}
-                                        </td>
-
-                                        <td scope="row" style="min-width:fit-content; white-space:initial">
-
-                                            <div class="flex justify-between">
-                                                <p class="text-xs">
-                                                </p>
-                                                <input data-id="{{ $user->id }}"type="checkbox"
-                                                    {{ $user->status->id > 1 ? 'checked' : '' }}
-                                                    id="switch_{{ $user->id }}" /><label
-                                                    for="switch_{{ $user->id }}"
-                                                    onclick="handleToogle(this)">Toggle</label>
-                                            </div>
-                                        </td>
-                                        {{-- ACCIONES --}}
-                                        <td scope="row" style="min-width:fit-content; white-space:initial">
-                                            <div class="flex justify-between">
-                                                <button
-                                                    class="bg-emerald-500 px-5 py-3 border-none font-bold text-white rounded hover:bg-emerald-600 hover:text-sm"
-                                                    onclick="profilePage({{ $user->id }})">Ver/editar</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endif
-                            @empty
-                                <h1>No hay empresas</h1>
-
-
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-                <div class="mt-4">
-                    {{ $users->links() }}
-                </div>
-
-
-
-                <div class="table-responsive">
-                    <table class="table table-striped align-middle">
-                        <thead class="table-dark text-white">
-                            <tr>
-                                <th class="text-white font-bold w-1"scope="col">Id</th>
-                                <th class="text-white font-bold w-3/12"scope="col">Nombre</th>
-                                <th class="text-white font-bold w-1/12"scope="col">Tipo</th>
-                                <th class="text-white font-bold w-2/12"scope="col">Email</th>
-                                <th class="text-white font-bold w-2/12"scope="col">Status</th>
-                                <th class="text-white font-bold w-1/12"scope="col">Teléfono</th>
-                                <th class="text-white font-bold w-2/12"scope="col">Eliminar</th>
-                                <th class="text-white font-bold w-2/12"scope="col">Perfil</th>
-                            </tr>
-                        </thead>
-                        <tbody class="table-group-divider">
-                            @forelse ($users_inactivos as $user)
-                                @if ($user->status->id === 1)
-                                    <tr id="row_{{ $user->id }}"
-                                        class=" {{ $user->status->id > 1 ? '' : 'deshabilitado' }}">
-                                        {{-- ID --}}
-                                        <td scope="row" style="min-width:fit-content;width:1rem">
-                                            <p id="id_{{ $user->id }}"
-                                                class='p-0 m-0 text-xs text-gray-500 text-center'>
-                                                {{ $user->id }}
-                                        </td>
-                                        </p>
-                                        {{-- Name Last Name --}}
-                                        <td scope="row" style="min-width:fit-content;width:15rem">
-                                            <div class="flex">
-                                                <p id="user_name_{{ $user->id }}" class="p-0 m-0">
-                                                    {{ $user->name }}</p>&nbsp;
-                                                <p id="user_lastname_{{ $user->id }}" class="p-0 m-0">
-                                                    {{ $user->last_name }}</p>
-                                            </div>
-                                        </td>
-                                        {{-- TIPO --}}
-                                        <td scope="row"
-                                            style="min-width:fit-content;width:35px;"id="type_{{ $user->id }}">
-                                            @if ($user->role->id === 3)
-                                                <img src="{{ asset('images/worker-svgrepo-com.svg') }}"
-                                                    style="border-radius:0 !important"alt="{{ $user->role->role }}">
-                                            @endif
-                                            @if ($user->role->id === 2)
-                                                <img src="{{ asset('images/building-svgrepo-com.svg') }}"
-                                                    style="border-radius:0 !important"alt="{{ $user->role->role }}">
-                                            @endif
-                                            @if ($user->role->id === 1)
-                                                <p class="font-bold m-0">ADMIN</p>
-                                            @endif
-                                        </td>
-                                        <input type="text" id="type_id_{{ $user->id }}" hidden
-                                            value="{{ $user->role->id }}">
-                                        {{-- Email  --}}
-                                        <td scope="row" style="min-width:fit-content;width:5rem"
-                                            id="user_email_{{ $user->id }}">
-                                            {{ $user->email }}
-                                        </td>
-                                        {{-- Status --}}
-                                        <td scope="row"id="user_status_{{ $user->id }}">
-                                            @if ($user->status->id === 1)
-                                                {{-- <p class="font-bold m-0">deshabilitado</p> --}}
-                                            @endif
-                                            @if ($user->status->id === 2)
-                                                <div
-                                                    class="rounded-full border-solid border border-black bg-yellow-500 w-50 h-2 mx-3">
-                                                </div>
-                                            @endif
-                                            @if ($user->status->id === 3)
-                                                <div
-                                                    class="rounded-full border-solid border border-black bg-green-500 w-50 h-2 mx-3">
-                                                </div>
-                                            @endif
-                                        </td>
-                                        {{-- PHONE --}}
-                                        <td scope="row" style="min-width:fit-content;width:1rem"
-                                            id="user_phone_{{ $user->id }}">
-                                            {{ $user->phone }}
-                                        </td>
-
-                                        <td scope="row" style="min-width:fit-content; white-space:initial">
-
-                                            <div class="flex justify-between">
-                                                <p class="text-xs">
-                                                </p>
-                                                <input data-id="{{ $user->id }}"type="checkbox"
-                                                    {{ $user->status->id > 1 ? 'checked' : '' }}
-                                                    id="switch_{{ $user->id }}" /><label
-                                                    for="switch_{{ $user->id }}"
-                                                    onclick="handleToogle(this)">Toggle</label>
-                                            </div>
-                                        </td>
-                                        {{-- ACCIONES --}}
-                                        <td scope="row" style="min-width:fit-content; white-space:initial">
-                                            <div class="flex justify-between">
-                                                <button
-                                                    class="bg-emerald-500 px-5 py-3 border-none font-bold text-white rounded hover:bg-emerald-600 hover:text-sm"
-                                                    onclick="profilePage({{ $user->id }})">Ver/editar</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endif
-                            @empty
-                                <h1>No hay empresas</h1>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-                <div class="mt-4">
-                    {{-- {{ $users->links() }} --}}
-                </div>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @empty
+                                    <h1>No hay empresas</h1>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4">
+                        {{ $users->links() }}
+                    </div>
+                @else
+                    <p class="text-2xl ">No existen usuarios habilitados</p>
+                @endif
             </div>
         </div>
     </div>
 </div>
+
+
+@if (count($users_inactivos))
+    <div class="row" id="table_deshabilitados">
+        <div class="col-lg-12 stretch-card grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <div class="flex">
+                        <p class="text-xl p-0 m-0 text-center self-center">
+                            Deshabilitados
+                        </p>
+                    </div>
+                    <hr>
+
+                    <div class="table-responsive mt-5">
+                        <table class="table table-striped align-middle">
+                            <thead class="table-dark text-white">
+                                <tr>
+                                    <th class="text-white font-bold w-1/12"scope="col">Id</th>
+                                    <th class="text-white font-bold w-3/12"scope="col">Nombre</th>
+                                    <th class="text-white font-bold w-1/12"scope="col">Tipo</th>
+                                    <th class="text-white font-bold w-2/12"scope="col">Email</th>
+                                    <th class="text-white font-bold w-1/12"scope="col">Teléfono</th>
+                                    <th class="text-white font-bold w-2/12"scope="col">Perfil</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                @forelse ($users_inactivos as $user)
+                                    @if ($user->status->id === 1)
+                                        <tr id="row_{{ $user->id }}"
+                                            class=" {{ $user->status->id > 1 ? '' : 'deshabilitado' }}">
+                                            {{-- ID --}}
+                                            <td scope="row" style="min-width:fit-content;width:1rem">
+                                                <p id="id_{{ $user->id }}"
+                                                    class='p-0 m-0 text-xs text-gray-500 text-center'>
+                                                    {{ $user->id }}
+                                            </td>
+                                            </p>
+                                            {{-- Name Last Name --}}
+                                            <td scope="row" style="min-width:fit-content;width:15rem">
+                                                <div class="flex">
+                                                    <p id="user_name_{{ $user->id }}" class="p-0 m-0">
+                                                        {{ $user->name }}</p>&nbsp;
+                                                    <p id="user_lastname_{{ $user->id }}" class="p-0 m-0">
+                                                        {{ $user->last_name }}</p>
+                                                </div>
+                                            </td>
+                                            {{-- TIPO --}}
+                                            <td scope="row"
+                                                style="min-width:fit-content;width:35px;"id="type_{{ $user->id }}">
+                                                @if ($user->role->id === 3)
+                                                    <img src="{{ asset('images/worker-svgrepo-com.svg') }}"
+                                                        style="border-radius:0 !important"alt="{{ $user->role->role }}">
+                                                @endif
+                                                @if ($user->role->id === 2)
+                                                    <img src="{{ asset('images/building-svgrepo-com.svg') }}"
+                                                        style="border-radius:0 !important"alt="{{ $user->role->role }}">
+                                                @endif
+                                                @if ($user->role->id === 1)
+                                                    <p class="font-bold m-0">ADMIN</p>
+                                                @endif
+                                            </td>
+                                            <input type="text" id="type_id_{{ $user->id }}" hidden
+                                                value="{{ $user->role->id }}">
+                                            {{-- Email  --}}
+                                            <td scope="row" style="min-width:fit-content;width:5rem"
+                                                id="user_email_{{ $user->id }}">
+                                                {{ $user->email }}
+                                            </td>
+
+                                            {{-- PHONE --}}
+                                            <td scope="row" style="min-width:fit-content;width:1rem"
+                                                id="user_phone_{{ $user->id }}">
+                                                {{ $user->phone }}
+                                            </td>
+
+                                            {{-- ACCIONES --}}
+                                            <td scope="row" style="min-width:fit-content; white-space:initial">
+                                                <div class="flex">
+
+                                                    <button
+                                                        class="bg-red-500 px-5 py-3 border-none font-bold text-white rounded hover:bg-red-600 hover:text-sm mr-3"
+                                                        onclick="handleToogle({{ $user->id }}, {{ $user->status->id }})">Activar</button>
+                                                    <button
+                                                        class="bg-emerald-500 px-5 py-3 border-none font-bold text-white rounded hover:bg-emerald-600 hover:text-sm"
+                                                        onclick="profilePage({{ $user->id }})"><i
+                                                            class="fas fa-eye"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @empty
+                                    <h1>No hay empresas</h1>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+@else
+@endif
 
 
 <div id="profile" style="opacity:0">
@@ -277,6 +262,8 @@ left: calc(50% - 24px);
 </div>
 
 <script>
+    document.querySelector('#page-title').innerHTML = 'GNC - {{ $section_cute }}';
+
     const clean = document.querySelector('#clean')
     const name = document.querySelector('#name')
     const last_name = document.querySelector('#last_name')
@@ -285,6 +272,7 @@ left: calc(50% - 24px);
     const role = document.querySelector('#role_id')
     const password = document.querySelector('#password')
     const password_confirmation = document.querySelector('#password_confirmation')
+    const image = document.querySelector('#profile_photo')
 
     const name_error = document.querySelector('#name_error')
     const last_name_error = document.querySelector('#last_name_error')
@@ -293,6 +281,7 @@ left: calc(50% - 24px);
     const role_error = document.querySelector('#role_id_error')
     const password_error = document.querySelector('#password_error')
     const password_confirmation_error = document.querySelector('#password_confirmation_error')
+    const image_error = document.querySelector('#image_error')
 
     const submit = document.querySelector('#modal-form')
 
@@ -334,7 +323,10 @@ left: calc(50% - 24px);
     }
 
     function profilePage(id) {
+        console.log('escoder')
         $("#table").hide()
+        $("#table_deshabilitados").hide()
+
         $("#spinner_profile").show()
         const route = "{{ route('users.get_user') }}"
         id = {
@@ -343,14 +335,51 @@ left: calc(50% - 24px);
         axios.post(route, id)
             .then(res => {
                 console.log(res.data)
-                document.querySelector('#perfil_nombre').textContent = res.data.name
-                document.querySelector("#perfil_ocupacion").textContent = res.data.role_id === 1 ? 'ADMIN' : res
-                    .data.role_id === 2 ? 'EMPRESA' : 'TÉCNICO'
-                document.querySelector('#perfil_correo').textContent = res.data.email
-                document.querySelector('#perfil_telefono').textContent = res.data.phone
-                document.querySelector('#perfil_status').textContent = res.data.status_id === 1 ? 'INACTIVO' : res
-                    .data
-                    .status_id === 2 ? 'En una inspección' : 'DISPONIBLE'
+
+                const {
+                    name,
+                    last_name,
+                    role_id,
+                    email,
+                    phone,
+                    status_id,
+                    image
+                } = res.data
+
+
+
+                document.querySelector('#perfil_nombre').textContent = name + ' ' + last_name
+                document.querySelector("#perfil_ocupacion").textContent = role_id === 1 ? 'ADMIN' : role_id === 2 ?
+                    'EMPRESA' : 'TÉCNICO'
+                document.querySelector('#perfil_correo').textContent = email
+                document.querySelector('#perfil_telefono').textContent = phone
+                document.querySelector('#perfil_status').textContent = status_id === 1 ? 'INACTIVO' :
+                    status_id === 2 ? 'En una inspección' : 'DISPONIBLE'
+
+                document.querySelector('#perfil_status_color').classList.add(status_id === 1 ? 'bg-red-500' :
+                    status_id === 2 ? 'bg-yellow-500' : 'bg-green-500')
+
+
+
+                if (image) {
+                    let image_route = "{{ asset('images/profile/:image') }}"
+                    image_route = image_route.replace(':image', image)
+                    document.querySelector('#perfil_foto').src = image_route
+                } else {
+                    if (role_id === 3) {
+                        const src = "{{ asset('images/worker-svgrepo-com.svg') }}"
+                        document.querySelector('#perfil_foto').src = src
+                    }
+                    if (role_id === 2) {
+                        const src = "{{ asset('images/building-svgrepo-com.svg') }}"
+                        document.querySelector('#perfil_foto').src = src
+                    }
+                    if (role_id === 1) {
+                        const src = "{{ asset('images/hacker.jpg') }}"
+                        document.querySelector('#perfil_foto').src = src
+                    }
+
+                }
 
                 document.querySelector('#profile').style.opacity = 1
                 $("#spinner_profile").hide()
@@ -361,6 +390,7 @@ left: calc(50% - 24px);
         document.querySelector('#back_users').addEventListener('click', () => {
             document.querySelector('#profile').style.opacity = 0
             $("#table").show()
+            $("#table_deshabilitados").show()
         })
         submit.addEventListener("submit", function(e) {
 
@@ -373,12 +403,14 @@ left: calc(50% - 24px);
 
             let body = new FormData(document.getElementById("modal-form"))
 
+            const foto = document.querySelector('#profile_photo').files[0]
             body.append('role_id', role_id.value)
+
+            body.append('image', foto)
             //CREAR PARQUE  
             if (type === 'create') {
 
                 const route = '{{ route('users.store') }}'
-
                 axios.post(route, body)
                     .then(res => {
                         console.log(res.data)
@@ -406,7 +438,8 @@ left: calc(50% - 24px);
                                 phone: phone_mensaje,
                                 password: password_mensaje,
                                 password_confirmation: password_confirmation_mensaje,
-                                role_id: role_id_mensaje
+                                role_id: role_id_mensaje,
+                                image: image_mensaje
                             } = errors
 
 
@@ -417,9 +450,7 @@ left: calc(50% - 24px);
                             if (!name_mensaje) {
                                 name_error.textContent = ''
                                 name.classList.add('input-validated')
-                            }
-                            // console.log(email_mensaje)
-
+                            } // console.log(email_mensaje)
                             if (last_name_mensaje) {
                                 last_name_error.textContent = last_name_mensaje
                                 last_name.classList.remove('input-validated')
@@ -458,6 +489,13 @@ left: calc(50% - 24px);
                                 password_confirmation_error.textContent = ''
                                 password_confirmation.classList.add('input-validated')
                             }
+                            if (image_mensaje) {
+                                image_error.textContent = image_mensaje
+                                image.classList.remove('input-validated')
+                            } else {
+                                image_error.textContent = ''
+                                image.classList.add('input-validated')
+                            }
 
                         }
                     })
@@ -467,65 +505,7 @@ left: calc(50% - 24px);
                     })
             }
             // if (type === 'edit') {
-            //     const route = '{{ route('subestacion.update', ':id') }}'
-            //     const url = route.replace(':id', document.querySelector('#id').value)
 
-            //     axios.post(url, body)
-            //         .then(res => {
-            //             console.log(res.data)
-            //             console.log(res.data.response)
-
-            //             if (res.data.response === true) {
-
-            //                 document.querySelector('#subestacion_' + body.get('id')).innerHTML = body.get('subestacion')
-            //                 document.querySelector('#type_' + body.get('id')).innerHTML = body.get('type_id') == 1 ? 'Compacta' : 'Pedestal' 
-            //                 document.querySelector('#type_id_' + body.get('id')).value = body.get('type_id')
-            //                 document.querySelector('#parque_' + body.get('id')).innerHTML = parque_id.options[parque_id.selectedIndex].text
-            //                 document.querySelector('#parque_id_' + body.get('id')).value = body.get('parque_id')
-            //                 document.querySelector('#parque_' + body.get('id')).innerHTML = parque_id.options[parque_id.selectedIndex].text
-
-            //                 document.querySelector('#enterprise_id_' + body.get('id')).value = body.get('enterprise_id')
-            //                 document.querySelector('#enterprise_' + body.get('id')).innerHTML = enterprise_id.options[enterprise_id.selectedIndex].text
-
-            //                 document.querySelector('#button_close').click()
-            //                 message('Actualizado correctamente');
-            //             }
-            //              else {
-            //                 const errors = res.data.errors
-
-            //                 const {
-            //                     subestacion: subestacion_mensaje,
-            //                     enterprise_id: enterprise_id_mensaje,
-            //                     parque_id: parque_id_mensaje,
-            //                     type_id: type_id_mensaje
-            //                 } = errors
-            //                 if (subestacion_mensaje) {
-            //                     subestacion_error.textContent = subestacion_mensaje
-            //                     subestacion.classList.remove('input-validated')
-            //                 } else {
-            //                     subestacion_error.textContent = ''
-            //                     subestacion.classList.add('input-validated')
-            //                 }
-            //                 if (enterprise_id_mensaje) {
-            //                     enterprise_id_error.textContent = enterprise_id_mensaje
-            //                 } else {
-            //                     enterprise_id_error.textContent = ''
-            //                 }
-            //                 if (parque_id_mensaje) {
-            //                     parque_id_error.textContent = parque_id_mensaje
-            //                 } else {
-            //                     enterprise_id_error.textContent = ''
-            //                 }
-            //                 if (type_id_mensaje) {
-            //                     type_id_error.textContent = type_id_mensaje
-            //                 } else {
-            //                     enterprise_id_error.textContent = ''
-            //                 }
-            //             }
-            //         })
-            //         .catch(err => {
-            //             message('Hubo un problema con la petición');
-            //         })
             // }
         });
 
@@ -543,7 +523,8 @@ left: calc(50% - 24px);
             password_error.textContent = ''
             password_confirmation_error.textContent = ''
             role_error.textContent = ''
-
+            image.value = ""
+            image_error.textContent = ''
             name.classList.remove('input-validated')
             last_name.classList.remove('input-validated')
             email.classList.remove('input-validated')
@@ -551,10 +532,7 @@ left: calc(50% - 24px);
             password.classList.remove('input-validated')
             password_confirmation.classList.remove('input-validated')
             role.classList.remove('input-validated')
-
             role.value = 0
-
-
             document.querySelector('#id').value = null
         })
 
@@ -563,24 +541,11 @@ left: calc(50% - 24px);
     const handleCreate = () => {
         document.querySelector('#btn-submit').setAttribute('data-modal', 'create')
         document.querySelector('#modal-title').innerHTML = 'Registrar usuario'
-
-        // if (parque_id.length === 1) {
-        //     parques.forEach(element => {
-        //         const option = document.createElement('option')
-        //         option.value = element.id
-        //         option.textContent = element.parque
-        //         parque_id.appendChild(option)
-        //     });
-        // }
-        // if (enterprise_id.length === 1) {
-        //     enterprises.forEach(element => {
-        //         const option = document.createElement('option')
-        //         option.value = element.id
-        //         option.textContent = element.enterprise
-        //         enterprise_id.appendChild(option)
-        //     });
-        // }
     }
+
+    // document.querySelector('#toggleInput').addEventListener('click', (e) => {
+    //     document.querySelector('#profile_photo').click()
+    // })
 
     // CERRAR MODAL
     const clearModal = (e) => {
@@ -663,206 +628,72 @@ left: calc(50% - 24px);
         return true;
     }
 
-    function handleToogle(e) {
-        console.log(e)
-        const input_id = e.getAttribute('for')
-        console.log(input_id)
-        const input = document.querySelector(`#${input_id}`)
-        console.log('checado')
-        const row_id = input.getAttribute('data-id')
-        const row = document.querySelector(`#row_${row_id}`)
-
+    function handleToogle(id, status) {
+        const row = document.querySelector(`#row_${id}`)
         const url = "{{ route('users.disable') }}"
+        const barra = document.querySelector(`#user_status_${id}`)
 
-        const barra = document.querySelector(`#user_status_${row_id}`)
-        if (input.checked) {
-            row.remove()
+
+
+        if (status !== 1) {
+
+            const confirmar = confirm('¿Estás seguro de eliminar este usuario?')
+            console.log(confirmar)
+            if (confirmar === false) return false
+
             axios.post(url, {
                 status_id: 1,
-                id: row_id
+                id: id
             }).then(res => {
-                console.log(res)
-                console.log(barra)
-                // $(barra).html(``)
+                axios.post("{{ route('message') }}", {
+                    'message': 5
+                }).then((res) => {
+                    console.log(res)
+                    location.replace("{{ route('users.home') }}")
+                }).catch(err => {
+                    message('Inténtalo más tarde')
+                })
+
 
             }).catch(err => {
                 console.log(err)
+                message('Inténtalo más tarde')
             })
         } else {
-            row.remove()
+
+            const confirmar = confirm('¿Estás seguro de activar este usuario?')
+            console.log(confirmar)
+            if (confirmar === false) return false
+
 
             axios.post(url, {
                 status_id: 3,
-                id: row_id
+                id: id
             }).then(res => {
-                console.log(res)
-                // $(barra).html(`   <div
-                //                                 class="rounded-full border-solid border border-black bg-green-500 w-50 h-2 mx-3">
-                //                             </div>`)
+                axios.post("{{ route('message') }}", {
+                    'message': 6
+                }).then((res) => {
+                    console.log(res)
+                    location.replace("{{ route('users.home') }}")
+                }).catch(err => {
+                    message('Inténtalo más tarde')
+                })
             }).catch(err => {
                 console.log(err)
+                message('Inténtalo más tarde')
             })
         }
-        console.log(input)
     }
-
-
-
     @if (Session::has('message'))
         console.log(' SIENTRO AL MENSAJE')
         @if (Session::get('message') == 4)
             message('Usuario registrado')
         @endif
+        @if (Session::get('message') == 5)
+            message('Usuario eliminado')
+        @endif
+        @if (Session::get('message') == 6)
+            message('Usuario activado')
+        @endif
     @endif
 </script>
-{{-- <script defer async="false">
-    document.querySelector('#page-title').innerHTML = 'GNC - {{ $section_cute }}';
-    const subestaciones = @json($subestaciones);
-    const parques = @json($parques);
-    const enterprises = @json($enterprises);
-
-    const subestacion = document.querySelector('#subestacion')
-    const subestacion_error = document.querySelector('#subestacion_error')
-
-    const type_id = document.querySelector('#type_id')
-    const type_id_error = document.querySelector('#type_id_error')
-
-    const parque_id = document.querySelector('#parque_id')
-    const parque_id_error = document.querySelector('#parque_id_error')
-
-    const enterprise_id = document.querySelector('#enterprise_id')
-    const enterprise_id_error = document.querySelector('#enterprise_id_error')
-
- 
-    $(function() {
-
-        
-
-        $('#modal-enterprises').on('hidden.bs.modal', (e) => {
-            if (document.querySelector('#btn-submit').getAttribute('data-modal') === 'edit') {
-                clearModal()
-            }
-        })
-    })
-
-
-
-
-    //ELIMINAR 
-    const handleDelete = () => {
-        const id = document.getElementById('delete-id').value
-        let url = '{{ route('subestacion.delete', ':id') }}';
-        url = url.replace(':id', id)
-        $.ajax({
-            url: url,
-            type: 'POST',
-            dataType: 'json',
-        }).done((json) => {
-            if (json.response) {
-                message('Eliminado correctamente')
-                document.querySelector('#row_' + id).remove()
-            } else {
-                message('Hubo un problema con la petición')
-            }
-        }).fail((err) => {
-            message('Hubo un problema con la petición')
-        })
-    }
-
-
-    const handleCreate = () => {
-        document.querySelector('#btn-submit').setAttribute('data-modal', 'create')
-        document.querySelector('#modal-title').innerHTML = 'Registrar subestación'
-
-        if (parque_id.length === 1) {
-            parques.forEach(element => {
-                const option = document.createElement('option')
-                option.value = element.id
-                option.textContent = element.parque
-                parque_id.appendChild(option)
-            });
-        }
-        if (enterprise_id.length === 1) {
-            enterprises.forEach(element => {
-                const option = document.createElement('option')
-                option.value = element.id
-                option.textContent = element.enterprise
-                enterprise_id.appendChild(option)
-            });
-        }
-    }
-
-    const handleEdit = (id) => {
-        clearModal()
-        document.querySelector('#id').value = id
-        document.querySelector('#btn-submit').setAttribute('data-modal', 'edit')
-        document.querySelector('#modal-title').innerHTML = 'Editar subestación'
-        document.getElementById('edit-id').value = id
-
-        document.querySelector('.spinner-position').style.opacity = 1
-        document.querySelector('.spinner-hide').style.opacity = 0
-        url = '{{ route('enterprise.get', ':id') }}';
-        url = url.replace(':id', id);
-
-        subestacion.value = document.querySelector('#subestacion_' + id).textContent
-        console.log('id =>  ', id)
-        console.log(document.querySelector('#parque_id_' + id).value)
-
-        if (parque_id.length === 1) {
-            parques.forEach(element => {
-                const option = document.createElement('option')
-                option.value = element.id
-                option.textContent = element.parque
-                parque_id.appendChild(option)
-            });
-        }
-        if (enterprise_id.length === 1) {
-            enterprises.forEach(element => {
-                const option = document.createElement('option')
-                option.value = element.id
-                option.textContent = element.enterprise
-                enterprise_id.appendChild(option)
-            });
-        }
-
-        parque_id.value = document.querySelector('#parque_id_' + id).value
-        enterprise_id.value = document.querySelector('#enterprise_id_' + id).value
-        type_id.value = document.querySelector('#type_id_' + id).value
-
-
-        document.querySelector('.spinner-position').style.opacity = 0
-        document.querySelector('.spinner-hide').style.opacity = 1
-    }
-
-
-    // const cleanErrorStyles = () => {
-    //     enterprise.classList.remove('input-validated')
-    //     razon_social.classList.remove('input-validated')
-    //     rfc.classList.remove('input-validated')
-    //     address.classList.remove('input-validated')
-    //     ciudad.classList.remove('input-validated')
-    //     cp.classList.remove('input-validated')
-    //     enterprise.classList.remove('input-validated')
-    //     regimen_fiscal.classList.remove('input-validated')
-    //     phone.classList.remove('input-validated')
-    //     fax.classList.remove('input-validated')
-    //     fax.classList.remove('input-validated')
-    //     locate.classList.remove('input-validated')
-    //     locate.classList.remove('input-validated')
-
-
-    //     enterprise_error.textContent = ''
-    //     razon_social_error.textContent = ""
-    //     rfc_error.textContent = ""
-    //     address_error.textContent = ""
-    //     ciudad_error.textContent = ""
-    //     cp_error.textContent = ""
-    //     regimen_fiscal_error.textContent = ""
-    //     phone_error.textContent = ""
-    //     fax_error.textContent = ""
-    //     locate_error.textContent = ""
-    //     parque_id_error.textContent = ""
-    //     user_id_error.textContent = ""
-    // }
-
-</script> --}}

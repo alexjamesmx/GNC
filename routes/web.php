@@ -54,6 +54,9 @@ Route::prefix('/admin/subestaciones')->middleware(['accesos', 'admin'])->control
     Route::post('/store',           'store')->name('subestacion.store');
     Route::post('/update/{id}',           'update')->name('subestacion.update');
     Route::post('/delete/{id}',     'delete')->name('subestacion.delete');
+    Route::post('/get_parques_by_name',     'get_parques_by_name')->name('subestacion.get_parques_by_name');
+    Route::post('/get_parques_by_id',     'get_parques_by_id')->name('subestacion.get_parques_by_id');
+    Route::post('/get_enterprise_id_on_select',     'get_enterprise_id_on_select')->name('subestacion.get_enterprise_id_on_select');
 });
 
 Route::prefix('/admin/usuarios')->middleware(['accesos', 'admin'])->controller(UsersController::class)->group(function () {

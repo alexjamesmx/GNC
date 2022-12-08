@@ -34,10 +34,12 @@ class Enterprise extends Model
     {
         return $this->belongsTo(Status::class, 'foreign_key', 'status_id');
     }
-    public function parque(){
-        return $this->belongsTo(Parque::class, 'foreign_key', 'parque_id');
+    public function parque()
+    {
+        return $this->hasOne(Parque::class, 'id', 'parque_id');
     }
-    public function subestaciones(){
+    public function subestaciones()
+    {
         return $this->hasMany(Subestacion::class, 'enterprise_id', 'enterprise_id');
     }
 }

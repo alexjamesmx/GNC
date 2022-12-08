@@ -44,9 +44,9 @@ left: calc(50% - 24px);
                         @include('admin._body_subestaciones')
                     @endif
                     @if ($section === 'users')
-                    @include('admin._modal_users')
-                    @include('admin._body_users')
-                @endif
+                        @include('admin._modal_users')
+                        @include('admin._body_users')
+                    @endif
                 </div>
 
                 @include('admin._footer')

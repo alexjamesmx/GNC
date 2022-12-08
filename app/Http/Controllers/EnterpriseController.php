@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Enterprise;
 use App\Models\Parque;
 use App\Models\User;
@@ -9,51 +10,50 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+
 class EnterpriseController extends Controller
 {
 
     public function home()
     {
-        $enterprises = Enterprise::select('enterprises.id as enterprise_id','parques.id as parque_id', 'enterprises.*' ,'parques.*', 'users.id as user_id', 'users.*')->join('parques','enterprises.parque_id', '=', 'parques.id')->join('users','enterprises.user_id', '=', 'users.id')->where('enterprises.status_id', '!=', '1')->orderBy('parques.parque')->paginate(10);
+        $enterprises = Enterprise::select('enterprises.id as enterprise_id', 'parques.id as parque_id', 'enterprises.*', 'parques.*', 'users.id as user_id', 'users.*')->join('parques', 'enterprises.parque_id', '=', 'parques.id')->join('users', 'enterprises.user_id', '=', 'users.id')->where('enterprises.status_id', '!=', '1')->orderBy('parques.parque')->paginate(10);
 
-       
+
         $parques = Parque::where('status_id', '!=', '1')
-        ->get();
+            ->get();
 
-        $users = User::join('enterprises', 'users.id', '=' , 'enterprises.user_id')
-        ->where('enterprises.status_id', '!=', '1')
-        ->get();
+        $users = User::join('enterprises', 'users.id', '=', 'enterprises.user_id')
+            ->where('enterprises.status_id', '!=', '1')
+            ->get();
 
-        $users = DB::table('users')->whereNotExists(function($query) {
+        $users = DB::table('users')->whereNotExists(function ($query) {
             $query->select('user_id')
-            ->where('status_id','!=','1')
-                  ->from('enterprises')
-                  ->whereColumn('enterprises.user_id','users.id');
-        })->where('status_id','!=', '1')->get();
+                ->where('status_id', '!=', '1')
+                ->from('enterprises')
+                ->whereColumn('enterprises.user_id', 'users.id');
+        })->where('status_id', '!=', '1')->get();
 
         if (session()->has('message')) {
             session()->keep('message');
         }
 
-        $role_type = Auth::user()->role_id; 
-        if($role_type=== 1){
+        $role_type = Auth::user()->role_id;
+        if ($role_type === 1) {
             $role = 'Admin';
-        }
-        else if($role_type === 2){
+        } else if ($role_type === 2) {
             $role = 'Empresa';
-        }
-        else{
+        } else {
             $role = 'Técnico';
         }
 
-        return view('admin.admin', ['enterprises' => $enterprises, 'section' => 'enterprises', 'section_cute' => 'Empresas','parques' => $parques,'users' => $users, 'role' => $role]);
+        return view('admin.admin', ['enterprises' => $enterprises, 'section' => 'enterprises', 'section_cute' => 'Empresas', 'parques' => $parques, 'users' => $users, 'role' => $role]);
     }
     public function delete($id)
     {
         $response = Enterprise::where('id', $id)->update(['status_id' => 1]);
         return response()->json(['response' =>  $response], 200);
     }
-    
+
     public function validated(Request $request)
     {
         if (!$request->isMethod('post')) {
@@ -63,8 +63,8 @@ class EnterpriseController extends Controller
 
         $exists = 'required|max:255';
         $already_exists = $already_exists === null ? '' : '|unique:enterprises,enterprise';
-        $name_str = $exists.$already_exists;
-   
+        $name_str = $exists . $already_exists;
+
         $validate = Validator::make(
             $request->all(),
             [
@@ -84,12 +84,12 @@ class EnterpriseController extends Controller
             [
                 'enterprise.required' =>  'Este campo es requerido',
                 'enterprise.max' => 'El nombre de la empresa no debe exceder de 255 caracteres.',
-                $already_exists === null ? '' :'enterprise.unique' =>  $already_exists === null ? '' :'Esta empresa ya existe en este parque.',
+                $already_exists === null ? '' : 'enterprise.unique' =>  $already_exists === null ? '' : 'Esta empresa ya existe en este parque.',
 
-                'razon_social.required' =>'Este campo es requerido',
+                'razon_social.required' => 'Este campo es requerido',
                 'razon_social.max' => 'La razón social no debe exceder 255 caracteres.',
 
-                'rfc.required' =>'Este campo es requerido',
+                'rfc.required' => 'Este campo es requerido',
                 'rfc.max' => 'El RFC no debe exceder de 13 caracteres.',
                 'rfc.min' => 'El RFC debe contar con 12 o 13 carctetes',
                 'rfc.unique' => 'Este RFC ya está registrado.',
@@ -102,7 +102,7 @@ class EnterpriseController extends Controller
 
                 'cp.required' => 'Este campo es requerido',
                 'cp.max' => 'El C.P. no debe exceder 255 caracteres.',
-                
+
                 'regimen_fiscal.required' => 'Este campo es requerido.',
                 'regimen_fiscal.max' => 'El régimen fiscal no debe exceder 255 caracteres.',
 
@@ -111,14 +111,14 @@ class EnterpriseController extends Controller
                 'phone.unique' => 'El teléfono ya está registrado.',
                 'phone.numeric' => 'El teléfono debe ser numérico.',
                 'phone.digits_between' => 'El teléfono debe tener entre 1 y 20 dígitos.',
-                
+
                 'fax.max' => 'El fax no debe exceder 255 caracteres.',
 
                 'location.max' => 'La ubicación no debe exceder 255 caracteres.',
-                     
+
                 'user_id.required' => 'Este campo es requerido',
                 'user_id.max' => 'El administrador de la empresa no debe exceder 255 caracteres.',
-                 
+
                 'parque_id.required' => 'Este campo es requerido',
                 'parque_id.not_in' => 'El parque es requerido',
                 'parque_id.max' => 'El parque no debe exceder 255 caracteres.',
@@ -136,10 +136,10 @@ class EnterpriseController extends Controller
         if (!$request->isMethod('post')) {
             return dd('error');
         }
-        $already_exists = Enterprise::where('parque_id', '=', $request->parque_id)->where('enterprise','=', $request->enterprise)->where('id','!=', $request->id)->first();
+        $already_exists = Enterprise::where('parque_id', '=', $request->parque_id)->where('enterprise', '=', $request->enterprise)->where('id', '!=', $request->id)->first();
         $exists = 'required|max:255';
-        $already_exists = $already_exists === null ? '' : '|unique:enterprises,enterprise,'.  $request->parque_id;
-        $name_str = $exists.$already_exists;
+        $already_exists = $already_exists === null ? '' : '|unique:enterprises,enterprise,' .  $request->parque_id;
+        $name_str = $exists . $already_exists;
         $validate = Validator::make(
             $request->all(),
             [
@@ -150,7 +150,7 @@ class EnterpriseController extends Controller
                 'ciudad' => 'required|max:255',
                 'cp' => 'required|max:255',
                 'regimen_fiscal' => 'required|max:255',
-                'phone' => 'required|numeric|digits_between:1,20|unique:enterprises,phone,'. $request->id,
+                'phone' => 'required|numeric|digits_between:1,20|unique:enterprises,phone,' . $request->id,
                 'fax' => 'max:255',
                 'location' => 'max:255',
                 'user_id' => 'required|max:255',
@@ -159,12 +159,12 @@ class EnterpriseController extends Controller
             [
                 'enterprise.required' =>  'Este campo es requerido',
                 'enterprise.max' => 'El nombre de la empresa no debe exceder de 255 caracteres.',
-                $already_exists === null ? '' :'enterprise.unique' =>  $already_exists === null ? '' :'Esta empresa ya existe en este parque.',
+                $already_exists === null ? '' : 'enterprise.unique' =>  $already_exists === null ? '' : 'Esta empresa ya existe en este parque.',
 
-                'razon_social.required' =>'Este campo es requerido',
+                'razon_social.required' => 'Este campo es requerido',
                 'razon_social.max' => 'La razón social no debe exceder 255 caracteres.',
 
-                'rfc.required' =>'Este campo es requerido',
+                'rfc.required' => 'Este campo es requerido',
                 'rfc.max' => 'El RFC no debe exceder de 13 caracteres.',
                 'rfc.min' => 'El RFC debe contar con 12 o 13 carctetes',
                 'rfc.unique' => 'Este RFC ya está registrado.',
@@ -177,7 +177,7 @@ class EnterpriseController extends Controller
 
                 'cp.required' => 'Este campo es requerido',
                 'cp.max' => 'El C.P. no debe exceder 255 caracteres.',
-                
+
                 'regimen_fiscal.required' => 'Este campo es requerido.',
                 'regimen_fiscal.max' => 'El régimen fiscal no debe exceder 255 caracteres.',
 
@@ -186,14 +186,14 @@ class EnterpriseController extends Controller
                 'phone.unique' => 'El teléfono ya está registrado.',
                 'phone.numeric' => 'El teléfono debe ser numérico.',
                 'phone.digits_between' => 'El teléfono debe tener entre 1 y 20 dígitos.',
-                
+
                 'fax.max' => 'El fax no debe exceder 255 caracteres.',
 
                 'location.max' => 'La ubicación no debe exceder 255 caracteres.',
-                     
+
                 'user_id.required' => 'Este campo es requerido',
                 'user_id.max' => 'El administrador de la empresa no debe exceder 255 caracteres.',
-                 
+
                 'parque_id.required' => 'Este campo es requerido',
                 'parque_id.not_in' => 'El parque es requerido',
                 'parque_id.max' => 'El parque no debe exceder 255 caracteres.',
@@ -208,12 +208,14 @@ class EnterpriseController extends Controller
     }
 
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $enterprise = new Enterprise();
         $enterprise->create($request->except('id'));
         return response()->json(['response' => true,]);
     }
-    public function update_enterprise(Request $request,$id){
+    public function update_enterprise(Request $request, $id)
+    {
         $response = Enterprise::where('id', $id)->update($request->except('id'));
         return response()->json(['response' => true], 200); //BOLLEAN
     }

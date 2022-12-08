@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Mockery\Undefined;
 
 class UsersController extends Controller
 {
@@ -29,6 +30,8 @@ class UsersController extends Controller
             $role = 'Técnico';
         }
         // dd($users[0]->status);
+
+        // dd($users);
         return view('admin.admin', ['users' => $users, 'section' => 'users', 'section_cute' => 'Usuarios', 'role' => $role, 'users_inactivos' => $users_inactivos]);
     }
 
@@ -43,20 +46,23 @@ class UsersController extends Controller
         if (!$request->isMethod('post')) {
             return dd('error');
         }
-        // $already_exists = Subestacion::where('subestacion','=', $request->subestacion)->where('enterprise_id','=', $request->enterprise_id)->where('parque_id','=', $request->parque_id)->where('type_id','=', $request->type_id)->first();
 
-        // $exists = 'required|max:255';
-        // $already_exists = $already_exists === null ? '' : '|unique:subestaciones,subestacion';
-        // $name_str = $exists.$already_exists;
+        $image = $request->file('image');
+        if (isset($image)) {
+            $image_validator = 'image|mimes:png,jpg,jpeg|max:2048';
+        } else {
+            $image_validator = '';
+        }
 
         $validated = Validator::make($request->except('id'), [
             'name' => 'required|max:255',
             'last_name' => 'required|max:255',
             "email" => "required|email|unique:users,email",
             'role_id' => 'required|between:1,3',
-            'phone' => 'required|numeric',
+            'phone' => 'required|numeric|unique:users,phone',
             'password' => 'required|min:8',
             'password_confirmation' => 'required|same:password',
+            'image' => $image_validator
         ], [
             "name.required" => "Este campo es requerido",
             "name.max" => "Este campo no puede tener más de 255 caracteres",
@@ -73,12 +79,19 @@ class UsersController extends Controller
 
             "phone.required" => "Este campo es requerido",
             "phone.numeric" => "Este campo debe ser un número",
+            "phone.unique" => "Este número de teléfono ya está registrado",
 
             "password.required" => "Este campo es requerido",
             "password.min" => "Este campo debe tener al menos 8 caracteres",
 
             "password_confirmation.required" => "Este campo es requerido",
             "password_confirmation.same" => "Las contraseñas no coinciden",
+
+            'image.required' => 'Este campo es requerido',
+            'image.image' => 'El archivo debe ser una imagen',
+            'image.mimes' => 'El archivo debe ser una imagen con formato png, jpg o jpeg',
+            'image.max' => 'El archivo debe pesar menos de 2MB'
+
         ]);
 
         if ($validated->fails()) {
@@ -93,6 +106,12 @@ class UsersController extends Controller
         $user->status_id = 2;
         $user->phone = $request->phone;
         $user->password = $request->password;
+
+        if ($request->image != "undefined") {
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('images/profile'), $imageName);
+            $user->image = $imageName;
+        }
 
         return response()->json(['response' => $user->save()]);
     }

@@ -26,6 +26,6 @@ class Parque extends Model
     }
     public function enterprises()
     {
-        return $this->hasMany(Enterprise::class, 'foreign_key', 'parque_id');
+        return $this->belongsTo(Enterprise::class, 'foreign_key', 'parque_id');
     }
 }

@@ -55,6 +55,11 @@
 :not(#phone_user)
 :not(#password)
 :not(#password_confirmation)
+:not(#parque)
+:not(#calle)
+:not(#municipio)
+:not(#codigo)
+:not(#subestacion)
 + .input-label-custom  {
     transform: translate(10px, -14px) scale(0.8);
     color: rgb(255, 255, 255);
@@ -76,7 +81,12 @@
 #email:not(:placeholder-shown) + .input-label-custom ,
 #password:not(:placeholder-shown) + .input-label-custom ,
 #password_confirmation:not(:placeholder-shown) + .input-label-custom ,
-#phone_user:not(:placeholder-shown) + .input-label-custom 
+#parque:not(:placeholder-shown) + .input-label-custom,
+#calle:not(:placeholder-shown) + .input-label-custom ,
+#municipio:not(:placeholder-shown) + .input-label-custom ,
+#codigo:not(:placeholder-shown) + .input-label-custom,
+#subestacion:not(:placeholder-shown) + .input-label-custom
+
 {
     transform: translate(10px, -14px) scale(0.8);
     color: rgb(255, 255, 255);
@@ -105,7 +115,7 @@
         brightness(109%) contrast(101%);
 }
 
-
+/* 
 input[type=checkbox] {
     height: 0;
     width: 0;
@@ -149,7 +159,7 @@ input:checked+label:after {
 
 label:active:after {
     width: 32.5px;
-}
+} */
 
 
 .deshabilitado {

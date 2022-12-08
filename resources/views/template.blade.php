@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title id="page-title">GNC - Dashboard</title>
+    <title id="page-title">GNC</title>
     <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" />
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -21,9 +21,6 @@
                 }
             });
         })
-
-
-
         var base_url = "{{ url('/') }}";
 
         function message(text) {
@@ -55,19 +52,11 @@
     <script defer src="{{ asset('js/off-canvas.js') }}"></script>
     <script defer src="{{ asset('js/misc.js') }}"></script>
 
-    <script defer>
-        $(function() {
-            console.log('qie')
-            // document.querySelector('#spinner').style.opacity = 0
-        })
-    </script>
-
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
             document.querySelector('#spinner').style.opacity = 0
             document.querySelector('#divLoading').style.opacity = 1
         })
-        
     </script>
 </body>
 

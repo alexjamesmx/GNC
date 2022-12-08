@@ -48,7 +48,7 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class='row mb-4'>
                             <div class="col-12">
                                 <label id="type_id_error" class="text-sm text-red-500 tracking-wide mb-3"></label>

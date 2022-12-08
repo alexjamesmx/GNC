@@ -44,25 +44,29 @@
                                         <p id="subestacion_{{ $subestacion->id }}">{{ $subestacion->subestacion }}</p>
                                     </td>
                                     {{-- TIPO --}}
-                                    <td scope="row" style="min-width:fit-content; white-space:initial "id="type_{{ $subestacion->id }}">
+                                    <td scope="row"
+                                        style="min-width:fit-content; white-space:initial "id="type_{{ $subestacion->id }}">
                                         {{ $subestacion->type->type }}
                                     </td>
                                     <input type="text" id="type_id_{{ $subestacion->id }}" hidden
-                                            value="{{ $subestacion->type->id }}">
+                                        value="{{ $subestacion->type->id }}">
                                     {{-- EMPRESA A LA QUE PERTENECE --}}
                                     <td scope="row"
-                                        style="min-width:fit-content; white-space:initial"id="enterprise_{{ $subestacion->id }}">
+                                        style="min-width:fit-content; white-space:initial"id="enterprise_{{ $subestacion->id }}"
+                                        data-id-enterprise="{{ $subestacion->enterprise->id }}"
+                                        data-name-enterprise="{{ $subestacion->enterprise->enterprise }}">
                                         {{ $subestacion->enterprise->enterprise }}
                                     </td>
                                     <input type="text" id="enterprise_id_{{ $subestacion->id }}" hidden
-                                    value="{{ $subestacion->enterprise->id }}">
+                                        value="{{ $subestacion->enterprise->id }}">
                                     {{-- PARQUE AL QUE PERTENECE --}}
                                     <td scope="row"
-                                        style="min-width:fit-content; white-space:initial"id="parque_{{ $subestacion->id }}">
+                                        style="min-width:fit-content; white-space:initial"id="parque_{{ $subestacion->id }}"data-parqueid="{{ $subestacion->parque->id }}">
                                         {{ $subestacion->parque->parque }}
+
                                     </td>
                                     <input type="text" id="parque_id_{{ $subestacion->id }}" hidden
-                                    value="{{ $subestacion->parque->id }}">
+                                        value="{{ $subestacion->parque->id }}">
                                     {{-- ACCIONES --}}
                                     <td scope="row" style="min-width:fit-content; white-space:initial">
                                         <div class="flex justify-start">
@@ -94,51 +98,48 @@
         </div>
     </div>
 </div>
-
 <script defer async="false">
     document.querySelector('#page-title').innerHTML = 'GNC - {{ $section_cute }}';
     const subestaciones = @json($subestaciones);
     const parques = @json($parques);
     const enterprises = @json($enterprises);
+    const select_enterprises = @json($select_enterprises)
 
-    const subestacion = document.querySelector('#subestacion')
-    const subestacion_error = document.querySelector('#subestacion_error')
+    const form_subestacion = document.querySelector('#subestacion')
+    const form_subestacion_error = document.querySelector('#subestacion_error')
 
-    const type_id = document.querySelector('#type_id')
-    const type_id_error = document.querySelector('#type_id_error')
+    const form_type_select = document.querySelector('#type_id')
+    const form_type_select_error = document.querySelector('#type_id_error')
 
-    const parque_id = document.querySelector('#parque_id')
-    const parque_id_error = document.querySelector('#parque_id_error')
+    const form_parque_select = document.querySelector('#parque_id')
+    const form_parque_select_error = document.querySelector('#parque_id_error')
 
-    const enterprise_id = document.querySelector('#enterprise_id')
-    const enterprise_id_error = document.querySelector('#enterprise_id_error')
+    const form_enterprise_select = document.querySelector('#enterprise_id')
+    const form_enterprise_select_error = document.querySelector('#enterprise_id_error')
 
     const submit = document.querySelector('#modal-form')
-    const clean = document.querySelector('#clean')
+    const form_clean = document.querySelector('#clean')
+
     $(function() {
 
-        clean.addEventListener('click', () => {
-            subestacion.value = ''
-            type_id.value = 0
-            enterprise_id.value = 0
-            parque_id.value = 0
-            subestacion_error.textContent = ''
-            type_id_error.textContent = ''
-            parque_id_error.textContent = ''
-            enterprise_id_error.textContent = ''
+        form_clean.addEventListener('click', () => {
+            form_subestacion.value = ''
+            form_type_select.value = 0
+            form_enterprise_select.value = 0
+            form_parque_select.value = 0
+            form_subestacion_error.textContent = ''
+            form_type_select_error.textContent = ''
+            form_parque_select_error.textContent = ''
+            form_enterprise_select_error.textContent = ''
             document.querySelector('#id').value = null
         })
 
         submit.addEventListener("submit", function(e) {
-
             e.preventDefault()
-
             const validate = handleErrors()
             if (validate === false) return false
             const type = document.querySelector('#btn-submit').getAttribute('data-modal')
-
             let body = new FormData(document.getElementById("modal-form"))
-
             body.append('type_id', type_id.value)
             body.append('parque_id', parque_id.value)
             body.append('enterprise_id', enterprise_id.value)
@@ -208,27 +209,31 @@
 
                 axios.post(url, body)
                     .then(res => {
-                        console.log(res.data)
-                        console.log(res.data.response)
-
                         if (res.data.response === true) {
-                            
-                            document.querySelector('#subestacion_' + body.get('id')).innerHTML = body.get('subestacion')
-                            document.querySelector('#type_' + body.get('id')).innerHTML = body.get('type_id') == 1 ? 'Compacta' : 'Pedestal' 
-                            document.querySelector('#type_id_' + body.get('id')).value = body.get('type_id')
-                            document.querySelector('#parque_' + body.get('id')).innerHTML = parque_id.options[parque_id.selectedIndex].text
-                            document.querySelector('#parque_id_' + body.get('id')).value = body.get('parque_id')
-                            document.querySelector('#parque_' + body.get('id')).innerHTML = parque_id.options[parque_id.selectedIndex].text
+                            console.log('EDITA SUCCESS')
 
-                            document.querySelector('#enterprise_id_' + body.get('id')).value = body.get('enterprise_id')
-                            document.querySelector('#enterprise_' + body.get('id')).innerHTML = enterprise_id.options[enterprise_id.selectedIndex].text
+                            document.querySelector('#subestacion_' + body.get('id')).innerHTML =
+                                body.get('subestacion')
+                            document.querySelector('#type_' + body.get('id')).innerHTML = body.get(
+                                'type_id') == 1 ? 'Compacta' : 'Pedestal'
+                            document.querySelector('#type_id_' + body.get('id')).value = body.get(
+                                'type_id')
+                            document.querySelector('#parque_' + body.get('id')).innerHTML =
+                                parque_id.options[parque_id.selectedIndex].text
+                            document.querySelector('#parque_id_' + body.get('id')).value = body.get(
+                                'parque_id')
+                            document.querySelector('#parque_' + body.get('id')).innerHTML =
+                                parque_id.options[parque_id.selectedIndex].text
+
+                            document.querySelector('#enterprise_id_' + body.get('id')).value = body
+                                .get('enterprise_id')
+                            document.querySelector('#enterprise_' + body.get('id')).innerHTML =
+                                enterprise_id.options[enterprise_id.selectedIndex].text
 
                             document.querySelector('#button_close').click()
                             message('Actualizado correctamente');
-                        }
-                         else {
+                        } else {
                             const errors = res.data.errors
-
                             const {
                                 subestacion: subestacion_mensaje,
                                 enterprise_id: enterprise_id_mensaje,
@@ -236,26 +241,29 @@
                                 type_id: type_id_mensaje
                             } = errors
                             if (subestacion_mensaje) {
-                                subestacion_error.textContent = subestacion_mensaje
-                                subestacion.classList.remove('input-validated')
+                                form_subestacion_error.textContent = subestacion_mensaje
+                                form_subestacion.classList.remove('input-validated')
                             } else {
-                                subestacion_error.textContent = ''
-                                subestacion.classList.add('input-validated')
+                                form_subestacion_error.textContent = ''
+                                form_subestacion.classList.add('input-validated')
                             }
                             if (enterprise_id_mensaje) {
-                                enterprise_id_error.textContent = enterprise_id_mensaje
+                                form_enterprise_select.textContent = enterprise_id_mensaje
                             } else {
-                                enterprise_id_error.textContent = ''
+                                form_enterprise_select_error.textContent = ''
+                                form_enterprise_select.classList.add('input-validated')
                             }
                             if (parque_id_mensaje) {
-                                parque_id_error.textContent = parque_id_mensaje
+                                form_parque_select.textContent = parque_id_mensaje
                             } else {
-                                enterprise_id_error.textContent = ''
+                                form_parque_select_error.textContent = ''
+                                form_parque_select.classList.add('input-validated')
                             }
                             if (type_id_mensaje) {
-                                type_id_error.textContent = type_id_mensaje
+                                form_type_select_error.textContent = type_id_mensaje
                             } else {
-                                enterprise_id_error.textContent = ''
+                                form_type_select_error.textContent = ''
+                                form_type_select.classList.add('input-validated')
                             }
                         }
                     })
@@ -264,52 +272,54 @@
                     })
             }
         });
-
-        $('#modal-enterprises').on('hidden.bs.modal', (e) => {
-            if (document.querySelector('#btn-submit').getAttribute('data-modal') === 'edit') {
-                clearModal()
-            }
+        $('#modal-subestaciones').on('hidden.bs.modal', (e) => {
+            form_subestacion.classList.remove('input-validated')
+            form_type_select.classList.remove('input-validated')
+            form_parque_select.classList.remove('input-validated')
+            form_enterprise_select.classList.remove('input-validated')
         })
     })
 
     function handleErrors() {
         let x = 0
         if (subestacion.value === '') {
-            subestacion_error.textContent = 'Este campo es requerido'
-            subestacion.classList.remove('input-validated')
+            form_subestacion_error.textContent = 'Este campo es requerido'
+            form_subestacion.classList.remove('input-validated')
             x = 1
         } else {
-            subestacion_error.textContent = ''
-            subestacion.classList.add('input-validated')
+            form_subestacion_error.textContent = ''
+            form_subestacion.classList.add('input-validated')
         }
 
-        if (type_id.value === "0") {
-            type_id_error.textContent = 'Este campo es requerido'
+        if (form_type_select.value === "0") {
+            form_type_select_error.textContent = 'Este campo es requerido'
+            form_type_select.classList.remove('input-validated')
             x = 1
         } else {
-            type_id_error.textContent = ''
+            form_type_select_error.textContent = ''
+            form_type_select.classList.add('input-validated')
         }
-        if (parque_id.value === "0") {
-            parque_id_error.textContent = 'Este campo es requerido'
+        if (form_parque_select.value === "0") {
+            form_parque_select_error.textContent = 'Este campo es requerido'
+            form_parque_select.classList.remove('input-validated')
             x = 1
         } else {
-            parque_id_error.textContent = ''
+            form_parque_select_error.textContent = ''
+            form_parque_select.classList.add('input-validated')
         }
-        if (enterprise_id.value === "0") {
-            enterprise_id_error.textContent = 'Este campo es requerido'
+        if (form_enterprise_select.value === "0") {
+            form_enterprise_select_error.textContent = 'Este campo es requerido'
+            form_enterprise_select.classList.remove('input-validated')
             x = 1
         } else {
-            enterprise_id_error.textContent = ''
+            form_enterprise_select_error.textContent = ''
+            form_enterprise_select.classList.add('input-validated')
         }
         if (x === 1) return false
-
-        console.log('regresadn ??')
         return true;
     }
 
-
-
-    //ELIMINAR 
+    //ELIMINAR SUBESTACION
     const handleDelete = () => {
         const id = document.getElementById('delete-id').value
         let url = '{{ route('subestacion.delete', ':id') }}';
@@ -331,122 +341,152 @@
     }
     // CERRAR MODAL
     const clearModal = (e) => {
-
         const type = document.querySelector('#btn-submit').getAttribute('data-modal')
         if (type === 'create') return false
-        console.log('entro a limopiar')
 
-        parque_id.length = 1
-        enterprise_id.length = 1
-        subestacion.value = ''
-        type_id.value = 0
-        parque_id.value = 0
-        enterprise_id.value = 0
-        subestacion_error.textContent = ''
-        type_id_error.textContent = ''
-        parque_id_error.textContent = ''
-        enterprise_id_error.textContent = ''
+        form_parque_select.length = 1
+        form_enterprise_select.length = 1
+        form_subestacion.value = ''
+        form_type_select.value = 0
+        form_parque_select.value = 0
+        form_enterprise_select.value = 0
+        form_subestacion_error.textContent = ''
+        form_type_select_error.textContent = ''
+        form_parque_select_error.textContent = ''
+        form_enterprise_select_error.textContent = ''
         document.querySelector('#id').value = null
-        // cleanErrorStyles()
     }
 
     const handleCreate = () => {
+        console.trace('handleCreate')
         document.querySelector('#btn-submit').setAttribute('data-modal', 'create')
         document.querySelector('#modal-title').innerHTML = 'Registrar subestación'
-
-        if (parque_id.length === 1) {
-            parques.forEach(element => {
+        // form_parque_select.options[0].selected = 'selected';
+        if (form_enterprise_select.length === 1) {
+            console.trace('handleCreate -> ', 'Select llena campos una sola vez')
+            select_enterprises.forEach(e => {
                 const option = document.createElement('option')
-                option.value = element.id
-                option.textContent = element.parque
-                parque_id.appendChild(option)
-            });
-        }
-        if (enterprise_id.length === 1) {
-            enterprises.forEach(element => {
-                const option = document.createElement('option')
-                option.value = element.id
-                option.textContent = element.enterprise
-                enterprise_id.appendChild(option)
+                option.value = e.id
+                option.textContent = e.enterprise
+                form_enterprise_select.appendChild(option)
             });
         }
     }
 
     const handleEdit = (id) => {
+        document.querySelector('.spinner-position').style.opacity = 1
+        document.querySelector('.spinner-hide').style.opacity = 0
         clearModal()
         document.querySelector('#id').value = id
         document.querySelector('#btn-submit').setAttribute('data-modal', 'edit')
         document.querySelector('#modal-title').innerHTML = 'Editar subestación'
         document.getElementById('edit-id').value = id
 
-        document.querySelector('.spinner-position').style.opacity = 1
-        document.querySelector('.spinner-hide').style.opacity = 0
+
         url = '{{ route('enterprise.get', ':id') }}';
         url = url.replace(':id', id);
 
-        subestacion.value = document.querySelector('#subestacion_' + id).textContent
-        console.log('id =>  ', id)
-        console.log(document.querySelector('#parque_id_' + id).value)
+        form_subestacion.value = document.querySelector('#subestacion_' + id).textContent
+        const parque_id = document.querySelector('#parque_id_' + id).value
+        const enterprise_id = document.querySelector('#enterprise_' + id).getAttribute(
+            'data-id-enterprise')
+        const enterprise_name = document.querySelector('#enterprise_' + id).getAttribute(
+            'data-name-enterprise')
 
-        if (parque_id.length === 1) {
-            parques.forEach(element => {
-                const option = document.createElement('option')
-                option.value = element.id
-                option.textContent = element.parque
-                parque_id.appendChild(option)
-            });
-        }
-        if (enterprise_id.length === 1) {
-            enterprises.forEach(element => {
-                const option = document.createElement('option')
-                option.value = element.id
-                option.textContent = element.enterprise
-                enterprise_id.appendChild(option)
-            });
-        }
+        form_type_select.value = document.querySelector('#type_id_' + id).value
+        console.trace('handleEdit -> parque_id: ', parque_id)
+        console.trace('handleEdit -> enteprise id: ', enterprise_id, ' ', enterprise_name)
 
-        parque_id.value = document.querySelector('#parque_id_' + id).value
-        enterprise_id.value = document.querySelector('#enterprise_id_' + id).value
-        type_id.value = document.querySelector('#type_id_' + id).value
-
+        select_enterprises.forEach(e => {
+            const option = document.createElement('option')
+            option.textContent = e.enterprise
+            if (e.enterprise === enterprise_name) {
+                option.value = enterprise_id
+            } else {
+                option.value = e.id
+            }
+            form_enterprise_select.value = enterprise_id
+            form_enterprise_select.appendChild(option)
+        });
+        getParques(id)
+        console.trace('ID AL EDITART', document.querySelector('#parque_' + id).getAttribute('data-parqueid'))
 
         document.querySelector('.spinner-position').style.opacity = 0
         document.querySelector('.spinner-hide').style.opacity = 1
     }
 
+    form_enterprise_select.addEventListener('change', () => {
+        form_parque_select.options[0].selected = 'selected';
+        console.trace('form_enterprise_select on change')
+        const type = document.querySelector('#btn-submit').getAttribute('data-modal')
+        console.trace('form_enterprise_select on change -> TYPE: ', type)
+        getParques()
+    })
 
-    // const cleanErrorStyles = () => {
-    //     enterprise.classList.remove('input-validated')
-    //     razon_social.classList.remove('input-validated')
-    //     rfc.classList.remove('input-validated')
-    //     address.classList.remove('input-validated')
-    //     ciudad.classList.remove('input-validated')
-    //     cp.classList.remove('input-validated')
-    //     enterprise.classList.remove('input-validated')
-    //     regimen_fiscal.classList.remove('input-validated')
-    //     phone.classList.remove('input-validated')
-    //     fax.classList.remove('input-validated')
-    //     fax.classList.remove('input-validated')
-    //     locate.classList.remove('input-validated')
-    //     locate.classList.remove('input-validated')
+    form_parque_select.addEventListener('change', () => {
+        console.trace('form_parque_select on change')
+        const type = document.querySelector('#btn-submit').getAttribute('data-modal')
+        console.trace('form_parque_select on change -> TYPE: ', type)
 
+        console.trace('aqui')
 
-    //     enterprise_error.textContent = ''
-    //     razon_social_error.textContent = ""
-    //     rfc_error.textContent = ""
-    //     address_error.textContent = ""
-    //     ciudad_error.textContent = ""
-    //     cp_error.textContent = ""
-    //     regimen_fiscal_error.textContent = ""
-    //     phone_error.textContent = ""
-    //     fax_error.textContent = ""
-    //     locate_error.textContent = ""
-    //     parque_id_error.textContent = ""
-    //     user_id_error.textContent = ""
-    // }
+        const route = "{{ route('subestacion.get_enterprise_id_on_select') }}"
+        const parque_id = form_parque_select.options[form_parque_select.selectedIndex].value
+        const enterprise = form_enterprise_select.options[form_enterprise_select.selectedIndex].textContent
 
+        const json = {
+            'parque_id': parque_id,
+            'enterprise': enterprise
+        }
+        axios.post(route, json)
+            .then(res => {
+                if (form_parque_select.length > 2) {
+                    form_enterprise_select.options[form_enterprise_select.selectedIndex].value = res
+                        .data
+                        .response.id
+                }
+            })
+            .catch(err => {
+                console.error(err);
+            })
+    })
+
+    function getParques(id = 0) {
+
+        const enterprise = enterprise_id.options[enterprise_id.selectedIndex].textContent
+        console.trace('form_enterprise_select on change -> nombre empresa', enterprise)
+
+        form_enterprise_select.lenght = 1
+        const route = '{{ route('subestacion.get_parques_by_name') }}';
+        axios.post(route, {
+            "enterprise": enterprise
+        }).then(res => {
+            console.log(res.data.response)
+            const {
+                parque_id,
+                parque
+            } = res.data.response
+
+            form_parque_select.length = 1
+            res.data.response.forEach(e => {
+                const option = document.createElement('option')
+                option.value = e.parque_id
+                option.textContent = e.parque
+                form_parque_select.appendChild(option)
+            })
+
+            if (id > 0) {
+                console.trace('ID AL EDITART 2', document.querySelector('#parque_' + id).getAttribute(
+                    'data-parqueid'))
+                form_parque_select.value = document.querySelector('#parque_' + id).getAttribute('data-parqueid')
+            }
+
+        }).catch(err => {
+            message('Intentalo mas tarde...')
+            console.error(err)
+        })
+    }
     @if (Session::has('message'))
-        console.log(' SIENTRO AL MENSAJE')
         @if (Session::get('message') == 3)
             message('Subestación creada con éxito')
         @endif

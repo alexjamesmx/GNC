@@ -22,27 +22,27 @@
                         <input id="id"name="id" hidden>
                         <br>
                         <br>
-                        <div class="input-group-custom w-full flex">
+                        <div class="input-group-custom w-full flex mb-2">
                             <input type="hidden" id="edit-id">
-                            <input id="parque" name="parque" required class='input-custom w-full'>
+                            <input id="parque" name="parque" required class='input-custom w-full' placeholder=" ">
                             <label for="parque" class="input-label-custom" onclick="efecto(this)">Nombre</label>
                         </div>
                         <label id="parque_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
 
-                        <div class="input-group-custom w-full flex">
-                            <input id="calle"name="calle"required class='input-custom w-full'>
+                        <div class="input-group-custom w-full flex mb-2">
+                            <input id="calle"name="calle"required class='input-custom w-full' placeholder=" ">
                             <label for="calle" class="input-label-custom" onclick="efecto(this)">Calle</label>
                         </div>
                         <label id="calle_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
 
-                        <div class="input-group-custom w-full flex">
-                            <input id="municipio"name="municipio"required class='input-custom w-full'>
+                        <div class="input-group-custom w-full flex mb-2">
+                            <input id="municipio"name="municipio"required class='input-custom w-full' placeholder=" ">
                             <label for="municipio" class="input-label-custom" onclick="efecto(this)">Municipio</label>
                         </div>
                         <label id="municipio_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
 
-                        <div class="input-group-custom w-full flex">
-                            <input id="codigo"name="codigo"required class='input-custom w-full'>
+                        <div class="input-group-custom w-full flex mb-2">
+                            <input id="codigo"name="codigo"required class='input-custom w-full' placeholder=" ">
                             <label for="codigo" class="input-label-custom" onclick="efecto(this)">Código
                                 Postal</label>
                         </div>
