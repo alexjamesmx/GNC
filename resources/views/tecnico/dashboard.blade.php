@@ -13,44 +13,19 @@ left: calc(50% - 24px);
     <path d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z" fill="black" />
 </svg>
 
-
 @section('content')
     <div id="divLoading" style="opacity:0">
-
         <!--navbar -->
-        @include('admin._navbar')
-
+        @include('tecnico._navbar')
         <div class="container-fluid page-body-wrapper">
             <!-- sidebar -->
-            @include('admin._sidebar')
-
+            @include('tecnico._sidebar')
             <div class="main-panel">
                 <div class="content-wrapper">
                     <!-- Body -->
-                    @include('admin._modal_eliminar')
-                    @if ($section === 'parques')
-                        @include('admin._modal_parques')
-                        @include('admin._body_parques')
-                    @endif
-                    @if ($section === 'dashboard')
-                        @include('admin._body_dashboard')
-                    @endif
-                    @if ($section === 'enterprises')
-                        @include('admin._modal_enterprises')
-                        @include('admin._body_enterprises')
-                    @endif
-                    @if ($section === 'subestaciones')
-                        @include('admin._modal_subestaciones')
-                        @include('admin._body_subestaciones')
-                    @endif
-                    @if ($section === 'users')
-                        @include('admin._modal_users')
-                        @include('admin._body_users')
-                    @endif
+                    hp;a bebe
                 </div>
-
                 @include('admin._footer')
-
             </div>
         </div>
     </div>

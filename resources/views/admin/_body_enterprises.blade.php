@@ -83,7 +83,7 @@
                                                 Eliminar</button>
                                         </div>
                                     </td>
-                                    
+
                                 </tr>
                             @empty
                                 <h1>No hay empresas</h1>
@@ -143,7 +143,7 @@
                                         error: function(err) {
                                             message(
                                                 'Hubo un problema con la petición'
-                                                )
+                                            )
                                         }
                                     });
                                 }
@@ -307,7 +307,7 @@
                                         administrador_text
 
 
-                                        document.querySelector('#button_close').click() 
+                                    document.querySelector('#button_close').click()
                                 } else {
                                     message('Hubo un problema con la petición')
                                 }
@@ -589,6 +589,7 @@
         option.selected = true
         option.disabled = true
         selectAdministrador.appendChild(option)
+        console.log(users)
         users.forEach(element => {
             const option = document.createElement('option')
             option.value = element.id

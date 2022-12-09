@@ -58,6 +58,11 @@
             document.querySelector('#divLoading').style.opacity = 1
         })
     </script>
+
+    @if ($role === 'tecnico')
+        <div id="data-tecnico" data-data=@json($data)></div>
+        <script src="{{ asset('js/tecnico.js') }}"></script>
+    @endif
 </body>
 
 </html>

@@ -23,12 +23,12 @@ class DatabaseSeeder extends Seeder
 
         $this->call(RolesTableSeeder::class);
         $this->call(StatusTableSeeder::class);
-        // $this->call(ParquesTableSeeder::class);
-        Parque::factory(10)->create();
-        User::factory(10)->create();
-        $this->call(EnterprisesTableSeeder::class);
         $this->call(TypeTableSeeder::class);
-        Subestacion::factory(10)->create();
+        $this->call(ParquesTableSeeder::class);
+        // Parque::factory(10)->create();
+        User::factory(10)->create();
+        // $this->call(EnterprisesTableSeeder::class);
+        // Subestacion::factory(10)->create();
 
 
 

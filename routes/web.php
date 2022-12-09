@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ControlController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SectionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AccessController;
 use App\Http\Controllers\EnterpriseController;
@@ -23,10 +23,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AccessController::class, 'index'])->middleware(['accesos'])->name('access');
 Route::post('/message', [AccessController::class, 'message'])->middleware(['accesos'])->name('message');
-
-
-
-Route::get('/admin', [AdminController::class, 'index'])->middleware(['accesos', 'admin'])->name('admin');
+//ADMINISTRAODR ************************************************************
+Route::get('/admin', [SectionController::class, 'admin'])->middleware(['accesos', 'admin'])->name('admin');
 Route::prefix('/admin/parques')->middleware(['accesos', 'admin'])->controller(ParqueController::class)->group(function () {
     Route::get('/',                 'home')->name('parques.home');
     Route::post('/store',           'store')->name('parques.store');
@@ -34,8 +32,6 @@ Route::prefix('/admin/parques')->middleware(['accesos', 'admin'])->controller(Pa
     Route::get('/get/{id}',         'get')->name('parques.get');
     Route::post('/delete/{id}',     'delete')->name('parques.delete');
 });
-
-
 Route::prefix('/admin/empresas')->middleware(['accesos', 'admin'])->controller(EnterpriseController::class)->group(function () {
     Route::get('/',                 'home')->name('empresas.home');
     Route::get('/get/{id}',         'get')->name('enterprise.get');
@@ -47,8 +43,6 @@ Route::prefix('/admin/empresas')->middleware(['accesos', 'admin'])->controller(E
     Route::post('/update/{id}',           'update_enterprise')->name('enterprise.update');
     Route::post('/delete/{id}',     'delete')->name('enterprise.delete');
 });
-
-
 Route::prefix('/admin/subestaciones')->middleware(['accesos', 'admin'])->controller(SubestacionController::class)->group(function () {
     Route::get('/',                 'home')->name('subestacion.home');
     Route::post('/store',           'store')->name('subestacion.store');
@@ -58,20 +52,24 @@ Route::prefix('/admin/subestaciones')->middleware(['accesos', 'admin'])->control
     Route::post('/get_parques_by_id',     'get_parques_by_id')->name('subestacion.get_parques_by_id');
     Route::post('/get_enterprise_id_on_select',     'get_enterprise_id_on_select')->name('subestacion.get_enterprise_id_on_select');
 });
-
 Route::prefix('/admin/usuarios')->middleware(['accesos', 'admin'])->controller(UsersController::class)->group(function () {
     Route::get('/', 'home')->name('users.home');
     Route::post('/store', 'store')->name('users.store');
     Route::post('/get_user', 'get_user')->name('users.get_user');
     Route::post('/disable', 'disable')->name('users.disable');
 });
+//ADMINISTRAODR ************************************************************
 
+//TECNICO ************************************************************
+Route::get('/tecnico', [SectionController::class, 'tecnico'])->middleware(['accesos', 'tecnico'])->name('tecnico');
+//TECNICO ************************************************************
+//LOGIN ************************************************************
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
+//LOGIN ************************************************************
 
 Route::fallback(function () {
     return view('errors.404');
