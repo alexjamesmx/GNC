@@ -12,6 +12,7 @@ import '../assets/fontawesome/css/fontawesome.css'
 import '../assets/fontawesome/css/brands.css'
 import '../assets/fontawesome/css/solid.css'
 import '../assets/css/custom.css'
+import '../assets/css/tecnico.css'
 // import '../assets/webfonts/'
 
 // import '../assets/fontawesome.min.css'

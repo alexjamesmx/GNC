@@ -8,6 +8,7 @@ use App\Http\Controllers\EnterpriseController;
 use App\Http\Controllers\ParqueController;
 use App\Http\Controllers\SubestacionController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\TecnicoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -62,6 +63,7 @@ Route::prefix('/admin/usuarios')->middleware(['accesos', 'admin'])->controller(U
 
 //TECNICO ************************************************************
 Route::get('/tecnico', [SectionController::class, 'tecnico'])->middleware(['accesos', 'tecnico'])->name('tecnico');
+Route::get('/tecnico/test/{id}', [TecnicoController::class, 'test'])->middleware(['accesos', 'tecnico'])->name('tecnico.test');
 //TECNICO ************************************************************
 //LOGIN ************************************************************
 Route::middleware('auth')->group(function () {

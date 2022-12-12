@@ -7,7 +7,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title id="page-title">GNC</title>
     <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" />
-
+    @if ($role === 'tecnico')
+        <link rel="stylesheet" href="{{ asset('resources/tecnico.css') }}">
+    @endif
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -58,10 +60,22 @@
             document.querySelector('#divLoading').style.opacity = 1
         })
     </script>
-
-    @if ($role === 'tecnico')
+    {{-- SI SOMOS TECNICOS Y NO ESTAMOS DENTRO DEL TEST --}}
+    @if ($role === 'tecnico' && $section != 'test')
         <div id="data-tecnico" data-data=@json($data)></div>
+        <div id="data-inspecciones">@json($inspecciones_activas)</div>
         <script src="{{ asset('js/tecnico.js') }}"></script>
+        <script>
+            var route = ["{{ route('tecnico.test', ['id' => ':id']) }}"]
+            console.log(route)
+        </script>
+    @endif
+    {{-- SI SOMOS TECNICOS Y ESTAMOS DENTRO DEL TEST --}}
+    @if ($role === 'tecnico' && $section === 'test')
+        <script>
+            var route = ["{{ route('tecnico.test', ['id' => ':id']) }}"]
+        </script>
+        <script src="{{ asset('js/tecnico_test.js') }}"></script>
     @endif
 </body>
 

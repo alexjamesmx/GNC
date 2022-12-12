@@ -17,13 +17,13 @@
             </a>
         </li>
         <li class="nav-item nav-category">Menú principal</li>
-        <li class="nav-item {{ $section === 'dashboard' ? 'active' : '' }}">
-            <a class="nav-link" href="#dashboard">
+        <li id="nav_dashboard"class="nav-item {{ $section === 'dashboard' ? 'active' : '' }} hover:bg-cyan-400">
+            <a class="nav-link" href="#dashboard"onclick="handle_dashboard()">
                 <i class="menu-icon typcn typcn-document-text"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" id="nav_inspecciones">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
                 <i class="menu-icon typcn typcn-document-add"></i>
                 <span class="menu-title">Inspecciones</span>
@@ -32,7 +32,7 @@
             <div class="collapse" id="auth" style="visibility:visible !important">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="#activas">Activas </a>
+                        <a class="nav-link" href="#activas" onclick="handle_inspecciones_activas()">Activas </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#completas">Completas </a>
