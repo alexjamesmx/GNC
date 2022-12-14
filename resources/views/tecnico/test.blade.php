@@ -38,10 +38,17 @@ left: calc(50% - 24px);
                         </a>
                     </li>
                     <li class="nav-item nav-category">En inspección</li>
-                    <li id="nav_dashboard"class="nav-item">
+                    {{-- <li id="nav_dashboard"class="nav-item">
                         <a class="nav-link" href="{{ route('tecnico') }}">
                             <i class="menu-icon typcn typcn-document-text"></i>
                             <span class="menu-title">Salir de la inspección</span>
+                        </a>
+                    </li> --}}
+
+                    <li id="nav_dashboard"class="nav-item">
+                        <a class="flex justify-start mt-2 px-4 py-3 rounded nav-custom" href="{{ route('tecnico') }}">
+                            <i class="fas fa-arrow-alt-circle-left text-white ml-12 self-center"></i>
+                            <span class="menu-title text-white ml-5 text-lg">Salir de la inspección</span>
                         </a>
                     </li>
 
@@ -54,23 +61,15 @@ left: calc(50% - 24px);
                     <div class="inspeccion-test">
                         <div class="row">
                             <div class="col-lg-4">
-                                <div class="card hover:bg-amber-100  cursor-pointer" onclick="edificio($id)"
+                                <div class="card hover:bg-amber-100  cursor-pointer" onclick="edificio({{ $id }})"
                                     style="height:75vh; min-width:fit-content">
                                     <div class="card-body grid ">
-                                        <div class="w-full h-full">
-                                            <div class="h-1/6 flex justify-center">
-                                                <p
-                                                    class="text-2xl font-semibold m-0 p-0 text-center capitalize self-center">
-                                                    Inspección
-                                                    edificio</p>
-                                            </div>
-                                            <div class="h-5/6 flex justify-center">
+                                        <p class="text-2xl font-semibold m-0 p-0 text-center capitalize self-center">
+                                            Inspección
+                                            edificio</p>
+                                        <img src="{{ asset('images/gnc/building-news-svgrepo-com.svg') }}" alt=""
+                                            class="w-11/12 h-full">
 
-                                                <img src="{{ asset('images/gnc/building-news-svgrepo-com.svg') }}"
-                                                    alt="" class="w-11/12">
-                                            </div>
-
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -78,20 +77,13 @@ left: calc(50% - 24px);
                                 <div
                                     class="card hover:bg-amber-100 cursor-pointer"style="height:75vh; min-width:fit-content">
                                     <div class="card-body grid ">
-                                        <div class="w-full h-full">
-                                            <div class="h-1/6 flex justify-center">
-                                                <p
-                                                    class="text-2xl font-semibold m-0 p-0 text-center capitalize self-center">
-                                                    Inspección
-                                                    eléctrica</p>
-                                            </div>
-                                            <div class="h-5/6 flex justify-center">
+                                        <p class="text-2xl font-semibold m-0 p-0 text-center capitalize self-center">
+                                            Inspección
+                                            eléctrica</p>
 
-                                                <img src="{{ asset('images/gnc/electric-signal-svgrepo-com.svg') }}"
-                                                    alt="" class="w-11/12">
-                                            </div>
+                                        <img src="{{ asset('images/gnc/electric-signal-svgrepo-com.svg') }}" alt=""
+                                            class="w-11/12  h-full">
 
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -99,20 +91,13 @@ left: calc(50% - 24px);
                                 <div
                                     class="card hover:bg-amber-100 cursor-pointer"style="height:75vh; min-width:fit-content">
                                     <div class="card-body grid ">
-                                        <div class="w-full h-full">
-                                            <div class="h-1/6 flex justify-center">
-                                                <p
-                                                    class="text-2xl font-semibold m-0 p-0 text-center capitalize self-center">
-                                                    Inspección
-                                                    transformador</p>
-                                            </div>
-                                            <div class="h-5/6 flex justify-center">
+                                        <p class="text-2xl font-semibold m-0 p-0 text-center capitalize self-center">
+                                            Inspección
+                                            transformador</p>
 
-                                                <img src="{{ asset('images/gnc/tesla-coil-svgrepo-com.svg') }}"
-                                                    alt="" class="w-11/12">
-                                            </div>
+                                        <img src="{{ asset('images/gnc/tesla-coil-svgrepo-com.svg') }}" alt=""
+                                            class="w-11/12  h-full">
 
-                                        </div>
                                     </div>
                                 </div>
                             </div>

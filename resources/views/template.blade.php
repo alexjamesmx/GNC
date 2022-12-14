@@ -10,6 +10,9 @@
     @if ($role === 'tecnico')
         <link rel="stylesheet" href="{{ asset('resources/tecnico.css') }}">
     @endif
+    @if ($role === 'tecnico' && $section === 'test')
+        <link rel="stylesheet" href="{{ asset('css/inspecciones_popup.css') }}">
+    @endif
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -73,7 +76,7 @@
     {{-- SI SOMOS TECNICOS Y ESTAMOS DENTRO DEL TEST --}}
     @if ($role === 'tecnico' && $section === 'test')
         <script>
-            var route = ["{{ route('tecnico.test', ['id' => ':id']) }}"]
+            var route = ["{{ route('tecnico.ins_edificio', ['id' => ':id']) }}", "{{ route('tecnico.edificio_subir') }}"]
         </script>
         <script src="{{ asset('js/tecnico_test.js') }}"></script>
     @endif

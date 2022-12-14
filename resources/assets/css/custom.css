@@ -165,3 +165,13 @@ label:active:after {
 .deshabilitado {
     opacity: 0.5;
 }
+
+.nav-custom{
+    transition: 0.3s all;
+    text-decoration: none;
+}
+.nav-custom:hover{
+    background-color: #112f87;
+    scale: 1.1;
+    
+}
