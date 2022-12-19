@@ -43,7 +43,7 @@ function handle_dashboard(){
 function ingresarInspeccion(id){
 
     console.log(route)
-    const url = route[0].replace(':id', id) 
+    const url = route[3].replace(':id', id) 
     console.log('url con id', url)
     location.href = url    
 }

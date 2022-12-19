@@ -3,22 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inspecciones;
+use App\Models\Anomalias;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Rep_enterprise;
 
 class TecnicoController extends Controller
 {
     public function test($id = '')
     {
         $tecnico = auth()->user()->id;
-        return view('tecnico.test', ['section' => 'test', 'section_cute' => 'Test', 'role' => 'tecnico', 'role_cute' => 'Técnico',  'id' => $id]);
+
+        $rep_enterprise = Rep_enterprise::where('inspeccion_id', $id)->first();
+
+
+        return view('tecnico.test', ['section' => 'test', 'subsection' => '', 'section_cute' => 'Test', 'role' => 'tecnico', 'role_cute' => 'Técnico',  'id' => $id, 'rep_enterprise' => $rep_enterprise]);
     }
 
     public function edificio($id = '')
     {
         $tecnico = auth()->user()->id;
         $inspeccion = Inspecciones::where('id', $id)->first();
-        return view('tecnico.inspecciones.edificio', ['section' => 'test', 'section_cute' => 'Test', 'role' => 'tecnico', 'role_cute' => 'Técnico',  'inspeccion' => $inspeccion]);
+        return view('tecnico.inspecciones.edificio', ['section' => 'test', 'subsection' => 'edificio', 'section_cute' => 'Test', 'role' => 'tecnico', 'role_cute' => 'Técnico',  'inspeccion' => $inspeccion]);
     }
     public function edificio_subir(Request $request)
     {
@@ -131,6 +137,72 @@ class TecnicoController extends Controller
             return response()->json(['response' => false, 'errors' => $validated->errors()]);
         }
 
-        // dd($request->all());
+        $rep_edificio = new Rep_enterprise;
+        $rep_edificio->inspeccion_id = $request->inspeccion_id;
+        $rep_edificio->extintores_no = $request->extintores_no;
+        $rep_edificio->extintores_tipo_agente = $request->extintores_tipo_agente;
+        $rep_edificio->extintores_fecha_vencimiento = $request->extintores_fecha_vencimiento;
+        $rep_edificio->extintores_presion = $request->extintores_presion;
+        $rep_edificio->extintores_aro_seguridad = $request->extintores_aro_seguridad;
+        $rep_edificio->extintores_ubicacion = $request->extintores_ubicacion;
+        $rep_edificio->lamparas_no = $request->lamparas_no;
+        $rep_edificio->lamparas_estado = $request->lamparas_estado;
+        $rep_edificio->lamparas_faltante = $request->lamparas_faltante;
+        $rep_edificio->lamparas_emergencia_no = $request->lamparas_emergencia_no;
+        $rep_edificio->lamparas_emergencia_estado = $request->lamparas_emergencia_estado;
+        $rep_edificio->lamparas_emergencia_faltante = $request->lamparas_emergencia_faltante;
+        $rep_edificio->senalizacion_seguridad = $request->senalizacion_seguridad;
+        $rep_edificio->senalizacion_seguridad_estado = $request->senalizacion_seguridad_estado;
+        $rep_edificio->senalizacion_seguridad_faltante = $request->senalizacion_seguridad_faltante;
+        $rep_edificio->senalizacion_observaciones = $request->senalizacion_observaciones;
+        $rep_edificio->pintura_estado = $request->pintura_estado;
+        $rep_edificio->pintura_requiere = $request->pintura_requiere;
+        $rep_edificio->herreria_estado = $request->herreria_estado;
+        $rep_edificio->herreria_requiere = $request->herreria_requiere;
+        $rep_edificio->herreria_observaciones = $request->herreria_observaciones;
+        $rep_edificio->img1 = $request->img1;
+        $rep_edificio->img2 = $request->img2;
+        $rep_edificio->img3 = $request->img3;
+        $rep_edificio->img4 = $request->img4;
+        $rep_edificio->img5 = $request->img5;
+        $rep_edificio->img6 = $request->img6;
+        $rep_edificio->status_id = 5;
+
+        return response()->json(['response' => $rep_edificio->save()]);
+    }
+
+    public function anomalia(Request $request)
+    {
+        $anomalia = new Anomalias;
+
+        $anomalia->urgencia = $request->urgencia;
+        $anomalia->modelo = $request->modelo;
+        $anomalia->marca = $request->marca;
+        $anomalia->medidas = $request->medidas;
+        $anomalia->descripcion = $request->descripcion;
+        $anomalia->imagen = $request->imagen;
+        $anomalia->inspeccion_id = $request->inspeccion_id;
+        $anomalia->tipo_inspeccion_id = $request->tipo_inspeccion_id;
+
+        return response()->json(['response' => $anomalia->save()]);
+    }
+
+    public function anomalia_validar(Request $request)
+    {
+        $validated = Validator::make($request->except('id'), [
+            'imagen' => 'required|image|mimes:png,jpg,jpeg|max:2048',
+        ], [
+
+            'imagen.required' => 'Este campo es requerido',
+            'imagen.image' => 'El archivo debe ser una imagen',
+            'imagen.mimes' => 'El archivo debe ser una imagen con formato png, jpg o jpeg',
+            'imagen.max' => 'El archivo no puede pesar más de 2MB',
+
+
+        ]);
+
+        if ($validated->fails()) {
+            return response()->json(['response' => false, 'errors' => $validated->errors()]);
+        }
     }
 }

@@ -48,7 +48,6 @@ left: calc(50% - 24px);"src="{{ asset('images/gnc/loader.svg') }}"
             <div class="main-panel">
                 <div class="content-wrapper ">
                     <!-- Body -->
-
                     <style>
                         label {
                             margin: 0;
@@ -64,7 +63,8 @@ left: calc(50% - 24px);"src="{{ asset('images/gnc/loader.svg') }}"
                                 <form id="form-inspecciones" class="form-sample needs-validation" novalidate
                                     onsubmit="event.preventDefault(); saveInspeccion({{ $inspeccion->id }})">
 
-                                    <input type="hidden" id="id_inspeccion" value="{{ $inspeccion->id }}">
+                                    <input type="hidden" name="inspeccion_id" id="inspeccion_id"
+                                        value="{{ $inspeccion->id }}">
                                     <p class="card-description">Datos generales</p>
                                     <div class="row">
                                         <div class="col-md-6">
@@ -208,13 +208,12 @@ left: calc(50% - 24px);"src="{{ asset('images/gnc/loader.svg') }}"
                                                     <label class="col-form-check-label"> Buen estado</label>
                                                 </div>
                                                 <div class="form-radio  flex justify-center w-1/2">
-                                                    <input type="radio" class="col-orm-check-input"
+                                                    <input type="radio" class="col-form-check-input lamparas"
                                                         name="lamparas_estado" value="Mal estado"
                                                         onclick="handleAnomalia('lamparas')">
                                                     <label class="col-form-check-label">Mal estado </label>
                                                 </div>
-                                                <div id="lamparas_faltante_error"class="invalid-feedback">HOLAA JEJEJE
-                                                </div>
+
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -249,32 +248,13 @@ left: calc(50% - 24px);"src="{{ asset('images/gnc/loader.svg') }}"
 
                                                 {{-- ANOMALIA LAMPARAS EMERGENCIA --}}
                                                 <div class="form-radio flex justify-center w-1/2">
-                                                    <input type="radio" class="col-form-check-input"
+                                                    <input type="radio" class="col-form-check-input lamparas_emergencia"
                                                         name="lamparas_emergencia_estado" value="Mal estado"
                                                         onclick="handleAnomalia('lamparas_emergencia')">
                                                     <label class="col-form-check-label">Mal estado </label>
                                                 </div>
                                             </div>
                                         </div>
-
-                                        {{-- <div class="col-md-4">
-                                            <div class="form-group row">
-                                                <div class="form-radio flex justify-center w-1/2">
-                                                    <input type="radio" class="col-form-check-input"
-                                                        name="lamparas_estado" value="Buen estado">
-                                                    <label class="col-form-check-label"> Buen estado</label>
-                                                </div>
-                                                <div class="form-radio  flex justify-center w-1/2">
-                                                    <input type="radio" class="col-orm-check-input"
-                                                        name="lamparas_estado" value="Mal estado"
-                                                        onclick="handleAnomalia('lamparas')">
-                                                    <label class="col-form-check-label">Mal estado </label>
-                                                </div>
-                                                <div id="lamparas_faltante_error"class="invalid-feedback">HOLAA JEJEJE
-                                                </div>
-                                            </div>
-                                        </div> --}}
-
 
                                         <div class="col-md-4">
                                             <div class="form-group row">
@@ -302,14 +282,14 @@ left: calc(50% - 24px);"src="{{ asset('images/gnc/loader.svg') }}"
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group row">
-                                                <div class="col-sm-6 form-radio flex justify-center">
+                                                <div class="form-radio flex justify-center w-1/2">
                                                     <input type="radio" class="col-form-check-input"
                                                         name="senalizacion_seguridad_estado" value="Buen estado">
                                                     <label class="col-form-check-label"> Buen estado</label>
                                                 </div>
                                                 {{-- ANOMALIA SENALIZACION --}}
-                                                <div class="col-sm-6 form-radio flex justify-center">
-                                                    <input type="radio" class="col-orm-check-input"
+                                                <div class="form-radio flex justify-center w-1/2">
+                                                    <input type="radio" class="col-form-check-input senalizacion"
                                                         name="senalizacion_seguridad_estado" value="Mal estado"
                                                         onclick="handleAnomalia('senalizacion')">
                                                     <label class="col-form-check-label">Mal estado </label>
@@ -344,18 +324,22 @@ left: calc(50% - 24px);"src="{{ asset('images/gnc/loader.svg') }}"
                                     <div class="row">
                                         <div class="col-md-7">
                                             <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Pintura de edificio:</label>
-                                                <div class="col-sm-4 form-radio flex justify-center">
-                                                    <input type="radio" class="col-form-check-input"
-                                                        name="pintura_estado" id="optionsRadios1" value="Buen estado">
-                                                    <label class="col-form-check-label">Buen estado</label>
-                                                </div>
-                                                {{-- ANOMALIA PINTURA --}}
-                                                <div class="col-sm-4 form-radio flex justify-center">
-                                                    <input type="radio" class="col-orm-check-input"
-                                                        name="pintura_estado" value="Mal estado"
-                                                        onclick="handleAnomalia('pintura')">
-                                                    <label class="col-form-check-label"> Mal estado </label>
+                                                <label class="col-md-3 col-form-label">Pintura de edificio:</label>
+                                                <div class="col-md-9 flex">
+
+                                                    <div class="form-radio flex justify-center w-1/2">
+                                                        <input type="radio" class="col-form-check-input"
+                                                            name="pintura_estado" id="optionsRadios1"
+                                                            value="Buen estado">
+                                                        <label class="col-form-check-label">Buen estado</label>
+                                                    </div>
+                                                    {{-- ANOMALIA PINTURA --}}
+                                                    <div class="form-radio flex justify-center w-1/2">
+                                                        <input type="radio" class="col-orm-check-input pintura"
+                                                            name="pintura_estado" value="Mal estado"
+                                                            onclick="handleAnomalia('pintura')">
+                                                        <label class="col-form-check-label"> Mal estado </label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -373,22 +357,27 @@ left: calc(50% - 24px);"src="{{ asset('images/gnc/loader.svg') }}"
                                     <div class="row">
                                         <div class="col-md-7">
                                             <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Herreria de edificio:</label>
-                                                <div class="col-sm-4 form-radio flex justify-center">
-                                                    <input type="radio" class="col-form-check-input"
-                                                        name="herreria_estado"id="herreria_estado_si"
-                                                        value="Buen estado">
-                                                    <label class="col-form-check-label" for="herreria_estado">Buen
-                                                        estado</label>
+                                                <label class="col-md-3 col-form-label">Herreria de edificio:</label>
+                                                <div class="col-md-9 flex">
+
+                                                    <div class="form-radio flex justify-center w-1/2">
+                                                        <input type="radio" class="col-form-check-input"
+                                                            name="herreria_estado"id="herreria_estado_si"
+                                                            value="Buen estado">
+                                                        <label class="col-form-check-label" for="herreria_estado">Buen
+                                                            estado</label>
+                                                    </div>
+                                                    {{-- ANOMALIA HERRERIA  --}}
+                                                    <div class="form-radio flex justify-center w-1/2">
+                                                        <input type="radio" class="col-form-check-input herreria"
+                                                            name="herreria_estado" id="herreria_estado_no"
+                                                            value="Mal estado" onclick="handleAnomalia('herreria')">
+                                                        <label for="herreria_estado"class="col-form-check-label"> Mal
+                                                            estado
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                                {{-- ANOMALIA HERRERIA  --}}
-                                                <div class="col-sm-4 form-radio flex justify-center">
-                                                    <input type="radio" class="col-form-check-input"
-                                                        name="herreria_estado" id="herreria_estado_no" value="Mal estado"
-                                                        onclick="handleAnomalia('herreria')">
-                                                    <label for="herreria_estado"class="col-form-check-label"> Mal estado
-                                                    </label>
-                                                </div>
+
                                             </div>
                                         </div>
                                         <div class="col-md-5">
@@ -412,14 +401,14 @@ left: calc(50% - 24px);"src="{{ asset('images/gnc/loader.svg') }}"
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword4">Imagen</label>
+                                        <label for="exampleInputPassword4">Imagen (3 requeridas)</label>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-2">
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
                                                     <input type="file" class="form-control" name="img1"
-                                                        id="img1" />
+                                                        id="img1" accept=".png, .jpg, .jpeg" />
                                                     <div id="img1_error"class="invalid-feedback"></div>
                                                 </div>
                                             </div>
@@ -429,7 +418,7 @@ left: calc(50% - 24px);"src="{{ asset('images/gnc/loader.svg') }}"
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
                                                     <input type="file" class="form-control"id="img2"
-                                                        name="img2" />
+                                                        name="img2" accept=".png, .jpg, .jpeg" />
                                                     <div id="img2_error"class="invalid-feedback"></div>
                                                 </div>
                                             </div>
@@ -438,7 +427,7 @@ left: calc(50% - 24px);"src="{{ asset('images/gnc/loader.svg') }}"
                                         <div class="col-md-2">
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
-                                                    <input type="file" class="form-control"
+                                                    <input type="file" class="form-control" accept=".png, .jpg, .jpeg"
                                                         name="img3"id="img3" />
                                                     <div id="img3_error"class="invalid-feedback"></div>
                                                 </div>
@@ -448,7 +437,7 @@ left: calc(50% - 24px);"src="{{ asset('images/gnc/loader.svg') }}"
                                         <div class="col-md-2">
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
-                                                    <input type="file" class="form-control"
+                                                    <input type="file" class="form-control" accept=".png, .jpg, .jpeg"
                                                         name="img4"id="img4" />
                                                     <div id="img4_error"class="invalid-feedback"></div>
                                                 </div>
@@ -458,7 +447,7 @@ left: calc(50% - 24px);"src="{{ asset('images/gnc/loader.svg') }}"
                                         <div class="col-md-2">
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
-                                                    <input type="file" class="form-control"
+                                                    <input type="file" class="form-control" accept=".png, .jpg, .jpeg"
                                                         name="img5"id="img5" />
                                                     <div id="img5_error"class="invalid-feedback"></div>
                                                 </div>
@@ -468,7 +457,7 @@ left: calc(50% - 24px);"src="{{ asset('images/gnc/loader.svg') }}"
                                         <div class="col-md-2">
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
-                                                    <input type="file" class="form-control"
+                                                    <input type="file" class="form-control" accept=".png, .jpg, .jpeg"
                                                         name="img6"id="img6" />
                                                     <div id="img6_error"class="invalid-feedback"></div>
                                                 </div>
@@ -476,9 +465,12 @@ left: calc(50% - 24px);"src="{{ asset('images/gnc/loader.svg') }}"
                                         </div>
                                     </div>
 
+                                    <input type="hidden" value="{{ $inspeccion->id }}" name="inspeccion_id">
+
                                     <button type="submit" class="btn btn-success mr-2">Guardar</button>
                                     <button type="button"class="btn btn-light" id="btn-cancelar">Cancelar</button>
                                 </form>
+
                                 <!-- fin form -->
                             </div>
                         </div>
@@ -512,14 +504,14 @@ left: calc(50% - 24px);"src="{{ asset('images/gnc/loader.svg') }}"
                                         class="text-sm text-red-500 tracking-wide mb-3"></label>
                                     <input id="form-foto" type="file" class="form-control" name="imagen"
                                         id="image" />
-                                    <input name="tipo" type="hidden" value="edificio">
                                     <label id="form-foto-error" class="text-sm text-red-500 tracking-wide mb-3"></label>
                                 </div>
+                                <input type="hidden" value="{{ $inspeccion->id }}" name="inspeccion_id">
+                                <input type="hidden" value="1" name="tipo_inspeccion_id">
                                 <button type="submit">Guardar Datos</button>
                             </form>
                         </div>
                     </div>
-
                 </div>
                 @include('admin._footer')
             </div>

@@ -64,9 +64,11 @@ Route::prefix('/admin/usuarios')->middleware(['accesos', 'admin'])->controller(U
 //TECNICO ************************************************************
 Route::get('/tecnico', [SectionController::class, 'tecnico'])->middleware(['accesos', 'tecnico'])->name('tecnico');
 Route::get('/tecnico/test/{id}', [TecnicoController::class, 'test'])->middleware(['accesos', 'tecnico'])->name('tecnico.test');
-Route::get('/tecnico/edificio/{id}', [TecnicoController::class, 'edificio'])->middleware(['accesos', 'tecnico'])->name('tecnico.ins_edificio');
+Route::get('/tecnico/edificio/{id}', [TecnicoController::class, 'edificio'])->middleware(['accesos', 'tecnico', 'inspeccion_edificio'])->name('tecnico.ins_edificio');
 
 Route::post('/tecnico/edificio/subir', [TecnicoController::class, 'edificio_subir'])->middleware(['accesos', 'tecnico'])->name('tecnico.edificio_subir');
+Route::post('/tecnico/anomalia', [TecnicoController::class, 'anomalia'])->middleware(['accesos', 'tecnico'])->name('tecnico.anomalia');
+Route::post('/tecnico/anomalia_validar', [TecnicoController::class, 'anomalia_validar'])->middleware(['accesos', 'tecnico'])->name('tecnico.anomalia_validar');
 //TECNICO ************************************************************
 //LOGIN ************************************************************
 Route::middleware('auth')->group(function () {

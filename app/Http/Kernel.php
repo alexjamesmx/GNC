@@ -57,6 +57,7 @@ class Kernel extends HttpKernel
         'tecnico' =>  \App\Http\Middleware\Tecnico::class,
         'enterprise' => \App\Http\Middleware\Enterprise::class,
         'accesos' => \App\Http\Middleware\Accesos::class,
+        'inspeccion_edificio' => \App\Http\Middleware\Inspeccion_edificio::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,

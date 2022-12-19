@@ -51,18 +51,17 @@ left: calc(50% - 24px);
                             <span class="menu-title text-white ml-5 text-lg">Salir de la inspección</span>
                         </a>
                     </li>
-
                 </ul>
             </nav>
 
             <div class="main-panel">
-                <div class="content-wrapper ">
+                <div class="content-wrapper">
                     <!-- Body -->
                     <div class="inspeccion-test">
                         <div class="row">
                             <div class="col-lg-4">
-                                <div class="card hover:bg-amber-100  cursor-pointer" onclick="edificio({{ $id }})"
-                                    style="height:75vh; min-width:fit-content">
+                                <div id="nav_edificio"class="card hover:bg-amber-100  cursor-pointer"
+                                    onclick="edificio({{ $id }})" style="height:75vh; min-width:fit-content">
                                     <div class="card-body grid ">
                                         <p class="text-2xl font-semibold m-0 p-0 text-center capitalize self-center">
                                             Inspección
@@ -110,4 +109,10 @@ left: calc(50% - 24px);
             </div>
         </div>
     </div>
+
+    @if (Session::has('message'))
+        <script>
+            message("{{ Session::get('message') }}");
+        </script>
+    @endif
 @endsection

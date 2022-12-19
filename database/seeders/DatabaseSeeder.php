@@ -8,6 +8,7 @@ use App\Models\Parque;
 use App\Models\Role;
 use App\Models\Status;
 use App\Models\Subestacion;
+use App\Models\Tipo_inspeccion;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -24,6 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesTableSeeder::class);
         $this->call(StatusTableSeeder::class);
         $this->call(TypeTableSeeder::class);
+        $this->call(TipoInspeccionSeeder::class);
         $this->call(ParquesTableSeeder::class);
         // Parque::factory(10)->create();
         User::factory(10)->create();

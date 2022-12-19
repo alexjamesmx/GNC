@@ -17,11 +17,7 @@ class SectionController extends Controller
         $data = array('id' => "ejemplo", 'name' => "ejemplo2", 'email' => "ejemplo3");
 
         $tecnico = auth()->user()->id;
-        $inspecciones_activas = Inspecciones::
-            // join('enterprises', 'enterprises.id', '=', 'inspecciones.enterprise_id')
-            // ->join('subestaciones', 'subestaciones.id', '=', 'inspecciones.subestacion_id')
-            // ->select('inspecciones.id as inspecciones_id', 'inspecciones.*', 'enterprises.id as enterprise_id', 'enterprises.*', 'subestaciones.id as subestacion_id', 'subestaciones.*')
-            where('inspecciones.tecnico_responsable', $tecnico)->where('inspecciones.status_id', 4)->get();
+        $inspecciones_activas = Inspecciones::where('inspecciones.tecnico_responsable', $tecnico)->where('inspecciones.status_id', 4)->get();
         // dd($inspecciones_activas);
         // dd($inspecciones_activas[0]->subestacion);
         return view('tecnico.dashboard', ['section' => 'dashboard', 'section_cute' => 'Dashboard', 'role' => 'tecnico', 'role_cute' => 'Técnico', 'data' => $data, 'inspecciones_activas' => $inspecciones_activas]);
