@@ -8,6 +8,7 @@ use App\Http\Controllers\EnterpriseController;
 use App\Http\Controllers\ParqueController;
 use App\Http\Controllers\SubestacionController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\InspeccionesController;
 use App\Http\Controllers\TecnicoController;
 use Illuminate\Support\Facades\Route;
 
@@ -58,6 +59,16 @@ Route::prefix('/admin/usuarios')->middleware(['accesos', 'admin'])->controller(U
     Route::post('/store', 'store')->name('users.store');
     Route::post('/get_user', 'get_user')->name('users.get_user');
     Route::post('/disable', 'disable')->name('users.disable');
+});
+
+
+
+Route::prefix('/admin/inspecciones')->middleware(['accesos', 'admin'])->controller(InspeccionesController::class)->group(function () {
+    Route::get('/',                 'home')->name('inspeccion.home');
+    Route::post('/store',           'store')->name('inspeccion.store');
+    Route::post('/delete/{id}',     'delete')->name('inspeccion.delete');
+    Route::post('/getParques',    'getParques')->name('inspeccion.getParques');
+    Route::post('/getSubestaciones',    'getSubestaciones')->name('inspeccion.getSubestaciones');
 });
 //ADMINISTRAODR ************************************************************
 

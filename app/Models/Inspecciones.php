@@ -21,22 +21,36 @@ class Inspecciones extends Model
         'parque_id',
         'enterprise_id',
         'subestacion_id',
-        'status_id'
+        'status_id',
     ];
+
+    public function tecnico()
+    {
+        return $this->hasOne(User::class, 'id', 'tecnico_responsable');
+    }
+
+    public function admin()
+    {
+        return $this->hasOne(User::class, 'id', 'asignado_por');
+    }
+
     public function parque()
     {
         return $this->hasOne(Parque::class, 'id', 'parque_id');
     }
+
     public function enterprise()
     {
-        return $this->belongsTo(Enterprise::class);
+        return $this->hasOne(Enterprise::class, 'id', 'enterprise_id');
     }
-    public function status()
-    {
-        return $this->hasOne(Status::class, 'id', 'status_id');
-    }
+
     public function subestacion()
     {
         return $this->hasOne(Subestacion::class, 'id', 'subestacion_id');
+    }
+
+    public function status()
+    {
+        return $this->hasOne(Status::class, 'id', 'status_id');
     }
 }

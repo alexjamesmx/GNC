@@ -34,6 +34,10 @@
                         @include('admin._modal_users')
                         @include('admin._body_users')
                     @endif
+                    @if ($section === 'inspecciones')
+                        @include('admin._modal_inspecciones')
+                        @include('admin._body_inspecciones')
+                    @endif
                 </div>
 
                 @include('admin._footer')
