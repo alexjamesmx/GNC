@@ -48,6 +48,13 @@
                 <span class="menu-title">Subestaciones</span>
             </a>
         </li>
+        {{-- reportes --}}
+        <li class="nav-item {{ $section === 'inspecciones' ? 'active' : '' }}" >
+            <a class="nav-link" href="{{ route('inspeccion.home') }}">
+                <i class="menu-icon typcn typcn-bell"></i>
+                <span class="menu-title">Inspecciones</span>
+            </a>
+        </li>
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
                 <i class="menu-icon typcn typcn-document-add"></i>

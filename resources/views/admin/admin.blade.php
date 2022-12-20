@@ -47,6 +47,11 @@ left: calc(50% - 24px);
                         @include('admin._modal_users')
                         @include('admin._body_users')
                     @endif
+                    {{-- section reportes --}}
+                    @if ($section === 'inspecciones')
+                        @include('admin._modal_inspecciones')
+                        @include('admin._body_inspecciones')
+                    @endif
                 </div>
 
                 @include('admin._footer')

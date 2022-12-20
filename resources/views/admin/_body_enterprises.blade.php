@@ -448,6 +448,7 @@
 
     const parques = @json($parques);
     const users = @json($users);
+    const user_empresas = @json($user_empresas);
     document.querySelector('#page-title').innerHTML = 'GNC - {{ $section_cute }}';
     const enterprise = document.querySelector('#enterprise')
     const enterprise_error = document.querySelector('#enterprise_error')
@@ -589,7 +590,7 @@
         option.selected = true
         option.disabled = true
         selectAdministrador.appendChild(option)
-        users.forEach(element => {
+        user_empresas.forEach(element => {
             const option = document.createElement('option')
             option.value = element.id
             option.textContent = element.email

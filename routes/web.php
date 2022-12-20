@@ -7,6 +7,7 @@ use App\Http\Controllers\AccessController;
 use App\Http\Controllers\EnterpriseController;
 use App\Http\Controllers\ParqueController;
 use App\Http\Controllers\SubestacionController;
+use App\Http\Controllers\InspeccionesController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -57,6 +58,12 @@ Route::prefix('/admin/subestaciones')->middleware(['accesos', 'admin'])->control
     Route::post('/get_parques_by_name',     'get_parques_by_name')->name('subestacion.get_parques_by_name');
     Route::post('/get_parques_by_id',     'get_parques_by_id')->name('subestacion.get_parques_by_id');
     Route::post('/get_enterprise_id_on_select',     'get_enterprise_id_on_select')->name('subestacion.get_enterprise_id_on_select');
+});
+
+Route::prefix('/admin/inspecciones')->middleware(['accesos', 'admin'])->controller(InspeccionesController::class)->group(function () {
+    Route::get('/',                 'home')->name('inspeccion.home');
+    Route::post('/store',           'store')->name('inspeccion.store');
+    Route::post('/get_parques_x_enterprise',    'get_parques_x_enterprise')->name('inspeccion.get_parques_x_enterprise');
 });
 
 Route::prefix('/admin/usuarios')->middleware(['accesos', 'admin'])->controller(UsersController::class)->group(function () {
