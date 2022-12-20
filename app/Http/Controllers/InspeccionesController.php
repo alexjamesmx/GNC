@@ -46,10 +46,15 @@ class InspeccionesController extends Controller
             'id_user' => $id_user
         ],);
     }
-
-    public function get_parques_x_enterprise(Request $request)
+    
+    // obtiene parques por empresa
+    public function getParques(Request $request)
     {
-        $enterprise = Enterprise::where('enterprise', $request->enterprise)->where('parque_id', $request->parque_id)->first();
+        $enterprise = Enterprise::join('parques', 'parques.id', '=', 'enterprises.parque_id')
+            ->select('enterprises.id as enterprise_id', 'parques.id as parque_id', 'enterprises.*', 'parques.*')
+            ->where('enterprise', $request->enterprise)->get();
+
+
         return response()->json(['response' => $enterprise], 200);
     }
 

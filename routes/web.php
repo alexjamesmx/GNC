@@ -64,7 +64,7 @@ Route::prefix('/admin/inspecciones')->middleware(['accesos', 'admin'])->controll
     Route::get('/',                 'home')->name('inspeccion.home');
     Route::post('/store',           'store')->name('inspeccion.store');
     Route::post('/delete/{id}',     'delete')->name('inspeccion.delete');
-    Route::post('/get_parques_x_enterprise',    'get_parques_x_enterprise')->name('inspeccion.get_parques_x_enterprise');
+    Route::post('/getParques',    'getParques')->name('inspeccion.getParques');
 });
 
 Route::prefix('/admin/usuarios')->middleware(['accesos', 'admin'])->controller(UsersController::class)->group(function () {

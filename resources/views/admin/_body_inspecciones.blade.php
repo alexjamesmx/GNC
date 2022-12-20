@@ -28,6 +28,7 @@
                             <th class="text-white">Tecnico</th>
                             <th class="text-white">Fecha</th>
                             <th class="text-white">Estatus</th>
+                            <th class="text-white">Asignado por</th>
                             <th class="text-white">Acciones</th>
                         </tr>
                     </thead>
@@ -76,6 +77,11 @@
                                     {{ $inspeccion->status->status }}
                                 </td>
                                 @endif
+
+                                {{-- asignado por --}}
+                                <td scope="row" style="min-width:fit-content; white-space:initial" id="tecnico_{{ $inspeccion->id }}">
+                                    {{ $inspeccion->admin->name }}
+                                </td>
 
                                 {{-- acciones --}}
                                 @if ($inspeccion->status->status == 'Pendiente')
