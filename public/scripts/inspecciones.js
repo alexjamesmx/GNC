@@ -22,7 +22,7 @@ let id_user = JSON.parse($('#id_user').val());
 //  console.log('tecnicos', tecnicos);
 
 //selects
-const select_enterpises = document.querySelector('#select-enterprise');
+const select_enterprises = document.querySelector('#select-enterprise');
 const select_parque = document.querySelector('#select-parque');
 const select_subestacion = document.querySelector('#select-subestacion');
 const select_tecnico = document.querySelector('#select-tecnico');
@@ -31,10 +31,11 @@ const select_tecnico = document.querySelector('#select-tecnico');
 const submit = document.querySelector('#modal-form')
 
 $(function() {
+    //btn submit
     submit.addEventListener("submit", function(e) {
         e.preventDefault()
         let body = new FormData(document.getElementById("modal-form"))
-        body.append('enterprise_id', select_enterpises.value)
+        body.append('enterprise_id', select_enterprises.value)
         body.append('parque_id', select_parque.value)
         body.append('subestacion_id', select_subestacion.value)
         body.append('tecnico_responsable', select_tecnico.value)
@@ -67,7 +68,7 @@ $(function() {
                     subestacion_id: subestacion_id_mensaje,
                     enterprise_id: enterprise_id_mensaje,
                     parque_id: parque_id_mensaje,
-                    tecnico_id: tecnico_mensaje,
+                    tecnico_responsable: tecnico_mensaje,
                     fecha_inicio: fecha_mensaje,
                 } = errors
                 if (subestacion_id_mensaje) {
@@ -125,6 +126,7 @@ const handleDelete = () => {
         message('Hubo un problema con la petición')
     })
 }
+
 //funcion btn-abre-modal
 const handleCreate = () => {
     console.trace('handleCreate')
@@ -134,26 +136,14 @@ const handleCreate = () => {
     document.querySelector('#modal-title').innerHTML = 'Requerimiento de inspección'
 
     //select enterpises
-    if (select_enterpises.length === 1) {
+    if (select_enterprises.length === 1) {
         console.trace('select_enterprises -> ', 'Select llena campos una sola vez')
         enterprises.forEach(e => {
             const option = document.createElement('option')
             option.value = e.id
             //colocar nombre columna de db
             option.textContent = e.enterprise
-            select_enterpises.appendChild(option)
-        });
-    }
-
-    //select parques
-    if (select_parque.length === 1) {
-        console.trace('select_parques -> ', 'Select llena campos una sola vez')
-        parques.forEach(e => {
-            const option = document.createElement('option')
-            option.value = e.id
-            //colocar nombre columna de db
-            option.textContent = e.parque
-            select_parque.appendChild(option)
+            select_enterprises.appendChild(option)
         });
     }
 
@@ -182,11 +172,30 @@ const handleCreate = () => {
     }
 }
 
-select_enterpises.addEventListener('change', () => {
+select_enterprises.addEventListener('change', () => {
     select_parque.options[0].selected = 'selected';
     console.trace('select_enterprises on change');
     getParques();
 })
 
 function getParques() {
+    const enterprise = select_enterprises.options[select_enterprises.selectedIndex].textContent
+    console.trace('select_enterprises on change -> nombre empresa', enterprise)
+    const url = base_url + 'admin/inspecciones/getParques/';
+    axios.post(url, {
+        'enterprise': enterprise
+    }).then(res => {
+        console.log(res.data.response)
+
+        select_parque.length = 1
+        res.data.response.forEach(e => {
+            const option = document.createElement('option')
+            //colocar nombre columna de db
+            option.value = e.parque_id
+            option.textContent = e.parque
+            select_parque.appendChild(option)
+        })
+    }).catch(err => {
+        console.log(err)
+    })
 }
