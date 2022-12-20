@@ -63,6 +63,7 @@ Route::prefix('/admin/subestaciones')->middleware(['accesos', 'admin'])->control
 Route::prefix('/admin/inspecciones')->middleware(['accesos', 'admin'])->controller(InspeccionesController::class)->group(function () {
     Route::get('/',                 'home')->name('inspeccion.home');
     Route::post('/store',           'store')->name('inspeccion.store');
+    Route::post('/delete/{id}',     'delete')->name('inspeccion.delete');
     Route::post('/get_parques_x_enterprise',    'get_parques_x_enterprise')->name('inspeccion.get_parques_x_enterprise');
 });
 

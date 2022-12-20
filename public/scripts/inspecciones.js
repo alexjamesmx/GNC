@@ -33,9 +33,6 @@ const submit = document.querySelector('#modal-form')
 $(function() {
     submit.addEventListener("submit", function(e) {
         e.preventDefault()
-        // const validate = handleErrors()
-        // if (validate === false) return false
-        const type = document.querySelector('#btn-submit').getAttribute('data-modal')
         let body = new FormData(document.getElementById("modal-form"))
         body.append('enterprise_id', select_enterpises.value)
         body.append('parque_id', select_parque.value)
@@ -52,13 +49,13 @@ $(function() {
 
             if (res.data.response === true) {
                 const message = 3
-                const route = route('message');
+                const route = base_url + 'message';
                 axios.post(route, {
                         'message': message
                     })
                     .then(res => {
                         console.log(res.data)
-                        window.location.href = route('inspeccion.home');
+                        window.location.reload();
                     })
                     .catch(err => {
                         console.log(err)
@@ -103,11 +100,31 @@ $(function() {
             }
         })
         .catch(err => {
+            console.log(err)
             message('Hubo un problema con la petición');
         })
     });
 })
 
+//Cancelar inspeccion
+const handleDelete = () => {
+    const id = document.getElementById('delete-id').value
+    let url = base_url + 'admin/inspecciones/delete/' + id;
+    $.ajax({
+        url: url,
+        type: 'POST',
+        dataType: 'json',
+    }).done((json) => {
+        if (json.response) {
+            message('Eliminado correctamente')
+            document.querySelector('#row_' + id).remove()
+        } else {
+            message('Hubo un problema con la petición')
+        }
+    }).fail((err) => {
+        message('Hubo un problema con la petición')
+    })
+}
 //funcion btn-abre-modal
 const handleCreate = () => {
     console.trace('handleCreate')

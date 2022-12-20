@@ -53,6 +53,7 @@ class InspeccionesController extends Controller
         return response()->json(['response' => $enterprise], 200);
     }
 
+    // crea inspeccion
     public function store(Request $request)
     {
         if (!$request->isMethod('post')) {
@@ -90,5 +91,12 @@ class InspeccionesController extends Controller
         $inspeccion->status_id = 4;
 
         return response()->json(['response' => $inspeccion->save()]);
+    }
+
+    // elimina inspeccion
+    public function delete($id)
+    {
+        $response = Inspecciones::where('id', $id)->update(['status_id' => 1]);
+        return response()->json(['response' =>  $response], 200);
     }
 }

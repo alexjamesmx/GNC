@@ -33,6 +33,8 @@
                     </thead>
                     <tbody class="table-group-divider">
                         @forelse ($inspecciones as $inspeccion)
+                            {{-- solo mostrar inspecciones completadas o pendientes --}}
+                            @if ($inspeccion->status->status != 'Inactivo')
                             <tr id="row_{{ $inspeccion->id }}">
                                 {{-- ID --}}
                                 <td scope="row" style="min-width:fit-content; white-space:initial" id="id_{{ $inspeccion->id }}">
@@ -65,11 +67,18 @@
                                 </td>
 
                                 {{-- estatus --}}
-                                <td scope="row" style="min-width:fit-content; white-space:initial" id="estatus_{{ $inspeccion->id }}">
+                                @if ($inspeccion->status->status == 'Pendiente')
+                                <td scope="row" style="min-width:fit-content; white-space:initial; color:rgb(214, 21, 21);" id="estatus_{{ $inspeccion->id }}">
                                     {{ $inspeccion->status->status }}
                                 </td>
+                                @else
+                                <td scope="row" style="min-width:fit-content; white-space:initial; color:rgb(19, 131, 19);" id="estatus_{{ $inspeccion->id }}">
+                                    {{ $inspeccion->status->status }}
+                                </td>
+                                @endif
 
                                 {{-- acciones --}}
+                                @if ($inspeccion->status->status == 'Pendiente')
                                 <td scope="row" style="min-width:fit-content; white-space:initial">
                                     <div class="flex justify-start">
                                         <button
@@ -77,11 +86,13 @@
                                             type="button"
                                             class="modal-open text-red-600 border-none bg-transparent hover:text-red-500"
                                             data-bs-toggle="modal" data-bs-target="#modal-delete">
-                                            <i class="fa-solid fa-trash-can"data-modal="delete"></i>Eliminar
+                                            <i class="fa-solid fa-ban" data-modal="delete"></i>Cancelar
                                         </button>
                                     </div>
                                 </td>
+                                @endif
                             </tr>
+                            @endif
                         @empty
                             <h1>No hay parques</h1>
                         @endforelse
