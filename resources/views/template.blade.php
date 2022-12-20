@@ -8,12 +8,10 @@
     <title id="page-title">GNC</title>
     <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" />
     @if ($role === 'tecnico')
-        <link rel="stylesheet" href="{{ asset('resources/tecnico.css') }}">
+        {{-- <link rel="stylesheet" href="{{ asset('resources/tecnico.css') }}"> --}}
     @endif
     @if ($role === 'tecnico' && $section === 'test')
         <link rel="stylesheet" href="{{ asset('css/inspecciones_cards.css') }}">
-    @endif
-    @if ($role === 'tecnico' && $section === 'test' && $subsection === 'edificio')
         <link rel="stylesheet" href="{{ asset('css/inspecciones_popup.css') }}">
     @endif
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -78,7 +76,10 @@
                 "{{ route('tecnico.edificio_subir') }}",
                 "{{ route('tecnico.anomalia') }}",
                 "{{ route('tecnico.test', ['id' => ':id']) }}",
-                "{{ route('tecnico.anomalia_validar') }}"
+                "{{ route('tecnico.anomalia_validar') }}",
+                "{{ route('tecnico.ins_electrica', ['id' => ':id']) }}",
+                "{{ route('tecnico.electrica_subir') }}",
+                "{{ route('tecnico.ins_transformador', ['id' => ':id']) }}"
             ];
         </script>
     @endif

@@ -69,6 +69,11 @@ Route::get('/tecnico/edificio/{id}', [TecnicoController::class, 'edificio'])->mi
 Route::post('/tecnico/edificio/subir', [TecnicoController::class, 'edificio_subir'])->middleware(['accesos', 'tecnico'])->name('tecnico.edificio_subir');
 Route::post('/tecnico/anomalia', [TecnicoController::class, 'anomalia'])->middleware(['accesos', 'tecnico'])->name('tecnico.anomalia');
 Route::post('/tecnico/anomalia_validar', [TecnicoController::class, 'anomalia_validar'])->middleware(['accesos', 'tecnico'])->name('tecnico.anomalia_validar');
+
+Route::get('/tecnico/electrica/{id}', [TecnicoController::class, 'electrica'])->middleware(['accesos', 'tecnico'])->name('tecnico.ins_electrica');
+Route::post('/tecnico/electrica/subir', [TecnicoController::class, 'electrica_subir'])->middleware(['accesos', 'tecnico'])->name('tecnico.electrica_subir');
+Route::get('/tecnico/transformador/{id}', [TecnicoController::class, 'transformador'])->middleware(['accesos', 'tecnico'])->name('tecnico.ins_transformador');
+
 //TECNICO ************************************************************
 //LOGIN ************************************************************
 Route::middleware('auth')->group(function () {

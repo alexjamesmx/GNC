@@ -5,6 +5,23 @@ function edificio( id )
     location.href = url;
 }
 
+function electrica( id )
+{
+    const url = route[5].replace( ":id", id );
+    console.log( "url con id", url );
+    location.href = url;
+}
+
+
+function transformador( id )
+{
+    const url = route[7].replace( ":id", id );
+    console.log( "url con id", url );
+    location.href = url;
+}
+
+
+
 
 
 

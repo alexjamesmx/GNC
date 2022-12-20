@@ -12,19 +12,25 @@ class TecnicoController extends Controller
 {
     public function test($id = '')
     {
-        $tecnico = auth()->user()->id;
-
         $rep_enterprise = Rep_enterprise::where('inspeccion_id', $id)->first();
-
-
-        return view('tecnico.test', ['section' => 'test', 'subsection' => '', 'section_cute' => 'Test', 'role' => 'tecnico', 'role_cute' => 'Técnico',  'id' => $id, 'rep_enterprise' => $rep_enterprise]);
+        return view('tecnico.test', ['section' => 'test', 'subsection' => '', 'section_cute' => 'Inpecciones', 'role' => 'tecnico', 'role_cute' => 'Técnico',  'id' => $id, 'rep_enterprise' => $rep_enterprise]);
     }
 
     public function edificio($id = '')
     {
-        $tecnico = auth()->user()->id;
         $inspeccion = Inspecciones::where('id', $id)->first();
-        return view('tecnico.inspecciones.edificio', ['section' => 'test', 'subsection' => 'edificio', 'section_cute' => 'Test', 'role' => 'tecnico', 'role_cute' => 'Técnico',  'inspeccion' => $inspeccion]);
+        return view('tecnico.inspecciones.edificio', ['section' => 'test', 'subsection' => 'edificio', 'section_cute' => 'Inspección a edificio', 'role' => 'tecnico', 'role_cute' => 'Técnico',  'inspeccion' => $inspeccion]);
+    }
+
+    public function electrica($id = '')
+    {
+        $inspeccion = Inspecciones::where('id', $id)->first();
+        return view('tecnico.inspecciones.electrica', ['section' => 'test', 'subsection' => 'electrica', 'section_cute' => 'Inspección eléctrica', 'role' => 'tecnico', 'role_cute' => 'Técnico',  'inspeccion' => $inspeccion]);
+    }
+    public function transformador($id = '')
+    {
+        $inspeccion = Inspecciones::where('id', $id)->first();
+        return view('tecnico.inspecciones.transformador', ['section' => 'test', 'subsection' => 'transformador', 'section_cute' => 'Inspección transformador', 'role' => 'tecnico', 'role_cute' => 'Técnico',  'inspeccion' => $inspeccion]);
     }
     public function edificio_subir(Request $request)
     {
