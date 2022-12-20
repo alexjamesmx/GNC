@@ -50,12 +50,28 @@ class InspeccionesController extends Controller
     // obtiene parques por empresa
     public function getParques(Request $request)
     {
+        if (!$request->isMethod('post')) {
+            return dd('error');
+        }
+
         $enterprise = Enterprise::join('parques', 'parques.id', '=', 'enterprises.parque_id')
             ->select('enterprises.id as enterprise_id', 'parques.id as parque_id', 'enterprises.*', 'parques.*')
             ->where('enterprise', $request->enterprise)->get();
 
 
         return response()->json(['response' => $enterprise], 200);
+    }
+
+    // obtiene subestaciones por parque y empresa
+    public function getSubestaciones(Request $request)
+    {
+        if (!$request->isMethod('post')) {
+            return dd('error');
+        }
+        
+        $subestaciones = Subestacion::where('parque_id', $request->parque_id)->where('enterprise_id', $request->enterprise_id)->get();
+
+        return response()->json(['response' => $subestaciones], 200);
     }
 
     // crea inspeccion

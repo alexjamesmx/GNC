@@ -147,18 +147,6 @@ const handleCreate = () => {
         });
     }
 
-    //select subestaciones
-    if (select_subestacion.length === 1) {
-        console.trace('select_subestaciones -> ', 'Select llena campos una sola vez')
-        subestaciones.forEach(e => {
-            const option = document.createElement('option')
-            option.value = e.id
-            //colocar nombre columna de db
-            option.textContent = e.subestacion
-            select_subestacion.appendChild(option)
-        });
-    }
-
     //select tecnicos
     if (select_tecnico.length === 1) {
         console.trace('select_tecnicos -> ', 'Select llena campos una sola vez')
@@ -172,10 +160,18 @@ const handleCreate = () => {
     }
 }
 
+// Seleccionar empresa para obtener parques
 select_enterprises.addEventListener('change', () => {
     select_parque.options[0].selected = 'selected';
     console.trace('select_enterprises on change');
     getParques();
+})
+
+// Seleccionar parque para obtener subestaciones
+select_parque.addEventListener('change', () => {
+    select_subestacion.options[0].selected = 'selected';
+    console.trace('select_parque on change');
+    getSubestaciones();
 })
 
 function getParques() {
@@ -194,6 +190,29 @@ function getParques() {
             option.value = e.parque_id
             option.textContent = e.parque
             select_parque.appendChild(option)
+        })
+    }).catch(err => {
+        console.log(err)
+    })
+}
+
+function getSubestaciones() {
+    const enterprise_id = select_enterprises.value;
+    const parque_id = select_parque.value;
+    const url = base_url + 'admin/inspecciones/getSubestaciones/';
+    axios.post(url, {
+        'enterprise_id': enterprise_id,
+        'parque_id': parque_id
+    }).then(res => {
+        console.log(res.data.response)
+
+        select_subestacion.length = 1
+        res.data.response.forEach(e => {
+            const option = document.createElement('option')
+            //colocar nombre columna de db
+            option.value = e.id
+            option.textContent = e.subestacion
+            select_subestacion.appendChild(option)
         })
     }).catch(err => {
         console.log(err)

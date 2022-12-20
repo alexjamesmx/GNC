@@ -65,6 +65,7 @@ Route::prefix('/admin/inspecciones')->middleware(['accesos', 'admin'])->controll
     Route::post('/store',           'store')->name('inspeccion.store');
     Route::post('/delete/{id}',     'delete')->name('inspeccion.delete');
     Route::post('/getParques',    'getParques')->name('inspeccion.getParques');
+    Route::post('/getSubestaciones',    'getSubestaciones')->name('inspeccion.getSubestaciones');
 });
 
 Route::prefix('/admin/usuarios')->middleware(['accesos', 'admin'])->controller(UsersController::class)->group(function () {
