@@ -107,7 +107,7 @@ $(function() {
     });
 })
 
-//Cancelar inspeccion
+//Borrar inspeccion
 const handleDelete = () => {
     const id = document.getElementById('delete-id').value
     let url = base_url + 'admin/inspecciones/delete/' + id;
@@ -125,6 +125,23 @@ const handleDelete = () => {
     }).fail((err) => {
         message('Hubo un problema con la petición')
     })
+}
+
+//Borra datos al cerrar modal
+const clearModal = () => {
+
+    select_enterprises.length = 1
+    select_parque.length = 1
+    select_subestacion.length = 1
+    select_tecnico.length = 1
+
+    //vaciado de selects
+    select_enterprises.value = ''
+    select_parque.value = ''
+    select_subestacion.value = ''
+    select_tecnico.value = ''
+
+    document.querySelector('#fecha_ini').value = null
 }
 
 //funcion btn-abre-modal
