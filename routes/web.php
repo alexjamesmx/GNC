@@ -7,7 +7,6 @@ use App\Http\Controllers\AccessController;
 use App\Http\Controllers\EnterpriseController;
 use App\Http\Controllers\ParqueController;
 use App\Http\Controllers\SubestacionController;
-use App\Http\Controllers\InspeccionesController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\InspeccionesController;
 use App\Http\Controllers\TecnicoController;

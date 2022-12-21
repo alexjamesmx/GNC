@@ -590,8 +590,8 @@
         option.selected = true
         option.disabled = true
         selectAdministrador.appendChild(option)
-        console.log(users)
-        users.forEach(element => {
+        console.log(user_empresas)
+        user_empresas.forEach(element => {
             const option = document.createElement('option')
             option.value = element.id
             option.textContent = element.email
@@ -659,7 +659,7 @@
                     id: id_resuesta
                 }
             }).then((response) => {
-
+                
                 // SELECT ADMINISTRADOR
                 option = document.createElement('option')
                 option.value = '0'

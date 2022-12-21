@@ -26,7 +26,7 @@
                             <th class="text-white">Subestacion</th>
                             <th class="text-white">Parque</th>
                             <th class="text-white">Tecnico</th>
-                            <th class="text-white">Fecha</th>
+                            <th class="text-white">Fecha inicio / Fecha fin</th>
                             <th class="text-white">Estatus</th>
                             <th class="text-white">Asignado por</th>
                             <th class="text-white">Acciones</th>
@@ -68,19 +68,29 @@
                                     </td>
 
                                     {{-- fecha --}}
-                                    <td scope="row" style="min-width:fit-content; white-space:initial"
-                                        id="fecha_{{ $inspeccion->id }}">
-                                        {{ $inspeccion->fecha_inicio }}
-                                    </td>
 
-                                    {{-- estatus --}}
+                                    {{-- inspecciones pendientes --}}
                                     @if ($inspeccion->status->status == 'Pendiente')
+                                        {{-- fecha inicio--}}
+                                        <td scope="row" style="min-width:fit-content; white-space:initial"
+                                            id="fecha_{{ $inspeccion->id }}">
+                                            {{ $inspeccion->fecha_inicio }}
+                                        </td>
+                                        {{-- status pendiente --}}
                                         <td scope="row"
                                             style="min-width:fit-content; white-space:initial; color:rgb(214, 21, 21);"
                                             id="estatus_{{ $inspeccion->id }}">
                                             {{ $inspeccion->status->status }}
                                         </td>
                                     @else
+                                        {{-- fecha inicio y fin --}}
+                                        <td scope="row" style="min-width:fit-content; white-space:initial"
+                                            id="fecha_{{ $inspeccion->id }}">
+                                            {{ $inspeccion->fecha_inicio }}/
+                                            <br>
+                                            {{ $inspeccion->fecha_fin }}
+                                        </td>
+                                        {{-- status completado --}}
                                         <td scope="row"
                                             style="min-width:fit-content; white-space:initial; color:rgb(19, 131, 19);"
                                             id="estatus_{{ $inspeccion->id }}">
@@ -103,7 +113,7 @@
                                                     type="button"
                                                     class="modal-open text-red-600 border-none bg-transparent hover:text-red-500"
                                                     data-bs-toggle="modal" data-bs-target="#modal-delete">
-                                                    <i class="fa-solid fa-ban" data-modal="delete"></i>Cancelar
+                                                    <i class="fa-solid fa-ban" data-modal="delete"></i> Cancelar
                                                 </button>
                                             </div>
                                         </td>
