@@ -105,12 +105,12 @@ left: calc(50% - 24px);
                                                 @endif
                                                 @if ($user->status->id === 2)
                                                     <div
-                                                        class="rounded-full border-solid border border-black bg-yellow-500 w-50 h-2 mx-3">
+                                                        class="rounded-full border-solid border border-black bg-green-500 w-50 h-2 mx-3">
                                                     </div>
                                                 @endif
                                                 @if ($user->status->id === 3)
                                                     <div
-                                                        class="rounded-full border-solid border border-black bg-green-500 w-50 h-2 mx-3">
+                                                        class="rounded-full border-solid border border-black bg-yellow-500 w-50 h-2 mx-3">
                                                     </div>
                                                 @endif
                                             </td>
@@ -358,8 +358,6 @@ left: calc(50% - 24px);
 
                 document.querySelector('#perfil_status_color').classList.add(status_id === 1 ? 'bg-red-500' :
                     status_id === 2 ? 'bg-yellow-500' : 'bg-green-500')
-
-
 
                 if (image) {
                     let image_route = "{{ asset('images/profile/:image') }}"
@@ -667,7 +665,7 @@ left: calc(50% - 24px);
 
 
             axios.post(url, {
-                status_id: 3,
+                status_id: 2,
                 id: id
             }).then(res => {
                 axios.post("{{ route('message') }}", {

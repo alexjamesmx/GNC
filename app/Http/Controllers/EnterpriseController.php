@@ -26,6 +26,7 @@ class EnterpriseController extends Controller
         //     ->where('enterprises.status_id', '!=', '1')
         //     ->get();
 
+        // dd($users);
         $users = DB::table('users')->whereNotExists(function ($query) {
             $query->select('user_id')
                 ->where('status_id', '!=', '1')

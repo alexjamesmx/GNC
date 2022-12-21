@@ -12,7 +12,7 @@ class Inspecciones extends Model
     protected $table = 'inspecciones';
     protected $primaryKey = "id";
     public $timestamps = false;
-    
+
     protected $fillable = [
         'tecnico_responsable',
         'asignado_por',
@@ -24,27 +24,33 @@ class Inspecciones extends Model
         'status_id',
     ];
 
-    public function tecnico(){
+    public function tecnico()
+    {
         return $this->hasOne(User::class, 'id', 'tecnico_responsable');
     }
 
-    public function admin(){
+    public function admin()
+    {
         return $this->hasOne(User::class, 'id', 'asignado_por');
     }
 
-    public function parque(){
+    public function parque()
+    {
         return $this->hasOne(Parque::class, 'id', 'parque_id');
     }
 
-    public function enterprise(){
+    public function enterprise()
+    {
         return $this->hasOne(Enterprise::class, 'id', 'enterprise_id');
     }
 
-    public function subestacion(){
+    public function subestacion()
+    {
         return $this->hasOne(Subestacion::class, 'id', 'subestacion_id');
     }
 
-    public function status(){
+    public function status()
+    {
         return $this->hasOne(Status::class, 'id', 'status_id');
     }
 }

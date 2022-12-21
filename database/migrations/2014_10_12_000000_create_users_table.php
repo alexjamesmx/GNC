@@ -27,7 +27,7 @@ return new class extends Migration
             $table->rememberToken()->nullable();
             $table->timestamps();
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
-            $table->foreign('status_id')->references('id')->on('status');
+            $table->foreign('status_id')->references('id')->on('status')->onDelete('cascade');
         });
     }
 

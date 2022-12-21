@@ -36,68 +36,79 @@
                         @forelse ($inspecciones as $inspeccion)
                             {{-- solo mostrar inspecciones completadas o pendientes --}}
                             @if ($inspeccion->status->status != 'Inactivo')
-                            <tr id="row_{{ $inspeccion->id }}">
-                                {{-- ID --}}
-                                <td scope="row" style="min-width:fit-content; white-space:initial" id="id_{{ $inspeccion->id }}">
-                                    {{ $inspeccion->id }}
-                                </td>
+                                <tr id="row_{{ $inspeccion->id }}">
+                                    {{-- ID --}}
+                                    <td scope="row" style="min-width:fit-content; white-space:initial"
+                                        id="id_{{ $inspeccion->id }}">
+                                        {{ $inspeccion->id }}
+                                    </td>
 
-                                {{-- empresa --}}
-                                <td scope="row" style="min-width:fit-content; white-space:initial" id="enterprise_{{ $inspeccion->id }}">
-                                    {{ $inspeccion->enterprise->enterprise }}
-                                </td>
+                                    {{-- empresa --}}
+                                    <td scope="row" style="min-width:fit-content; white-space:initial"
+                                        id="enterprise_{{ $inspeccion->id }}">
+                                        {{ $inspeccion->enterprise->enterprise }}
+                                    </td>
 
-                                {{-- subestacion --}}
-                                <td scope="row" style="min-width:fit-content; white-space:initial" id="subestacion_{{ $inspeccion->id }}">
-                                    {{ $inspeccion->subestacion->subestacion }}
-                                </td>
+                                    {{-- subestacion --}}
+                                    <td scope="row" style="min-width:fit-content; white-space:initial"
+                                        id="subestacion_{{ $inspeccion->id }}">
+                                        {{ $inspeccion->subestacion->subestacion }}
+                                    </td>
 
-                                {{-- parque --}}
-                                <td scope="row" style="min-width:fit-content; white-space:initial" id="parque_{{ $inspeccion->id }}">
-                                    {{ $inspeccion->parque->parque }}
-                                </td>
+                                    {{-- parque --}}
+                                    <td scope="row" style="min-width:fit-content; white-space:initial"
+                                        id="parque_{{ $inspeccion->id }}">
+                                        {{ $inspeccion->parque->parque }}
+                                    </td>
 
-                                {{-- tecnico --}}
-                                <td scope="row" style="min-width:fit-content; white-space:initial" id="tecnico_{{ $inspeccion->id }}">
-                                    {{ $inspeccion->tecnico->name }}
-                                </td>
-                                    
-                                {{-- fecha --}}
-                                <td scope="row" style="min-width:fit-content; white-space:initial" id="fecha_{{ $inspeccion->id }}">
-                                    {{ $inspeccion->fecha_inicio }}
-                                </td>
+                                    {{-- tecnico --}}
+                                    <td scope="row" style="min-width:fit-content; white-space:initial"
+                                        id="tecnico_{{ $inspeccion->id }}">
+                                        {{ $inspeccion->tecnico->name }}
+                                    </td>
 
-                                {{-- estatus --}}
-                                @if ($inspeccion->status->status == 'Pendiente')
-                                <td scope="row" style="min-width:fit-content; white-space:initial; color:rgb(214, 21, 21);" id="estatus_{{ $inspeccion->id }}">
-                                    {{ $inspeccion->status->status }}
-                                </td>
-                                @else
-                                <td scope="row" style="min-width:fit-content; white-space:initial; color:rgb(19, 131, 19);" id="estatus_{{ $inspeccion->id }}">
-                                    {{ $inspeccion->status->status }}
-                                </td>
-                                @endif
+                                    {{-- fecha --}}
+                                    <td scope="row" style="min-width:fit-content; white-space:initial"
+                                        id="fecha_{{ $inspeccion->id }}">
+                                        {{ $inspeccion->fecha_inicio }}
+                                    </td>
 
-                                {{-- asignado por --}}
-                                <td scope="row" style="min-width:fit-content; white-space:initial" id="tecnico_{{ $inspeccion->id }}">
-                                    {{ $inspeccion->admin->name }}
-                                </td>
+                                    {{-- estatus --}}
+                                    @if ($inspeccion->status->status == 'Pendiente')
+                                        <td scope="row"
+                                            style="min-width:fit-content; white-space:initial; color:rgb(214, 21, 21);"
+                                            id="estatus_{{ $inspeccion->id }}">
+                                            {{ $inspeccion->status->status }}
+                                        </td>
+                                    @else
+                                        <td scope="row"
+                                            style="min-width:fit-content; white-space:initial; color:rgb(19, 131, 19);"
+                                            id="estatus_{{ $inspeccion->id }}">
+                                            {{ $inspeccion->status->status }}
+                                        </td>
+                                    @endif
 
-                                {{-- acciones --}}
-                                @if ($inspeccion->status->status == 'Pendiente')
-                                <td scope="row" style="min-width:fit-content; white-space:initial">
-                                    <div class="flex justify-start">
-                                        <button
-                                            onclick="document.getElementById('delete-id').value = {{ $inspeccion->id }}"
-                                            type="button"
-                                            class="modal-open text-red-600 border-none bg-transparent hover:text-red-500"
-                                            data-bs-toggle="modal" data-bs-target="#modal-delete">
-                                            <i class="fa-solid fa-ban" data-modal="delete"></i>Cancelar
-                                        </button>
-                                    </div>
-                                </td>
-                                @endif
-                            </tr>
+                                    {{-- asignado por --}}
+                                    <td scope="row" style="min-width:fit-content; white-space:initial"
+                                        id="tecnico_{{ $inspeccion->id }}">
+                                        {{ $inspeccion->admin->name }}
+                                    </td>
+
+                                    {{-- acciones --}}
+                                    @if ($inspeccion->status->status == 'Pendiente')
+                                        <td scope="row" style="min-width:fit-content; white-space:initial">
+                                            <div class="flex justify-start">
+                                                <button
+                                                    onclick="document.getElementById('delete-id').value = {{ $inspeccion->id }}"
+                                                    type="button"
+                                                    class="modal-open text-red-600 border-none bg-transparent hover:text-red-500"
+                                                    data-bs-toggle="modal" data-bs-target="#modal-delete">
+                                                    <i class="fa-solid fa-ban" data-modal="delete"></i>Cancelar
+                                                </button>
+                                            </div>
+                                        </td>
+                                    @endif
+                                </tr>
                             @endif
                         @empty
                             <h1>No hay parques</h1>
@@ -113,12 +124,12 @@
 </div>
 
 <div class="row">
-    <input type="hidden" id="parques" value="{{$parques}}">
-    <input type="hidden" id="enterprises" value="{{$enterprises}}">
-    <input type="hidden" id="subestaciones" value="{{$subestaciones}}">
-    <input type="hidden" id="tecnicos" value="{{$tecnicos}}">
-    <input type="hidden" id="section" value="{{$section_cute}}">
-    <input type="hidden" id="id_user" value="{{$id_user}}">
+    <input type="hidden" id="parques" value="{{ $parques }}">
+    <input type="hidden" id="enterprises" value="{{ $enterprises }}">
+    <input type="hidden" id="subestaciones" value="{{ $subestaciones }}">
+    <input type="hidden" id="tecnicos" value="{{ $tecnicos }}">
+    <input type="hidden" id="section" value="{{ $section_cute }}">
+    <input type="hidden" id="id_user" value="{{ $id_user }}">
 </div>
 
-<script defer src="{{ asset('scripts/inspecciones.js') }}"></script>
+<script defer src="{{ asset('js/inspecciones.js') }}"></script>

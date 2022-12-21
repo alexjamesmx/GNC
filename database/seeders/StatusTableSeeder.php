@@ -17,8 +17,11 @@ class StatusTableSeeder extends Seeder
     {
         $status = [
             ['status' => 'Inactivo'],
-            ['status' => 'En inspección'],
             ['status' => 'Activo'],
+            ['status' => 'En inspección'],
+            ['status' => 'Pendiente'],
+            ['status' => 'Completado'],
+
         ];
 
         foreach ($status as $key => $value) {

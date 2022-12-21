@@ -1,0 +1,24 @@
+.completed{
+ cursor:auto !important;
+ position: relative;
+ opacity: 0.7;   
+ background-color: rgb(161, 255, 127) !important;
+}
+
+.completed::before{
+    content:'';
+    position: absolute;
+    top:0;
+    left:0;
+    width: 10%;
+    aspect-ratio: 1;
+    background-image: url("../images/gnc/check-mark-button-svgrepo-com.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 1rem 0 0 1rem;
+   }
+
+.completed:hover{
+    /* background-color: rgb( !important; */
+}

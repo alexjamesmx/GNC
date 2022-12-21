@@ -7,7 +7,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title id="page-title">hola</title>
     <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" />
-
+    @if ($role === 'tecnico')
+        {{-- <link rel="stylesheet" href="{{ asset('resources/tecnico.css') }}"> --}}
+    @endif
+    @if ($role === 'tecnico' && $section === 'test')
+        <link rel="stylesheet" href="{{ asset('css/inspecciones_cards.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/inspecciones_popup.css') }}">
+    @endif
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -43,6 +49,8 @@
             }, 4000);
         }
     </script>
+
+
     <div class="message"></div>
     <div class="container-scroller">
         @yield('content')
@@ -58,6 +66,44 @@
             document.querySelector('#divLoading').style.opacity = 1
         })
     </script>
+
+
+    {{-- ********************************* TEST ********************************* --}}
+    @if ($role === 'tecnico')
+        <script>
+            var route = [
+                "{{ route('tecnico.ins_edificio', ['id' => ':id']) }}",
+                "{{ route('tecnico.edificio_subir') }}",
+                "{{ route('tecnico.anomalia') }}",
+                "{{ route('tecnico.test', ['id' => ':id']) }}",
+                "{{ route('tecnico.anomalia_validar') }}",
+                "{{ route('tecnico.ins_electrica', ['id' => ':id']) }}",
+                "{{ route('tecnico.electrica_subir') }}",
+                "{{ route('tecnico.ins_transformador', ['id' => ':id']) }}"
+            ];
+        </script>
+    @endif
+
+    {{-- SI SOMOS TECNICOS Y NO ESTAMOS DENTRO DEL TEST --}}
+    @if ($role === 'tecnico' && $section != 'test')
+        <div id="data-tecnico" data-data=@json($data)></div>
+        <div id="data-inspecciones">@json($inspecciones_activas)</div>
+        <script src="{{ asset('js/tecnico.js') }}"></script>
+    @endif
+    {{-- SI SOMOS TECNICOS Y ESTAMOS DENTRO DEL TEST --}}
+    @if ($role === 'tecnico' && $section === 'test' && $subsection === '')
+        <div id="data-rep-edificio">@json($rep_enterprise)</div>
+        {{-- <div id="data-rep-eletrcia">@json($rep_enterprise)</div> --}}
+        {{-- <div id="data-rep-transformador">@json($rep_enterprise)</div> --}}
+        <script src="{{ asset('js/test_navigation.js') }}"></script>
+    @endif
+
+    @if ($role === 'tecnico' && $section === 'test' && $subsection === 'edificio')
+        <script src="{{ asset('js/tecnico_test.js') }}"></script>
+        <script src="{{ asset('js/tecnico_test_completado.js') }}"></script>
+    @endif
+    {{-- ********************************* TEST ********************************* --}}
+
 </body>
 
 </html>

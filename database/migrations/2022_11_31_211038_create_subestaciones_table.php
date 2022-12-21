@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');
             $table->foreign('enterprise_id')->references('id')->on('enterprises')->onDelete('cascade');
             $table->foreign('parque_id')->references('id')->on('parques')->onDelete('cascade');
-            $table->foreign('status_id')->references('id')->on('status')->onDelete('cascade');        
+            $table->foreign('status_id')->references('id')->on('status')->onDelete('cascade');
         });
     }
 
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subestacions');
+        Schema::dropIfExists('subestaciones');
     }
 };

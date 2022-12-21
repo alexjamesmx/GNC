@@ -35,18 +35,18 @@ class InspeccionesController extends Controller
             $role = 'Técnico';
         }
         return view('admin.admin', [
-            'inspecciones' => $inspecciones, 
-            'parques' => $parques, 
-            'enterprises' => $enterprises, 
-            'subestaciones' => $subestaciones, 
-            'tecnicos' => $tecnicos, 
-            'section' => 'inspecciones', 
-            'section_cute' => 'Inspecciones', 
-            'role' => $role, 
+            'inspecciones' => $inspecciones,
+            'parques' => $parques,
+            'enterprises' => $enterprises,
+            'subestaciones' => $subestaciones,
+            'tecnicos' => $tecnicos,
+            'section' => 'inspecciones',
+            'section_cute' => 'Inspecciones',
+            'role' => $role,
             'id_user' => $id_user
         ],);
     }
-    
+
     // obtiene parques por empresa
     public function getParques(Request $request)
     {
@@ -68,7 +68,7 @@ class InspeccionesController extends Controller
         if (!$request->isMethod('post')) {
             return dd('error');
         }
-        
+
         $subestaciones = Subestacion::where('parque_id', $request->parque_id)->where('enterprise_id', $request->enterprise_id)->get();
 
         return response()->json(['response' => $subestaciones], 200);

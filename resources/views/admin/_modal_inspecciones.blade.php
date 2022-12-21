@@ -43,16 +43,17 @@
                                 </select>
                                 <label id="parque_id_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
                             </div>
-        
+
                             {{-- SUBESTACION A ELEGIR --}}
                             <div class="col-6 mt-3">
                                 <p class="font-bold text-lg">Nombre subestación:</p>
                                 <select id="select-subestacion" name="subestacion_id">
                                     <option value="" disabled selected>Selecciona una subestación</option>
                                 </select>
-                                <label id="subestacion_id_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
+                                <label id="subestacion_id_error"
+                                    class="text-sm text-red-500 tracking-wide mb-3"></label>
                             </div>
-                            
+
                             {{-- TECNICO A ELEGIR --}}
                             <div class="col-6 mt-3">
                                 <p class="font-bold text-lg">Tecnico asignado:</p>
@@ -66,8 +67,9 @@
                             {{-- FECHA ELEGIR --}}
                             <div class="col-6 my-4">
                                 <p class="font-bold text-lg">Fecha revisión:</p>
-                                <div class="input-container">   
-                                    <input id="fecha_ini" name="fecha_ini" class="input-field" type="date" placeholder="dd/mm/aaaa" name="date">
+                                <div class="input-container">
+                                    <input id="fecha_ini" name="fecha_ini" class="input-field" type="date"
+                                        placeholder="dd/mm/aaaa" name="date">
                                     <label id="fecha_ini_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
                                 </div>
                             </div>

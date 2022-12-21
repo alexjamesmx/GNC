@@ -5,7 +5,7 @@
                 <div class="profile-image">
 
                     <img class="img-xs rounded-circle"
-                        src="{{ Auth::user()->image ? asset('images/faces/face8.jpg') : asset('images/faces/face8.jpg') }}"
+                        src="{{ Auth::user()->image ? asset('images/profile/') . '/' . Auth::user()->image : asset('images/faces/face8.jpg') }}"
                         alt="profile image">
                     <div class="dot-indicator bg-success"></div>
                 </div>
@@ -23,7 +23,7 @@
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
-              <li class="nav-item {{ $section === 'users' ? 'active' : '' }}">
+        <li class="nav-item {{ $section === 'users' ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('users.home') }}">
                 <i class="menu-icon typcn typcn-user-outline"></i>
                 <span class="menu-title">Usuarios</span>
@@ -42,20 +42,19 @@
                 <span class="menu-title">Empresas</span>
             </a>
         </li>
-        <li class="nav-item  {{ $section === 'subestaciones' ? 'active' : '' }}" >
+        <li class="nav-item  {{ $section === 'subestaciones' ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('subestacion.home') }}">
                 <i class="menu-icon typcn typcn-bell"></i>
                 <span class="menu-title">Subestaciones</span>
             </a>
         </li>
-        {{-- reportes --}}
-        <li class="nav-item {{ $section === 'inspecciones' ? 'active' : '' }}" >
+        <li class="nav-item {{ $section === 'inspecciones' ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('inspeccion.home') }}">
                 <i class="menu-icon typcn typcn-bell"></i>
                 <span class="menu-title">Inspecciones</span>
             </a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
                 <i class="menu-icon typcn typcn-document-add"></i>
                 <span class="menu-title">test</span>
@@ -80,7 +79,7 @@
                     </li>
                 </ul>
             </div>
-        </li>
+        </li> --}}
         <li class="nav-item">
             <a class="nav-link" href="../../pages/icons/font-awesome.html">
                 <i class="menu-icon typcn typcn-user-outline"></i>

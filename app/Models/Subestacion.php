@@ -12,7 +12,7 @@ class Subestacion extends Model
     protected $table = 'subestaciones';
     protected $primaryKey = "id";
     public $timestamps = false;
-    
+
     protected $fillable = [
         'subestacion',
         'type_id',
@@ -21,17 +21,21 @@ class Subestacion extends Model
         'status_id',
     ];
 
-    public function parque(){
+    public function parque()
+    {
         return $this->hasOne(Parque::class, 'id', 'parque_id');
     }
 
-    public function status(){
+    public function status()
+    {
         return $this->hasOne(Status::class, 'id', 'status_id');
     }
-    public function enterprise(){
+    public function enterprise()
+    {
         return $this->belongsTo(Enterprise::class);
     }
-    public function type(){
+    public function type()
+    {
         return $this->hasOne(Type::class, 'id', 'type_id');
     }
 }
