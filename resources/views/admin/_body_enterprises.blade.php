@@ -675,7 +675,7 @@
                 selectAdministrador.appendChild(option)
 
 
-                users.forEach(element => {
+                user_empresas.forEach(element => {
 
                     const option = document.createElement('option')
                     option.value = element.id
