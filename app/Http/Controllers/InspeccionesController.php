@@ -15,7 +15,7 @@ class InspeccionesController extends Controller
 {
     public function home()
     {
-        $inspecciones = Inspecciones::paginate(10);
+        $inspecciones = Inspecciones::where('status_id', '!=', '1')->paginate(10);
         $parques = Parque::where('status_id', '!=', '1')->get();
         $enterprises = Enterprise::where('status_id', '!=', '1')->groupBy('enterprise')->get();
         $subestaciones = Subestacion::where('status_id', '!=', '1')->get();
@@ -43,6 +43,7 @@ class InspeccionesController extends Controller
             'section' => 'inspecciones',
             'section_cute' => 'Inspecciones',
             'role' => $role,
+            'role_type' => $role_type,
             'id_user' => $id_user
         ],);
     }

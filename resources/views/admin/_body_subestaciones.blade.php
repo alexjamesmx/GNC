@@ -1,13 +1,106 @@
 <div class="row">
     <div class="col-lg-12 stretch-card grid-margin">
         <div class="card">
-            <div class="card-body">
-                <div class="flex justify-between">
-                    <p class="text-xl p-0 m-0 text-center self-center">
-                        Listado de subestaciones
-                    </p>
+            @if (count($subestaciones) !== 0)
+                <div class="card-body">
+                    <div class="flex justify-between">
+                        <p class="text-xl p-0 m-0 text-center self-center">
+                            Listado de subestaciones
+                        </p>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#modal-subestaciones"
+                            class="text-decoration-none rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-purple-600 active:shadow-none shadow-lg bg-gradient-to-tr from-purple-600 to-purple-500 border-purple-700 text-white"
+                            data-modal='crear' onclick="handleCreate(this)">
+                            <span
+                                class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
+                            <span class="relative font-semibold tracking-wider">
+                                <i class="fa-solid fa-plus"></i>
+                                Nuevo
+                            </span>
+                        </a>
+                    </div>
+                    <hr>
+                    <div class="table-responsive">
+                        <table class="table table-striped align-middle">
+                            <thead class="table-dark text-white">
+                                <tr>
+                                    <th class="text-white"scope="col">Id</th>
+                                    <th class="text-white"scope="col">Subestación</th>
+                                    <th class="text-white"scope="col">Tipo</th>
+                                    <th class="text-white"scope="col">Empresa</th>
+                                    <th class="text-white"scope="col">Parque</th>
+                                    <th class="text-white"scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                @forelse ($subestaciones as $subestacion)
+                                    <tr id="row_{{ $subestacion->id }}">
+                                        {{-- ID --}}
+                                        <td scope="row" style="min-width:fit-content; white-space:initial">
+                                            <p id="id_{{ $subestacion->id }}" class="m-0">
+                                                {{ $subestacion->id }}
+                                        </td>
+                                        </p>
+                                        {{-- SUBESTACION --}}
+                                        <td scope="row" style="min-width:fit-content; white-space:initial ">
+                                            <p id="subestacion_{{ $subestacion->id }}" class="m-0">
+                                                {{ $subestacion->subestacion }}</p>
+                                        </td>
+                                        {{-- TIPO --}}
+                                        <td scope="row"
+                                            style="min-width:fit-content; white-space:initial "id="type_{{ $subestacion->id }}">
+                                            {{ $subestacion->type->type }}
+                                        </td>
+                                        <input type="text" id="type_id_{{ $subestacion->id }}" hidden
+                                            value="{{ $subestacion->type->id }}">
+                                        {{-- EMPRESA A LA QUE PERTENECE --}}
+                                        <td scope="row"
+                                            style="min-width:fit-content; white-space:initial"id="enterprise_{{ $subestacion->id }}"
+                                            data-id-enterprise="{{ $subestacion->enterprise->id }}"
+                                            data-name-enterprise="{{ $subestacion->enterprise->enterprise }}">
+                                            {{ $subestacion->enterprise->enterprise }}
+                                        </td>
+                                        <input type="text" id="enterprise_id_{{ $subestacion->id }}" hidden
+                                            value="{{ $subestacion->enterprise->id }}">
+                                        {{-- PARQUE AL QUE PERTENECE --}}
+                                        <td scope="row"
+                                            style="min-width:fit-content; white-space:initial"id="parque_{{ $subestacion->id }}"data-parqueid="{{ $subestacion->parque->id }}">
+                                            {{ $subestacion->parque->parque }}
+
+                                        </td>
+                                        <input type="text" id="parque_id_{{ $subestacion->id }}" hidden
+                                            value="{{ $subestacion->parque->id }}">
+                                        {{-- ACCIONES --}}
+                                        <td scope="row" style="min-width:fit-content; white-space:initial">
+                                            <div class="flex justify-start">
+                                                <button data-bs-toggle="modal"
+                                                    data-bs-target="#modal-subestaciones"onclick="handleEdit({{ $subestacion->id }})"
+                                                    type="button"class="text-lime-600 border-none bg-transparent mr-5 hover:text-lime-500"
+                                                    data-modal="edit"><i class="fa-solid fa-pen-fancy"></i>
+                                                    Editar</button>
+                                                <button
+                                                    onclick="document.getElementById('delete-id').value = {{ $subestacion->id }}"
+                                                    type="button"
+                                                    class="modal-open text-red-600 border-none bg-transparent  hover:text-red-500"
+                                                    data-bs-toggle="modal" data-bs-target="#modal-delete"><i
+                                                        class="fa-solid fa-trash-can"data-modal="delete"></i>
+                                                    Eliminar</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <h1>No hay empresas</h1>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4">
+                        {{ $subestaciones->links() }}
+                    </div>
+                </div>
+            @else
+                <div class="flex relative justify-center">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#modal-subestaciones"
-                        class="text-decoration-none rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-purple-600 active:shadow-none shadow-lg bg-gradient-to-tr from-purple-600 to-purple-500 border-purple-700 text-white"
+                        class="text-decoration-none rounded  inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-purple-600 active:shadow-none shadow-lg bg-gradient-to-tr from-purple-600 to-purple-500 border-purple-700 text-white self-end absolute right-0 top-0"
                         data-modal='crear' onclick="handleCreate(this)">
                         <span
                             class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
@@ -16,85 +109,12 @@
                             Nuevo
                         </span>
                     </a>
-                </div>
-                <hr>
-                <div class="table-responsive">
-                    <table class="table table-striped align-middle">
-                        <thead class="table-dark text-white">
-                            <tr>
-                                <th class="text-white"scope="col">Id</th>
-                                <th class="text-white"scope="col">Subestación</th>
-                                <th class="text-white"scope="col">Tipo</th>
-                                <th class="text-white"scope="col">Empresa</th>
-                                <th class="text-white"scope="col">Parque</th>
-                                <th class="text-white"scope="col">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody class="table-group-divider">
-                            @forelse ($subestaciones as $subestacion)
-                                <tr id="row_{{ $subestacion->id }}">
-                                    {{-- ID --}}
-                                    <td scope="row" style="min-width:fit-content; white-space:initial">
-                                        <p id="id_{{ $subestacion->id }}">
-                                            {{ $subestacion->id }}
-                                    </td>
-                                    </p>
-                                    {{-- SUBESTACION --}}
-                                    <td scope="row" style="min-width:fit-content; white-space:initial ">
-                                        <p id="subestacion_{{ $subestacion->id }}">{{ $subestacion->subestacion }}</p>
-                                    </td>
-                                    {{-- TIPO --}}
-                                    <td scope="row"
-                                        style="min-width:fit-content; white-space:initial "id="type_{{ $subestacion->id }}">
-                                        {{ $subestacion->type->type }}
-                                    </td>
-                                    <input type="text" id="type_id_{{ $subestacion->id }}" hidden
-                                        value="{{ $subestacion->type->id }}">
-                                    {{-- EMPRESA A LA QUE PERTENECE --}}
-                                    <td scope="row"
-                                        style="min-width:fit-content; white-space:initial"id="enterprise_{{ $subestacion->id }}"
-                                        data-id-enterprise="{{ $subestacion->enterprise->id }}"
-                                        data-name-enterprise="{{ $subestacion->enterprise->enterprise }}">
-                                        {{ $subestacion->enterprise->enterprise }}
-                                    </td>
-                                    <input type="text" id="enterprise_id_{{ $subestacion->id }}" hidden
-                                        value="{{ $subestacion->enterprise->id }}">
-                                    {{-- PARQUE AL QUE PERTENECE --}}
-                                    <td scope="row"
-                                        style="min-width:fit-content; white-space:initial"id="parque_{{ $subestacion->id }}"data-parqueid="{{ $subestacion->parque->id }}">
-                                        {{ $subestacion->parque->parque }}
+                    <p class="text-2xl text-center mt-5">No se encuentran subestaciones registradas</p>
 
-                                    </td>
-                                    <input type="text" id="parque_id_{{ $subestacion->id }}" hidden
-                                        value="{{ $subestacion->parque->id }}">
-                                    {{-- ACCIONES --}}
-                                    <td scope="row" style="min-width:fit-content; white-space:initial">
-                                        <div class="flex justify-start">
-                                            <button data-bs-toggle="modal"
-                                                data-bs-target="#modal-subestaciones"onclick="handleEdit({{ $subestacion->id }})"
-                                                type="button"class="text-lime-600 border-none bg-transparent mr-5 hover:text-lime-500"
-                                                data-modal="edit"><i class="fa-solid fa-pen-fancy"></i>
-                                                Editar</button>
-                                            <button
-                                                onclick="document.getElementById('delete-id').value = {{ $subestacion->id }}"
-                                                type="button"
-                                                class="modal-open text-red-600 border-none bg-transparent  hover:text-red-500"
-                                                data-bs-toggle="modal" data-bs-target="#modal-delete"><i
-                                                    class="fa-solid fa-trash-can"data-modal="delete"></i>
-                                                Eliminar</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @empty
-                                <h1>No hay empresas</h1>
-                            @endforelse
-                        </tbody>
-                    </table>
                 </div>
-                <div class="mt-4">
-                    {{ $subestaciones->links() }}
-                </div>
-            </div>
+                <img class="self-center my-5"src="{{ asset('images/gnc/sad.svg') }}" width="80px" height="80px"
+                    alt="">
+            @endif
         </div>
     </div>
 </div>

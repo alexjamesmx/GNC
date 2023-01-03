@@ -2,23 +2,22 @@ var lamparas = null,
     lamparas_emergencia = null,
     senalizacion = null,
     pintura = null,
-    herreria = null;
-var overlay = document.getElementById( "overlay" );
-var popup = document.getElementById( "popup" );
-var btnCerrarPopup = document.getElementById( "btn-cerrar-popup" );
+    herreria = null,
+    overlay = document.getElementById( "overlay" ),
+    popup = document.getElementById( "popup" ),
+    btnCerrarPopup = document.getElementById( "btn-cerrar-popup" );
 //ANOMALIAS
-const formAnomalias = document.querySelector( "#form-anomalias" );
-const formSelectTipo = document.querySelector( "#form-select-tipo" );
-const formSelectTipoError = document.querySelector( "#form-select-tipo-error" );
-const formMarca = document.querySelector( "#form-marca" );
-const formModelo = document.querySelector( "#form-modelo" );
-const formMedidas = document.querySelector( "#form-medidas" );
-const formDescription = document.querySelector( "#form-description" );
-const formFoto = document.querySelector( "#form-foto" );
-const formFotoError = document.querySelector( "#form-foto-error" );
-const formDescriptionError = document.querySelector( "#form-description-error" );
-//FORM GENERAL
-const formInspecciones = document.querySelector( "#form-inspecciones" );
+const formAnomalias = document.querySelector( "#form-anomalias" ),
+    formSelectTipo = document.querySelector( "#form-select-tipo" ),
+    formSelectTipoError = document.querySelector( "#form-select-tipo-error" ),
+    formMarca = document.querySelector( "#form-marca" ),
+    formModelo = document.querySelector( "#form-modelo" ),
+    formMedidas = document.querySelector( "#form-medidas" ),
+    formDescription = document.querySelector( "#form-description" ),
+    formFoto = document.querySelector( "#form-foto" ),
+    formFotoError = document.querySelector( "#form-foto-error" ),
+    formDescriptionError = document.querySelector( "#form-description-error" ),
+    formInspecciones = document.querySelector( "#form-inspecciones" );
 
 function handleAnomalia( anomaliaTipo )
 {
@@ -42,7 +41,6 @@ function saveAnomalia()
     const anomalia = formAnomalias.getAttribute( "data-anomalia" );
 
     let anomaliaData = new FormData( formAnomalias );
-    console.trace( "anomalia: " + anomalia );
     if ( anomalia === "lamparas" )
     {
         lamparas = new FormData( formAnomalias );
@@ -68,16 +66,10 @@ function saveAnomalia()
         console.log( herreria );
     }
 
-
     const url = route[ 4 ]
-    console.log( url )
 
     axios.post( url, anomaliaData ).then( res =>
     {
-        console.log( res.data )
-
-
-
         if ( res.data.errors )
         {
             const { imagen: imagen_err } = res.data.errors
@@ -93,12 +85,7 @@ function saveAnomalia()
             btnCerrarPopup.click();
             message( 'Anomalía guardada' )
         }
-
-
-
     } ).catch( err => console.error( err ) )
-
-
 }
 function validateAnomalia()
 {
@@ -133,68 +120,6 @@ function validateAnomalia()
     console.log( formFoto );
     return true;
 }
-function cleanAnomalia()
-{
-    const anomalia = formAnomalias.getAttribute( "data-anomalia" );
-
-    console.log( anomalia );
-    if ( anomalia === "lamparas" )
-    {
-        console.log( lamparas );
-        if ( lamparas === null )
-        {
-            alert( "No se ha guardado ninguna anomalia" );
-            document.querySelector( "." + anomalia ).checked = false;
-        }
-    }
-    if ( anomalia === "lamparas_emergencia" )
-    {
-        if ( lamparas_emergencia === null )
-        {
-            alert( "No se ha guardado ninguna anomalia" );
-            document.querySelector( "." + anomalia ).checked = false;
-        }
-        console.log( lamparas_emergencia );
-    }
-    if ( anomalia === "senalizacion" )
-    {
-        console.log( senalizacion );
-
-        if ( senalizacion === null )
-        {
-            alert( "No se ha guardado ninguna anomalia" );
-            document.querySelector( "." + anomalia ).checked = false;
-        }
-    }
-    if ( anomalia === "pintura" )
-    {
-        console.log( pintura );
-        if ( pintura === null )
-        {
-            alert( "No se ha guardado ninguna anomalia" );
-            document.querySelector( "." + anomalia ).checked = false;
-        }
-    }
-    if ( anomalia === "herreria" )
-    {
-        console.log( herreria );
-        if ( herreria === null )
-        {
-            alert( "No se ha guardado ninguna anomalia" );
-            document.querySelector( "." + anomalia ).checked = false;
-        }
-    }
-
-    formSelectTipo.selectedIndex = 0;
-    formSelectTipoError.textContent = "";
-    formMarca.value = "";
-    formModelo.value = "";
-    formMedidas.value = "";
-    formDescription.value = "";
-    formDescriptionError.textContent = "";
-    formFoto.value = "";
-    formFotoError.textContent = "";
-}
 
 function saveInspeccion( id )
 {
@@ -214,32 +139,25 @@ function saveInspeccion( id )
                     pintura,
                     herreria,
                 ];
-
                 const url = route[ 2 ];
-
                 let promises = [];
                 for ( i = 0; i < anomaliasArr.length; i++ )
                 {
-
-
                     anomaliasArr[ i ] !== null && promises.push( axios.post( url, anomaliasArr[ i ] ) )
                 }
-
                 ( async () =>
                 {
-
                     await subiendo();
-
                     Promise.all( promises ).then( ( res ) =>
                     {
-                        message('!Bien! redireccionado...')
+                        message( '!Bien! redireccionado...' )
                         location.href = route[ 3 ].replace( ":id", id );
                     } ).catch( ( err ) => { console.error( err ) } )
 
-
                 } )()
-
-            } else
+            } 
+            // HUBO ALGUN ERROR DE VALIDACION
+            else
             {
                 const {
                     extintores_aro_seguridad: extintores_aro_seguridad_err,
@@ -991,7 +909,6 @@ const img2 = document.querySelector( "#img2" );
 const img2_error = document.querySelector( "#img2_error" );
 const img3 = document.querySelector( "#img3" );
 const img3_error = document.querySelector( "#img3_error" );
-
 const img4 = document.querySelector( "#img4" );
 const img4_error = document.querySelector( "#img4_error" );
 const img5 = document.querySelector( "#img5" );
@@ -1043,6 +960,71 @@ img3.addEventListener( "change", () =>
 } );
 //
 
+//LIMPIAR ANOMALIA
+function cleanAnomalia()
+{
+    const anomalia = formAnomalias.getAttribute( "data-anomalia" );
+
+    console.log( anomalia );
+    if ( anomalia === "lamparas" )
+    {
+        console.log( lamparas );
+        if ( lamparas === null )
+        {
+            alert( "No se ha guardado ninguna anomalia" );
+            document.querySelector( "." + anomalia ).checked = false;
+        }
+    }
+    if ( anomalia === "lamparas_emergencia" )
+    {
+        if ( lamparas_emergencia === null )
+        {
+            alert( "No se ha guardado ninguna anomalia" );
+            document.querySelector( "." + anomalia ).checked = false;
+        }
+        console.log( lamparas_emergencia );
+    }
+    if ( anomalia === "senalizacion" )
+    {
+        console.log( senalizacion );
+
+        if ( senalizacion === null )
+        {
+            alert( "No se ha guardado ninguna anomalia" );
+            document.querySelector( "." + anomalia ).checked = false;
+        }
+    }
+    if ( anomalia === "pintura" )
+    {
+        console.log( pintura );
+        if ( pintura === null )
+        {
+            alert( "No se ha guardado ninguna anomalia" );
+            document.querySelector( "." + anomalia ).checked = false;
+        }
+    }
+    if ( anomalia === "herreria" )
+    {
+        console.log( herreria );
+        if ( herreria === null )
+        {
+            alert( "No se ha guardado ninguna anomalia" );
+            document.querySelector( "." + anomalia ).checked = false;
+        }
+    }
+
+    formSelectTipo.selectedIndex = 0;
+    formSelectTipoError.textContent = "";
+    formMarca.value = "";
+    formModelo.value = "";
+    formMedidas.value = "";
+    formDescription.value = "";
+    formDescriptionError.textContent = "";
+    formFoto.value = "";
+    formFotoError.textContent = "";
+}
+
+// LIMPIAR FORMULARIO
 function cleanFormErrors()
 {
     extintores_aro_seguridad.classList.remove( "is-invalid" );
@@ -1137,6 +1119,8 @@ function cleanFormErrors()
     // img6.classList.add('is-valid')
     img6_error.innerHTML = "";
 }
+
+//CANCELAR
 document.querySelector( "#btn-cancelar" ).addEventListener( "click", () =>
 {
     const confirmar = confirm( "¿Está seguro que desea cancelar?" );
@@ -1147,11 +1131,9 @@ document.querySelector( "#btn-cancelar" ).addEventListener( "click", () =>
     console.log( url );
     window.location.href = url;
 } );
-
+//MENSAJE SUBIENDO INSPECCION
 async function subiendo()
 {
-
-
     return new Promise( resolve =>
     {
         message( 'Subiendo inspección, por favor espere...' )

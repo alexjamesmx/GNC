@@ -18,10 +18,10 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
-        
-        if(auth()->user()->role_id != 1){
-            return new response(view('errors.401')); 
-               }
+
+        if (auth()->user()->role_id != 1) {
+            return new response(view('errors.401'));
+        }
         return $next($request);
     }
 }

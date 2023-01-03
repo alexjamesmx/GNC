@@ -21,3 +21,15 @@ import Alpine from 'alpinejs';
 window.Alpine = Alpine;
 
 Alpine.start();
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    document.querySelector('#spinner').style.opacity = 0
+    document.querySelector('#divLoading').style.opacity = 1
+})
+
+

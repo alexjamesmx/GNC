@@ -68,7 +68,7 @@
                             <div class="col-6 my-4">
                                 <p class="font-bold text-lg">Fecha revisión:</p>
                                 <div class="input-container">
-                                    <input id="fecha_ini" name="fecha_ini" class="input-field" type="date"
+                                    <input id="fecha_ini" name="fecha_ini" class="input-field" type="datetime-local"
                                         placeholder="dd/mm/aaaa" name="date">
                                     <label id="fecha_ini_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
                                 </div>

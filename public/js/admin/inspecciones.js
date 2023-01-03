@@ -1,6 +1,5 @@
 console.log('Iniciando inspecciones.js');
 
-base_url = 'http://127.0.0.1:8000/';
 
 //datos usuario
 let id_user = JSON.parse($('#id_user').val());
@@ -14,12 +13,6 @@ let id_user = JSON.parse($('#id_user').val());
  //nombre de la seccion
  let section = $('#section').val();
  document.querySelector('#page-title').innerHTML = `GNC - ${section}`;
-
- //Validando data en JSON
-//  console.log('parques', parques);
-//  console.log('empresas', enterprises);
-//  console.log('subestaciones', subestaciones);
-//  console.log('tecnicos', tecnicos);
 
 //selects
 const select_enterprises = document.querySelector('#select-enterprise');
@@ -42,20 +35,22 @@ $(function() {
         body.append('fecha_inicio', fecha_ini.value)
         body.append('asignado_por', id_user)
         //CREAR inspeccion  
-        const url = base_url + 'admin/inspecciones/store';
+        const url = route[0];
+
         axios.post(url, body)
         .then(res => {
             console.log(res.data)
             console.log(res.data.response)
 
             if (res.data.response === true) {
-                const message = 3
-                const route = base_url + 'message';
-                axios.post(route, {
+                const message = 7
+                const url = route[4] ;
+                axios.post(url , {
                         'message': message
                     })
                     .then(res => {
                         console.log(res.data)
+                        clearModal()
                         window.location.reload();
                     })
                     .catch(err => {
@@ -110,7 +105,9 @@ $(function() {
 //Borrar inspeccion
 const handleDelete = () => {
     const id = document.getElementById('delete-id').value
-    let url = base_url + 'admin/inspecciones/delete/' + id;
+    let url = route[1];
+
+    url = url.replace(':id', id)
     $.ajax({
         url: url,
         type: 'POST',
@@ -140,7 +137,13 @@ const clearModal = () => {
     select_parque.value = ''
     select_subestacion.value = ''
     select_tecnico.value = ''
+enterprise_id_error.textContent = ''
 
+    parque_id_error.textContent = ''
+    subestacion_id_error.textContent = ''
+    tecnico_id_error.textContent = ''
+    fecha_ini_error.textContent = ''
+    
     document.querySelector('#fecha_ini').value = null
 }
 
@@ -192,9 +195,11 @@ select_parque.addEventListener('change', () => {
 })
 
 function getParques() {
+    console.log('AQUII')
     const enterprise = select_enterprises.options[select_enterprises.selectedIndex].textContent
     console.trace('select_enterprises on change -> nombre empresa', enterprise)
-    const url = base_url + 'admin/inspecciones/getParques/';
+    const url = route[2];
+    console.log(url)
     axios.post(url, {
         'enterprise': enterprise
     }).then(res => {
@@ -216,7 +221,9 @@ function getParques() {
 function getSubestaciones() {
     const enterprise_id = select_enterprises.value;
     const parque_id = select_parque.value;
-    const url = base_url + 'admin/inspecciones/getSubestaciones/';
+    const url = route[3];
+console.log(url)
+    
     axios.post(url, {
         'enterprise_id': enterprise_id,
         'parque_id': parque_id
@@ -234,4 +241,39 @@ function getSubestaciones() {
     }).catch(err => {
         console.log(err)
     })
+}
+
+function handleDetalle(id){
+console.log(id)
+const inspeccion =JSON.parse( $('#inspeccion_general_'+id).html())
+const parque =JSON.parse( $('#inspeccion_parque_'+id).html())
+const enterprise =JSON.parse( $('#inspeccion_enterprise_'+id).html())
+const subestacion = JSON.parse( $('#inspeccion_subestacion_'+id).html())
+const status = JSON.parse( $('#inspeccion_status_'+id).html())
+console.log(inspeccion)
+console.log(parque)
+console.log(enterprise)
+console.log(subestacion)
+console.log(status)
+$('#parque').text(parque.parque)
+$('#empresa').text(enterprise.enterprise)
+$('#subestacion').text(subestacion.subestacion)
+if(status.id === 4){
+    $('#status').text('Por comenzar')
+    $('#resumen').text('Inspeccion asignada, el técnico no ha comenzado la inspeccion')
+}
+if(status.id === 6){
+    $('#status').text('En proceso')
+    $('#resumen').text('Esta inspeccion se encuentra en proceso de ejecución... ' + inspeccion.porcentaje + '%')
+}
+$('#asignada').text(inspeccion.fecha_inicio)
+if(inspeccion.fecha_comienzo === null){
+$('#iniciada').text('No iniciada') 
+}else{
+    $('#iniciada').text(inspeccion.fecha_comienzo )
+}if(inspeccion.fecha_fin === null){
+    $('#finalizada').text('...') 
+    }else{
+        $('#finalizada').text(inspeccion.fecha_fin) 
+    }
 }

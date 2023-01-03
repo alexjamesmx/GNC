@@ -17,9 +17,21 @@ class ProfileController extends Controller
      */
     public function edit(Request $request)
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        // return view('profile.edit', [
+        //     'user' => $request->user(),
+        //     'section_cute' => 'Perfil',
+        // ]);
+
+        $role_type = Auth::user()->role->id;
+        if ($role_type == 1) {
+            $role = 'admin';
+            return view('admin.admin', ['section' => 'profile', 'section_cute' => 'Perfil', 'role' => $role, 'user' => $request->user(), 'role_type' => $role_type]);
+        } elseif ($role_type == 2) {
+            $role = 'enterprise';
+        } elseif ($role_type == 3) {
+            $role = 'tecnico';
+            return view('tecnico.general.general', ['section' => 'profile', 'section_cute' => 'Perfil', 'role' => $role, 'role_cute' => 'Técnico', 'user' => $request->user(), 'role_type' => $role_type]);
+        }
     }
 
     /**

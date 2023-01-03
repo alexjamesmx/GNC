@@ -24,7 +24,7 @@
                         <input type="hidden" id="edit-id">
                         <br>
                         <br>
-                        <p class="font-bold text-lg">Llenar campos *</p>
+                        <p class="font-bold text-lg mb-3">Llenar campos *</p>
                         {{-- NOMRBE DE LA EMPRESA --}}
                         <div class="row">
                             <div class="col-6">

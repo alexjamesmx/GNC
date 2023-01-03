@@ -1,16 +1,21 @@
-@extends('template')
+@extends('template.template')
 
 @section('content')
-    @include('spinner')
+    @include('template.spinner')
     <div id="divLoading" style="opacity:0">
 
         <!--navbar -->
-        @include('admin._navbar')
+        @include('template._navbar')
 
         <div class="container-fluid page-body-wrapper">
             <!-- sidebar -->
-            @include('admin._sidebar')
-
+            @if ($section !== 'profile')
+                @include('admin._sidebar_admin')
+            @endif
+            {{-- SI LA SECCION ES PERFIL USAMOS OTRO SIDEBAR --}}
+            @if ($section === 'profile')
+                @include('template._sidebar_perfil')
+            @endif
             <div class="main-panel">
                 <div class="content-wrapper">
                     <!-- Body -->
@@ -37,10 +42,14 @@
                     @if ($section === 'inspecciones')
                         @include('admin._modal_inspecciones')
                         @include('admin._body_inspecciones')
+                        @include('admin._modal_inspecciones_detalle')
+                    @endif
+                    @if ($section === 'profile')
+                        @include('profile.edit')
                     @endif
                 </div>
 
-                @include('admin._footer')
+                @include('template._footer')
 
             </div>
         </div>

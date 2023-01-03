@@ -30,7 +30,7 @@ class SubestacionController extends Controller
         } else {
             $role = 'Técnico';
         }
-        return view('admin.admin', ['subestaciones' => $subestaciones, 'section' => 'subestaciones', 'section_cute' => 'Subestaciones', 'role' => $role, 'parques' => $parques, 'enterprises' => $enterprises, 'select_enterprises' => $select_enterprises]);
+        return view('admin.admin', ['subestaciones' => $subestaciones, 'section' => 'subestaciones', 'section_cute' => 'Subestaciones', 'role' => $role, 'parques' => $parques, 'enterprises' => $enterprises, 'select_enterprises' => $select_enterprises, 'role_type' => $role_type]);
     }
     public function store(Request $request)
     {

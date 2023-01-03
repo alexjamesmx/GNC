@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('parque')->unique();
             $table->string('calle');
+            $table->string('estado');
             $table->string('municipio');
             $table->integer('codigo');
             $table->unsignedBigInteger('status_id')->default(2);

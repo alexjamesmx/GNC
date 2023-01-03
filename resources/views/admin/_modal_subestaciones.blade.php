@@ -24,7 +24,7 @@
                         <input type="hidden" id="edit-id">
                         <br>
                         <br>
-                        <p class="font-bold text-lg">Llenar campos *</p>
+                        <p class="font-bold text-lg mb-3">Llenar campos *</p>
                         <div class="row mb-4">
                             {{-- NOMRBE DE LA EMPRESA --}}
                             <div class="col-12">
@@ -54,7 +54,7 @@
                                 <label id="type_id_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
                             </div>
                         </div>
-                        <p class="font-bold text-lg">¿Dónde pertenece? *</p>
+                        <p class="font-bold text-lg mb-3">¿Dónde pertenece? *</p>
                         <div class='row'>
                             <div class="col-6">
                                 <select id="enterprise_id" name="enterprise_id" class="w-full">

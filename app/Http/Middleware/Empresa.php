@@ -2,10 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
-class Enterprise
+class Empresa
 {
     /**
      * Handle an incoming request.
@@ -16,8 +18,10 @@ class Enterprise
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()->role_id != 1){
-            return $next($request);
+
+        if (auth()->user()->role_id != 2) {
+            return new response(view('errors.401'));
         }
+        return $next($request);
     }
 }

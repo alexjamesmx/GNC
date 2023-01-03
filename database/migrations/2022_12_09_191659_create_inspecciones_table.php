@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('parque_id');
             $table->unsignedBigInteger('enterprise_id');
             $table->unsignedBigInteger('subestacion_id');
-            $table->unsignedBigInteger('status_id');
+            $table->unsignedBigInteger('status_id')->default(4);
             $table->foreign('tecnico_responsable')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('asignado_por')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('parque_id')->references('id')->on('parques')->onDelete('cascade');

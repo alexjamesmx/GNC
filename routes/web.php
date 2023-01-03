@@ -60,9 +60,6 @@ Route::prefix('/admin/usuarios')->middleware(['accesos', 'admin'])->controller(U
     Route::post('/get_user', 'get_user')->name('users.get_user');
     Route::post('/disable', 'disable')->name('users.disable');
 });
-
-
-
 Route::prefix('/admin/inspecciones')->middleware(['accesos', 'admin'])->controller(InspeccionesController::class)->group(function () {
     Route::get('/',                 'home')->name('inspeccion.home');
     Route::post('/store',           'store')->name('inspeccion.store');
@@ -73,24 +70,28 @@ Route::prefix('/admin/inspecciones')->middleware(['accesos', 'admin'])->controll
 //ADMINISTRAODR ************************************************************
 
 //TECNICO ************************************************************
+
 Route::get('/tecnico', [SectionController::class, 'tecnico'])->middleware(['accesos', 'tecnico'])->name('tecnico');
-Route::get('/tecnico/test/{id}', [TecnicoController::class, 'test'])->middleware(['accesos', 'tecnico'])->name('tecnico.test');
-Route::get('/tecnico/edificio/{id}', [TecnicoController::class, 'edificio'])->middleware(['accesos', 'tecnico', 'inspeccion_edificio'])->name('tecnico.ins_edificio');
 
-Route::post('/tecnico/edificio/subir', [TecnicoController::class, 'edificio_subir'])->middleware(['accesos', 'tecnico'])->name('tecnico.edificio_subir');
-Route::post('/tecnico/anomalia', [TecnicoController::class, 'anomalia'])->middleware(['accesos', 'tecnico'])->name('tecnico.anomalia');
-Route::post('/tecnico/anomalia_validar', [TecnicoController::class, 'anomalia_validar'])->middleware(['accesos', 'tecnico'])->name('tecnico.anomalia_validar');
-
-Route::get('/tecnico/electrica/{id}', [TecnicoController::class, 'electrica'])->middleware(['accesos', 'tecnico'])->name('tecnico.ins_electrica');
-Route::post('/tecnico/electrica/subir', [TecnicoController::class, 'electrica_subir'])->middleware(['accesos', 'tecnico'])->name('tecnico.electrica_subir');
-Route::get('/tecnico/transformador/{id}', [TecnicoController::class, 'transformador'])->middleware(['accesos', 'tecnico'])->name('tecnico.ins_transformador');
+Route::prefix('/tecnico')->controller(TecnicoController::class)->group(function () {
+    Route::get('/test/{id}',            'test')->middleware(['accesos', 'tecnico'])->name('tecnico.test');
+    Route::get('/edificio/{id}',        'edificio')->middleware(['accesos', 'tecnico', 'inspeccion_edificio'])->name('tecnico.ins_edificio');
+    Route::post('/edificio/subir',      'edificio_subir')->middleware(['accesos', 'tecnico'])->name('tecnico.edificio_subir');
+    Route::post('/anomalia',            'anomalia')->middleware(['accesos', 'tecnico'])->name('tecnico.anomalia');
+    Route::post('/anomalia_validar',    'anomalia_validar')->middleware(['accesos', 'tecnico'])->name('tecnico.anomalia_validar');
+    Route::get('/electrica/{id}',       'electrica')->middleware(['accesos', 'tecnico'])->name('tecnico.ins_electrica');
+    Route::post('/electrica/subir',     'electrica_subir')->middleware(['accesos', 'tecnico'])->name('tecnico.electrica_subir');
+    Route::get('/transformador/{id}',   'transformador')->middleware(['accesos', 'tecnico', 'inspeccion_transformador'])->name('tecnico.ins_transformador');
+    Route::post('/transformador/subir',     'transformador_subir')->middleware(['accesos', 'tecnico'])->name('tecnico.ins_transformador_subir');
+});
+Route::get('/empresa', [SectionController::class, 'empresa'])->middleware(['accesos', 'empresa'])->name('empresa');
 
 //TECNICO ************************************************************
 //LOGIN ************************************************************
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/perfil', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/perfil', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/perfil', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 //LOGIN ************************************************************
 

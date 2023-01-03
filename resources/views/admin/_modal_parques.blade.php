@@ -28,18 +28,55 @@
                             <label for="parque" class="input-label-custom" onclick="efecto(this)">Nombre</label>
                         </div>
                         <label id="parque_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
+                        <div class="input-group-custom w-full flex mb-2">
+                            <select name="estado" id="select_estado">
+                                <option value="0" selected disabled>-- Seleccionar estado</option>
+                                <option value="Aguascalientes">Aguascalientes</option>
+                                <option value="Baja California">Baja California</option>
+                                <option value="Baja California Sur">Baja California Sur</option>
+                                <option value="Campeche">Campeche</option>
+                                <option value="Chiapas">Chiapas</option>
+                                <option value="Chihuahua">Chihuahua</option>
+                                <option value="CDMX">Ciudad de México</option>
+                                <option value="Coahuila">Coahuila</option>
+                                <option value="Colima">Colima</option>
+                                <option value="Durango">Durango</option>
+                                <option value="Estado de México">Estado de México</option>
+                                <option value="Guanajuato">Guanajuato</option>
+                                <option value="Guerrero">Guerrero</option>
+                                <option value="Hidalgo">Hidalgo</option>
+                                <option value="Jalisco">Jalisco</option>
+                                <option value="Michoacán">Michoacán</option>
+                                <option value="Morelos">Morelos</option>
+                                <option value="Nayarit">Nayarit</option>
+                                <option value="Nuevo León">Nuevo León</option>
+                                <option value="Oaxaca">Oaxaca</option>
+                                <option value="Puebla">Puebla</option>
+                                <option value="Querétaro">Querétaro</option>
+                                <option value="Quintana Roo">Quintana Roo</option>
+                                <option value="San Luis Potosí">San Luis Potosí</option>
+                                <option value="Sinaloa">Sinaloa</option>
+                                <option value="Sonora">Sonora</option>
+                                <option value="Tabasco">Tabasco</option>
+                                <option value="Tamaulipas">Tamaulipas</option>
+                                <option value="Tlaxcala">Tlaxcala</option>
+                                <option value="Veracruz">Veracruz</option>
+                                <option value="Yucatán">Yucatán</option>
+                                <option value="Zacatecas">Zacatecas</option>
+                            </select>
+                        </div>
+                        <label id="estado_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
+                        <div class="input-group-custom w-full flex mb-2">
+                            <input id="municipio"name="municipio"required class='input-custom w-full' placeholder=" ">
+                            <label for="municipio" class="input-label-custom" onclick="efecto(this)">Municipio</label>
+                        </div>
+                        <label id="municipio_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
 
                         <div class="input-group-custom w-full flex mb-2">
                             <input id="calle"name="calle"required class='input-custom w-full' placeholder=" ">
                             <label for="calle" class="input-label-custom" onclick="efecto(this)">Calle</label>
                         </div>
                         <label id="calle_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
-
-                        <div class="input-group-custom w-full flex mb-2">
-                            <input id="municipio"name="municipio"required class='input-custom w-full' placeholder=" ">
-                            <label for="municipio" class="input-label-custom" onclick="efecto(this)">Municipio</label>
-                        </div>
-                        <label id="municipio_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
 
                         <div class="input-group-custom w-full flex mb-2">
                             <input id="codigo"name="codigo"required class='input-custom w-full' placeholder=" ">

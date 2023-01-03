@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Mockery\Undefined;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -32,7 +33,7 @@ class UsersController extends Controller
         // dd($users[0]->status);
 
         // dd($users);
-        return view('admin.admin', ['users' => $users, 'section' => 'users', 'section_cute' => 'Usuarios', 'role' => $role, 'users_inactivos' => $users_inactivos]);
+        return view('admin.admin', ['users' => $users, 'section' => 'users', 'section_cute' => 'Usuarios', 'role' => $role, 'users_inactivos' => $users_inactivos, 'role_type' => $role_type]);
     }
 
     public function get_user(Request $request)
@@ -105,7 +106,7 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->status_id = 2;
         $user->phone = $request->phone;
-        $user->password = $request->password;
+        $user->password = Hash::make($request->password);
 
         if ($request->image != "undefined") {
             $imageName = time() . '.' . $request->image->extension();

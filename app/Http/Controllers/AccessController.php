@@ -15,7 +15,7 @@ class AccessController extends Controller
         }
         //2 - ENTERPRISE
         elseif (Auth::user()->role_id === 2) {
-            return dd('Empresa');
+            return redirect()->route('empresa')->withFragment('#dashboard');
         } elseif (Auth::user()->role_id === 3) {
             return redirect()->route('tecnico')->withFragment('#dashboard');
         }

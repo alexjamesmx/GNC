@@ -16,6 +16,7 @@ class Parque extends Model
         'parque',
         'calle',
         'municipio',
+        'estado',
         'codigo',
         'status_id',
     ];

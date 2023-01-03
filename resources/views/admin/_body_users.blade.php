@@ -16,32 +16,32 @@ left: calc(50% - 24px);
 <div class="row" id="table">
     <div class="col-lg-12 stretch-card grid-margin">
         <div class="card">
-            <div class="card-body">
-                <div class="flex justify-between">
-                    <p class="text-xl p-0 m-0 text-center self-center">
-                        Habilitados
-                    </p>
-                    <div class="flex items-center">
+            @if (count($users))
+                <div class="card-body">
+                    <div class="flex justify-between">
+                        <p class="text-xl p-0 m-0 text-center self-center">
+                            Habilitados
+                        </p>
+                        <div class="flex items-center">
 
-                        <div class="rounded-full border-solid border border-black bg-green-500 w-3 h-3 mx-3"></div>
-                        Disponibles
-                        <div class="rounded-full border-solid border border-black bg-yellow-500 w-3 h-3 mx-3"></div>
-                        En inspección
+                            <div class="rounded-full border-solid border border-black bg-green-500 w-3 h-3 mx-3"></div>
+                            Disponibles
+                            <div class="rounded-full border-solid border border-black bg-yellow-500 w-3 h-3 mx-3"></div>
+                            En inspección
 
+                        </div>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#modal-users"
+                            class="text-decoration-none rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-purple-600 active:shadow-none shadow-lg bg-gradient-to-tr from-purple-600 to-purple-500 border-purple-700 text-white"
+                            data-modal='crear' onclick="handleCreate(this)">
+                            <span
+                                class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
+                            <span class="relative font-semibold tracking-wider">
+                                <i class="fa-solid fa-plus"></i>
+                                Nuevo
+                            </span>
+                        </a>
                     </div>
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#modal-users"
-                        class="text-decoration-none rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-purple-600 active:shadow-none shadow-lg bg-gradient-to-tr from-purple-600 to-purple-500 border-purple-700 text-white"
-                        data-modal='crear' onclick="handleCreate(this)">
-                        <span
-                            class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
-                        <span class="relative font-semibold tracking-wider">
-                            <i class="fa-solid fa-plus"></i>
-                            Nuevo
-                        </span>
-                    </a>
-                </div>
-                <hr>
-                @if (count($users))
+                    <hr>
                     <div class="table-responsive">
                         <table class="table table-striped align-middle">
                             <thead class="table-dark text-white">
@@ -56,106 +56,114 @@ left: calc(50% - 24px);
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider">
-                                @forelse ($users as $user)
-                                    @if ($user->status->id !== 1)
-                                        <tr id="row_{{ $user->id }}"
-                                            class=" {{ $user->status->id > 1 ? '' : 'deshabilitado' }}">
-                                            {{-- ID --}}
-                                            <td scope="row" style="min-width:fit-content;width:1rem">
-                                                <p id="id_{{ $user->id }}"
-                                                    class='p-0 m-0 text-xs text-gray-500 text-center'>
-                                                    {{ $user->id }}
-                                            </td>
-                                            </p>
-                                            {{-- Name Last Name --}}
-                                            <td scope="row" style="min-width:fit-content;width:15rem">
-                                                <div class="flex">
-                                                    <p id="user_name_{{ $user->id }}" class="p-0 m-0">
-                                                        {{ $user->name }}</p>&nbsp;
-                                                    <p id="user_lastname_{{ $user->id }}" class="p-0 m-0">
-                                                        {{ $user->last_name }}</p>
+                                @foreach ($users as $user)
+                                    <tr id="row_{{ $user->id }}">
+                                        {{-- ID --}}
+                                        <td scope="row" style="min-width:fit-content;width:1rem">
+                                            <p id="id_{{ $user->id }}"
+                                                class='p-0 m-0 text-xs text-gray-500 text-center'>
+                                                {{ $user->id }}
+                                        </td>
+                                        </p>
+                                        {{-- Name Last Name --}}
+                                        <td scope="row" style="min-width:fit-content;width:15rem">
+                                            <div class="flex">
+                                                <p id="user_name_{{ $user->id }}" class="p-0 m-0">
+                                                    {{ $user->name }}</p>&nbsp;
+                                                <p id="user_lastname_{{ $user->id }}" class="p-0 m-0">
+                                                    {{ $user->last_name }}</p>
+                                            </div>
+                                        </td>
+                                        {{-- TIPO --}}
+                                        <td scope="row"
+                                            style="min-width:fit-content;width:35px;"id="type_{{ $user->id }}">
+                                            @if ($user->role->id === 3)
+                                                <img src="{{ asset('images/worker-svgrepo-com.svg') }}"
+                                                    style="border-radius:0 !important"alt="{{ $user->role->role }}">
+                                            @endif
+                                            @if ($user->role->id === 2)
+                                                <img src="{{ asset('images/building-svgrepo-com.svg') }}"
+                                                    style="border-radius:0 !important"alt="{{ $user->role->role }}">
+                                            @endif
+                                            @if ($user->role->id === 1)
+                                                <p class="font-bold m-0">ADMIN</p>
+                                            @endif
+                                        </td>
+                                        <input type="text" id="type_id_{{ $user->id }}" hidden
+                                            value="{{ $user->role->id }}">
+                                        {{-- Email  --}}
+                                        <td scope="row" style="min-width:fit-content;width:5rem"
+                                            id="user_email_{{ $user->id }}">
+                                            {{ $user->email }}
+                                        </td>
+                                        {{-- Status --}}
+                                        <td scope="row"id="user_status_{{ $user->id }}">
+                                            @if ($user->status->id === 1)
+                                                {{-- <p class="font-bold m-0">deshabilitado</p> --}}
+                                            @endif
+                                            @if ($user->status->id === 2)
+                                                <div
+                                                    class="rounded-full border-solid border border-black bg-green-500 w-50 h-2 mx-3">
                                                 </div>
-                                            </td>
-                                            {{-- TIPO --}}
-                                            <td scope="row"
-                                                style="min-width:fit-content;width:35px;"id="type_{{ $user->id }}">
-                                                @if ($user->role->id === 3)
-                                                    <img src="{{ asset('images/worker-svgrepo-com.svg') }}"
-                                                        style="border-radius:0 !important"alt="{{ $user->role->role }}">
-                                                @endif
-                                                @if ($user->role->id === 2)
-                                                    <img src="{{ asset('images/building-svgrepo-com.svg') }}"
-                                                        style="border-radius:0 !important"alt="{{ $user->role->role }}">
-                                                @endif
-                                                @if ($user->role->id === 1)
-                                                    <p class="font-bold m-0">ADMIN</p>
-                                                @endif
-                                            </td>
-                                            <input type="text" id="type_id_{{ $user->id }}" hidden
-                                                value="{{ $user->role->id }}">
-                                            {{-- Email  --}}
-                                            <td scope="row" style="min-width:fit-content;width:5rem"
-                                                id="user_email_{{ $user->id }}">
-                                                {{ $user->email }}
-                                            </td>
-                                            {{-- Status --}}
-                                            <td scope="row"id="user_status_{{ $user->id }}">
-                                                @if ($user->status->id === 1)
-                                                    {{-- <p class="font-bold m-0">deshabilitado</p> --}}
-                                                @endif
-                                                @if ($user->status->id === 2)
-                                                    <div
-                                                        class="rounded-full border-solid border border-black bg-green-500 w-50 h-2 mx-3">
-                                                    </div>
-                                                @endif
-                                                @if ($user->status->id === 3)
-                                                    <div
-                                                        class="rounded-full border-solid border border-black bg-yellow-500 w-50 h-2 mx-3">
-                                                    </div>
-                                                @endif
-                                            </td>
-                                            {{-- PHONE --}}
-                                            <td scope="row" style="min-width:fit-content;width:1rem"
-                                                id="user_phone_{{ $user->id }}">
-                                                {{ $user->phone }}
-                                            </td>
-                                            {{-- ACCIONES --}}
-                                            <td scope="row" style="min-width:fit-content; white-space:initial">
-                                                <div class="flex justify-betstartween">
-                                                    <button
-                                                        class="bg-red-500 px-5 py-3 border-none font-bold text-white rounded hover:bg-red-600 hover:text-sm mr-3"
-                                                        onclick="handleToogle({{ $user->id }}, {{ $user->status->id }})">
-                                                        <i class="fas fa-trash"></i></button>
-                                                    <button
-                                                        class="bg-emerald-500 px-5 py-3 border-none font-bold text-white rounded hover:bg-emerald-600 hover:text-sm"
-                                                        onclick="profilePage({{ $user->id }})">
-                                                        <i class="fas fa-eye"></i></button>
+                                            @endif
+                                            @if ($user->status->id === 3)
+                                                <div
+                                                    class="rounded-full border-solid border border-black bg-yellow-500 w-50 h-2 mx-3">
                                                 </div>
-                                            </td>
-                                        </tr>
-                                    @endif
-                                @empty
-                                    <h1>No hay empresas</h1>
-                                @endforelse
+                                            @endif
+                                        </td>
+                                        {{-- PHONE --}}
+                                        <td scope="row" style="min-width:fit-content;width:1rem"
+                                            id="user_phone_{{ $user->id }}">
+                                            {{ $user->phone }}
+                                        </td>
+                                        {{-- ACCIONES --}}
+                                        <td scope="row" style="min-width:fit-content; white-space:initial">
+                                            <div class="flex justify-betstartween">
+                                                <button
+                                                    class="bg-red-500 px-3 py-2 border-none font-bold text-white rounded hover:bg-red-600 hover:text-sm mr-3"
+                                                    onclick="handleToogle({{ $user->id }}, {{ $user->status->id }})">
+                                                    <i class="fas fa-trash"></i></button>
+                                                <button
+                                                    class="bg-emerald-500 px-3 py-2 border-none font-bold text-white rounded hover:bg-emerald-600 hover:text-sm"
+                                                    onclick="profilePage({{ $user->id }})">
+                                                    <i class="fas fa-eye"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
                     <div class="mt-4">
                         {{ $users->links() }}
                     </div>
-                @else
-                    <p class="text-2xl ">No existen usuarios habilitados</p>
-                @endif
-            </div>
+                </div>
+            @else
+                <div class="flex relative justify-center p-5">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#modal-users"
+                        class="text-decoration-none rounded  inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-purple-600 active:shadow-none shadow-lg bg-gradient-to-tr from-purple-600 to-purple-500 border-purple-700 text-white absolute right-0 top-0"
+                        data-modal='crear' onclick="handleCreate(this)">
+                        <span
+                            class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
+                        <span class="relative font-semibold tracking-wider">
+                            <i class="fa-solid fa-plus"></i>
+                            Nuevo
+                        </span>
+                    </a>
+                    <p class="text-2xl text-center">No existen usuarios habilitados</p>
+                </div>
+            @endif
         </div>
     </div>
 </div>
 
 
-@if (count($users_inactivos))
-    <div class="row" id="table_deshabilitados">
-        <div class="col-lg-12 stretch-card grid-margin">
-            <div class="card">
+
+<div class="row" id="table_deshabilitados">
+    <div class="col-lg-12 stretch-card grid-margin">
+        <div class="card">
+            @if (count($users_inactivos) !== 0)
                 <div class="card-body">
                     <div class="flex">
                         <p class="text-xl p-0 m-0 text-center self-center">
@@ -163,7 +171,6 @@ left: calc(50% - 24px);
                         </p>
                     </div>
                     <hr>
-
                     <div class="table-responsive mt-5">
                         <table class="table table-striped align-middle">
                             <thead class="table-dark text-white">
@@ -177,7 +184,7 @@ left: calc(50% - 24px);
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider">
-                                @forelse ($users_inactivos as $user)
+                                @foreach ($users_inactivos as $user)
                                     @if ($user->status->id === 1)
                                         <tr id="row_{{ $user->id }}"
                                             class=" {{ $user->status->id > 1 ? '' : 'deshabilitado' }}">
@@ -231,33 +238,28 @@ left: calc(50% - 24px);
                                                 <div class="flex">
 
                                                     <button
-                                                        class="bg-red-500 px-5 py-3 border-none font-bold text-white rounded hover:bg-red-600 hover:text-sm mr-3"
+                                                        class="bg-red-500 px-3 py-2 border-none font-bold text-white rounded hover:bg-red-600 hover:text-sm mr-3"
                                                         onclick="handleToogle({{ $user->id }}, {{ $user->status->id }})">Activar</button>
                                                     <button
-                                                        class="bg-emerald-500 px-5 py-3 border-none font-bold text-white rounded hover:bg-emerald-600 hover:text-sm"
+                                                        class="bg-emerald-500 px-3 py-2 border-none font-bold text-white rounded hover:bg-emerald-600 hover:text-sm"
                                                         onclick="profilePage({{ $user->id }})"><i
                                                             class="fas fa-eye"></i></button>
                                                 </div>
                                             </td>
                                         </tr>
                                     @endif
-                                @empty
-                                    <h1>No hay empresas</h1>
-                                @endforelse
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
-
-
                 </div>
-            </div>
+            @endif
         </div>
     </div>
-@else
-@endif
+</div>
 
 
-<div id="profile" style="opacity:0">
+<div id="profile" style="display:none">
     @include('admin._users_profile')
 </div>
 
@@ -345,9 +347,6 @@ left: calc(50% - 24px);
                     status_id,
                     image
                 } = res.data
-
-
-
                 document.querySelector('#perfil_nombre').textContent = name + ' ' + last_name
                 document.querySelector("#perfil_ocupacion").textContent = role_id === 1 ? 'ADMIN' : role_id === 2 ?
                     'EMPRESA' : 'TÉCNICO'
@@ -379,14 +378,14 @@ left: calc(50% - 24px);
 
                 }
 
-                document.querySelector('#profile').style.opacity = 1
+                $('#profile').css('display', 'block')
                 $("#spinner_profile").hide()
 
             }).catch(err => message('Hubo un problema con la petición'))
     }
     document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#back_users').addEventListener('click', () => {
-            document.querySelector('#profile').style.opacity = 0
+            $('#profile').hide()
             $("#table").show()
             $("#table_deshabilitados").show()
         })
@@ -631,8 +630,6 @@ left: calc(50% - 24px);
         const url = "{{ route('users.disable') }}"
         const barra = document.querySelector(`#user_status_${id}`)
 
-
-
         if (status !== 1) {
 
             const confirmar = confirm('¿Estás seguro de eliminar este usuario?')
@@ -688,10 +685,10 @@ left: calc(50% - 24px);
             message('Usuario registrado')
         @endif
         @if (Session::get('message') == 5)
-            message('Usuario eliminado')
+            message('Usuario deshabilitado')
         @endif
         @if (Session::get('message') == 6)
-            message('Usuario activado')
+            message('Usuario habilitado')
         @endif
     @endif
 </script>

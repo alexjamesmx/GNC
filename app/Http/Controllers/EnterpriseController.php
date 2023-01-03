@@ -21,18 +21,20 @@ class EnterpriseController extends Controller
 
         $parques = Parque::where('status_id', '!=', '1')
             ->get();
-
-        $users = User::join('enterprises', 'users.id', '=', 'enterprises.user_id')
-            ->where('enterprises.status_id', '!=', '1')
-            ->get();
-
-        // dd($users);
         $users = DB::table('users')->whereNotExists(function ($query) {
             $query->select('user_id')
                 ->where('status_id', '!=', '1')
                 ->from('enterprises')
                 ->whereColumn('enterprises.user_id', 'users.id');
         })->where('status_id', '!=', '1')->get();
+
+        $user_empresas = DB::table('users')->whereNotExists(function ($query) {
+            $query->select('user_id')
+                ->where('status_id', '!=', '1')
+                ->from('enterprises')
+                ->whereColumn('enterprises.user_id', 'users.id');
+        })->where('status_id', '!=', '1')
+            ->where('role_id', '=', '2')->get();
 
         if (session()->has('message')) {
             session()->keep('message');
@@ -47,7 +49,7 @@ class EnterpriseController extends Controller
             $role = 'Técnico';
         }
 
-        return view('admin.admin', ['enterprises' => $enterprises, 'section' => 'enterprises', 'section_cute' => 'Empresas', 'parques' => $parques, 'users' => $users, 'role' => $role]);
+        return view('admin.admin', ['enterprises' => $enterprises, 'section' => 'enterprises', 'section_cute' => 'Empresas', 'parques' => $parques, 'users' => $users, 'user_empresas' => $user_empresas, 'role' => $role, 'role_type' => $role_type]);
     }
     public function delete($id)
     {

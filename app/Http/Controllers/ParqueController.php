@@ -21,17 +21,15 @@ class ParqueController extends Controller
             session()->keep('message');
         }
 
-        $role_type = Auth::user()->role_id; 
-        if($role_type=== 1){
+        $role_type = Auth::user()->role_id;
+        if ($role_type === 1) {
             $role = 'Admin';
-        }
-        else if($role_type === 2){
+        } else if ($role_type === 2) {
             $role = 'Empresa';
-        }
-        else{
+        } else {
             $role = 'Técnico';
         }
-        return view('admin.admin', ['parques' => $parques, 'section' => 'parques', 'section_cute' => 'Parques', 'role'=> $role]);
+        return view('admin.admin', ['parques' => $parques, 'section' => 'parques', 'section_cute' => 'Parques', 'role' => $role, 'role_type' => $role_type]);
     }
 
     public function store(Request $request)
@@ -45,6 +43,7 @@ class ParqueController extends Controller
                 'parque' => 'required|max:255|unique:parques,parque',
                 'calle' => 'required|max:255',
                 'municipio' => 'required|max:255',
+                'estado' => 'required|max:255',
                 'codigo' => 'required|numeric',
             ],
             [
@@ -60,6 +59,9 @@ class ParqueController extends Controller
 
                 'municipio.required' => 'El municipio es requerido.',
                 'municipio.max' => 'El municipio no debe exceder 255 caracteres.',
+
+                'estado.required' => 'El estado es requerido.',
+                'estado.max' => 'El estado no debe exceder 255 caracteres.',
             ]
         );
         if ($validate->fails()) {
@@ -78,7 +80,7 @@ class ParqueController extends Controller
         }
         return response()->json($parque);
     }
-  
+
     public function actualizar(Request $request, $id)
     {
         $validate = Validator::make(
@@ -87,6 +89,7 @@ class ParqueController extends Controller
                 'parque' => 'required|max:255|unique:parques,parque,' . $request->id,
                 'calle' => 'required|max:255',
                 'municipio' => 'required|max:255',
+                'estado' => 'required|max:255',
                 'codigo' => 'required|numeric',
             ],
             [
@@ -102,6 +105,9 @@ class ParqueController extends Controller
 
                 'municipio.required' => 'El municipio es requerido.',
                 'municipio.max' => 'El municipio no debe exceder 255 caracteres.',
+
+                'estado.required' => 'El estado es requerido.',
+                'estado.max' => 'El estado no debe exceder 255 caracteres.',
             ]
         );
         if ($validate->fails()) {
@@ -119,5 +125,4 @@ class ParqueController extends Controller
         $response = Parque::where('id', $id)->update(['status_id' => 1]);
         return response()->json(['response' =>  $response], 200);
     }
-   
 }

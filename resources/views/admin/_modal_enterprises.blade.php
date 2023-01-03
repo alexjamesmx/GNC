@@ -24,7 +24,7 @@
                         <input type="hidden" id="edit-id">
                         <br>
                         <br>
-                        <p class="font-bold text-lg">Datos de la empresa *</p>
+                        <p class="font-bold text-lg mb-3">Datos de la empresa *</p>
                         <div class="row mb-4">
                             {{-- NOMRBE DE LA EMPRESA --}}
                             <div class="col-6">
@@ -87,7 +87,7 @@
                                 <label id="parque_id_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
                             </div>
                         </div>
-                        <p class="font-bold text-lg">Administrador *</p>
+                        <p class="font-bold text-lg mb-3">Administrador *</p>
                         <div class="row mb-4">
                             <div class="col-6">
                                 <select id="select-administrador" name="user_id">
@@ -95,7 +95,7 @@
                                 <label id="user_id_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
                             </div>
                         </div>
-                        <p class="font-bold text-lg">Dirección *</p>
+                        <p class="font-bold text-lg mb-3.5">Dirección *</p>
                         <div class="row mb-4">
                             <div class="col-6">
                                 <div class="input-group-custom w-full flex">
@@ -124,7 +124,7 @@
                                 <label id="address_error" class="text-sm text-red-500 tracking-wide mb-3"></label>
                             </div>
                         </div>
-                        <p class="font-bold text-lg">Otros (opcionales)</p>
+                        <p class="font-bold text-lg mb-3">Otros(opcionales)</p>
                         <div class="row mb-4">
                             {{-- FAX --}}
                             <div class="col-6">
