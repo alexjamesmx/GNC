@@ -47,6 +47,9 @@
                     @if ($section === 'profile')
                         @include('profile.edit')
                     @endif
+                    @if ($section === 'calendario')
+                        @include('admin._body_calendario')
+                    @endif
                 </div>
 
                 @include('template._footer')

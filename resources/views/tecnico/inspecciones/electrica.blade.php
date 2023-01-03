@@ -6,50 +6,58 @@
         <div class="card">
             <div class="card-body">
 
+                <style>
+                    label {
+                        font-size: 0.875rem !important;
+                        line-height: 1.25rem !important;
+                    }
+                    }
 
-                <h4 class="card-title">Ingresa los datos</h4>
+                    input {
+                        font-size: 0.875rem !important;
+                        line-height: 1.25rem !important;
+                    }
+                </style>
                 <form id="form-inspecciones" class="form-sample needs-validation" novalidate
                     onsubmit="event.preventDefault(); saveInspeccion({{ $inspeccion->id }})">
                     {{-- DATOS GENERALES --}}
                     <div class="">
-
-                        <p class="card-description">Datos generales</p>
+                        <p class="font-bold">Datos generales</p>
                         <div class="row">
                             <div class="col-md-6 row">
-                                <label class="col-sm-3 col-form-label">Nombre parque:</label>
+                                <label class="col-sm-3">Nombre parque:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" readonly=»readonly»/
+                                    <input type="text" class="form-control" readonly=»readonly»
                                         value="{{ $inspeccion->parque->parque }}">
                                 </div>
                             </div>
                             <div class="col-md-6 row">
-                                <label class="col-sm-3 col-form-label">Nombre empresa:</label>
+                                <label class="col-sm-3">Nombre empresa:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" readonly=»readonly»/
+                                    <input type="text" class="form-control" readonly=»readonly»
                                         value="{{ $inspeccion->enterprise->enterprise }}">
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row my-5">
                             <div class="col-md-6 row">
-                                <label class="col-sm-4 col-form-label">Nombre de la <br>Sub -
-                                    estacion:</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" readonly=»readonly»/
+                                <label class="col-sm-3">Nombre de la<br>subestación:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" readonly=»readonly»
                                         value="{{ $inspeccion->subestacion->subestacion }}">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 row">
-                                <label class="col-sm-3 col-form-label">Otorgada en</label>
+                                <label class="col-sm-3">Otorgada en:</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" readonly=»readonly»
                                         value="{{ $inspeccion->fecha_inicio }}" />
                                 </div>
                             </div>
                             <div class="col-md-6 row">
-                                <label class="col-sm-3 col-form-label">Iniciada en:</label>
+                                <label class="col-sm-3">Iniciada en:</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" readonly=»readonly»
                                         value="{{ $inspeccion->fecha_comienzo }}" />
@@ -60,75 +68,102 @@
                     {{-- ********** --}}
                     <hr>
                     {{-- INICIA ENCUESTA --}}
-                    <p class="card-title">Canalizaciones en M.T.</p>
                     <input type="hidden" name="inspeccion_id" id="inspeccion_id" value="{{ $inspeccion->id }}">
+                    <p class="font-bold">Canalizaciones en M.T.</p>
+                    {{-- CANALIZACIONES EN M.T --}}
                     {{-- DISASOLVE --}}
                     <div class="row">
                         <div class="col-md-7">
-                            <div class="form-group row">
-                                <label class="col-md-3 col-form-label">Requiere disasolve:</label>
+                            <div class="row">
+                                <label class="col-md-3" for="disasolve_req">Requiere disasolve</label>
                                 <div class="col-md-9 flex">
                                     <div class="form-radio flex justify-center w-1/2">
-                                        <input type="radio" class="col-form-check-input" name="pintura_estado"
-                                            id="optionsRadios1" value="Buen estado">
-                                        <label class="col-form-check-label">Si</label>
+                                        <input id="disasolve_req_si" type="radio" name="disasolve_req" value="1">
+                                        <label for="disasolve_req" class="ml-1">Si</label>
                                     </div>
                                     {{-- ANOMALIA PINTURA --}}
                                     <div class="form-radio flex justify-center w-1/2">
-                                        <input type="radio" class="col-orm-check-input pintura" name="pintura_estado"
-                                            value="Mal estado" onclick="handleAnomalia('pintura')">
-                                        <label class="col-form-check-label">No</label>
+                                        <input id="disasolve_req_no"type="radio" class="" name="disasolve_req"
+                                            value="0">
+                                        <label for="disasolve_req"class="ml-1">No</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-5">
-                            <div class="form-group row">
-                                <label class="col-sm-5 col-form-label">Cantidad</label>
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="pintura_requiere"
-                                        id="pintura_requiere" />
-                                    <div id="pintura_requiere_error"class="invalid-feedback"></div>
+                            <div class="row">
+                                <label class="col-md-5" for="disasolve_cantidad">Cantidad</label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" name="disasolve_cantidad"
+                                        id="disasolve_cantidad" />
+                                    <div id="disasolve_cantidad_error"class="invalid-feedback"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     {{-- ********** --}}
-                    <div class="row">
+                    {{-- LIMPIEZA --}}
+                    <div class="row my-4">
                         <div class="col-md-7">
-                            <div class="form-group row">
-                                <label class="col-md-3 col-form-label">Herreria de edificio:</label>
+                            <div class="row">
+                                <label class="col-md-3" for="mt_limpieza_req">Requiere limpieza:</label>
                                 <div class="col-md-9 flex">
-
                                     <div class="form-radio flex justify-center w-1/2">
-                                        <input type="radio" class="col-form-check-input"
-                                            name="herreria_estado"id="herreria_estado_si" value="Buen estado">
-                                        <label class="col-form-check-label" for="herreria_estado">Buen
-                                            estado</label>
+                                        <input type="radio" name="mt_limpieza_req" id="mt_limpieza_req_si" value="1">
+                                        <label class="ml-1">Si</label>
                                     </div>
-                                    {{-- ANOMALIA HERRERIA  --}}
+                                    {{-- ANOMALIA PINTURA --}}
                                     <div class="form-radio flex justify-center w-1/2">
-                                        <input type="radio" class="col-form-check-input herreria" name="herreria_estado"
-                                            id="herreria_estado_no" value="Mal estado" onclick="handleAnomalia('herreria')">
-                                        <label for="herreria_estado"class="col-form-check-label"> Mal
-                                            estado
-                                        </label>
+                                        <input type="radio" name="mt_limpieza_req" value="0"id="mt_limpieza_req_no">
+                                        <label class="ml-1">No</label>
                                     </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="form-group row">
-                                <label class="col-sm-5 col-form-label">Requiere mantto:</label>
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="herreria_requiere"
-                                        id="herreria_requiere" />
-                                    <div id="herreria_requiere_error"class="invalid-feedback"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {{-- ********** --}}
+                    {{-- Soporteria --}}
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="row">
+                                <label class="col-md-2" for="disasolve_req">Soportería</label>
+                                <div class="col-md-10 flex">
+                                    <div class="form-radio flex justify-center w-1/4">
+                                        <input id="disasolve_req_si" type="radio" name="disasolve_req" value="1">
+                                        <label for="disasolve_req" class="ml-1">Si</label>
+                                    </div>
+                                    <div class="form-radio flex justify-center w-1/4">
+                                        <input id="disasolve_req_no"type="radio" class="" name="disasolve_req"
+                                            value="0">
+                                        <label for="disasolve_req" class="ml-1">No</label>
+                                    </div>
+                                    <div class="form-radio flex justify-center w-1/4">
+                                        <input id="disasolve_req_si" type="radio" name="disasolve_req" value="1"
+                                            disabled>
+                                        <label for="disasolve_req" class="ml-1 opacity-50">Buen estado</label>
+                                    </div>
+                                    {{-- ANOMALIA SOPORTERIA --}}
+                                    <div class="form-radio flex justify-center w-1/4">
+                                        <input id="disasolve_req_no"type="radio" class="" name="disasolve_req"
+                                            value="0"disabled>
+                                        <label for="disasolve_req" class="ml-1 opacity-50">Mal estado</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="row">
+                                <label class="col-md-5" for="disasolve_cantidad">Faltante</label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" name="disasolve_cantidad"
+                                        id="disasolve_cantidad" />
+                                    <div id="disasolve_cantidad_error"class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- ********** --}}
+
                     <div>
                         <div class="col-md-12">
                             <div class="form-group row">

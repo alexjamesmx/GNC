@@ -54,8 +54,8 @@
             <span class="menu-title">Inspecciones</span>
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="../../pages/icons/font-awesome.html">
+    <li class="nav-item  {{ $section === 'calendario' ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('calendario.home') }}">
             <i class="menu-icon typcn typcn-user-outline"></i>
             <span class="menu-title">Calendario</span>
         </a>

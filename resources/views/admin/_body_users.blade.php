@@ -1,8 +1,8 @@
-<svg id="spinner_profile"class="animate-spin"
+<svg id="spinner_profile" class="animate-spin"
     style="display:none;position: relative;
 top: calc(50% - 24px);
 left: calc(50% - 24px);
-}" id="spinner"width="48px"
+}" id="spinner" width="48px"
     height="48px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path opacity="0.2" fill-rule="evenodd" clip-rule="evenodd"
         d="M12 19C15.866 19 19 15.866 19 12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12C5 15.866 8.13401 19 12 19ZM12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
@@ -16,133 +16,21 @@ left: calc(50% - 24px);
 <div class="row" id="table">
     <div class="col-lg-12 stretch-card grid-margin">
         <div class="card">
-            @if (count($users))
-                <div class="card-body">
-                    <div class="flex justify-between">
-                        <p class="text-xl p-0 m-0 text-center self-center">
-                            Habilitados
-                        </p>
-                        <div class="flex items-center">
+            <div class="card-body">
+                <div class="flex justify-between">
+                    <p class="text-xl p-0 m-0 text-center self-center">
+                        Habilitados
+                    </p>
+                    <div class="flex items-center">
 
-                            <div class="rounded-full border-solid border border-black bg-green-500 w-3 h-3 mx-3"></div>
-                            Disponibles
-                            <div class="rounded-full border-solid border border-black bg-yellow-500 w-3 h-3 mx-3"></div>
-                            En inspección
+                        <div class="rounded-full border-solid border border-black bg-green-500 w-3 h-3 mx-3"></div>
+                        Disponibles
+                        <div class="rounded-full border-solid border border-black bg-yellow-500 w-3 h-3 mx-3"></div>
+                        En inspección
 
-                        </div>
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#modal-users"
-                            class="text-decoration-none rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-purple-600 active:shadow-none shadow-lg bg-gradient-to-tr from-purple-600 to-purple-500 border-purple-700 text-white"
-                            data-modal='crear' onclick="handleCreate(this)">
-                            <span
-                                class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
-                            <span class="relative font-semibold tracking-wider">
-                                <i class="fa-solid fa-plus"></i>
-                                Nuevo
-                            </span>
-                        </a>
                     </div>
-                    <hr>
-                    <div class="table-responsive">
-                        <table class="table table-striped align-middle">
-                            <thead class="table-dark text-white">
-                                <tr>
-                                    <th class="text-white font-bold w-1/12"scope="col">Id</th>
-                                    <th class="text-white font-bold w-3/12"scope="col">Nombre</th>
-                                    <th class="text-white font-bold w-1/12"scope="col">Tipo</th>
-                                    <th class="text-white font-bold w-2/12"scope="col">Email</th>
-                                    <th class="text-white font-bold w-2/12"scope="col">Status</th>
-                                    <th class="text-white font-bold w-1/12"scope="col">Teléfono</th>
-                                    <th class="text-white font-bold w-2/12"scope="col">Perfil</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-group-divider">
-                                @foreach ($users as $user)
-                                    <tr id="row_{{ $user->id }}">
-                                        {{-- ID --}}
-                                        <td scope="row" style="min-width:fit-content;width:1rem">
-                                            <p id="id_{{ $user->id }}"
-                                                class='p-0 m-0 text-xs text-gray-500 text-center'>
-                                                {{ $user->id }}
-                                        </td>
-                                        </p>
-                                        {{-- Name Last Name --}}
-                                        <td scope="row" style="min-width:fit-content;width:15rem">
-                                            <div class="flex">
-                                                <p id="user_name_{{ $user->id }}" class="p-0 m-0">
-                                                    {{ $user->name }}</p>&nbsp;
-                                                <p id="user_lastname_{{ $user->id }}" class="p-0 m-0">
-                                                    {{ $user->last_name }}</p>
-                                            </div>
-                                        </td>
-                                        {{-- TIPO --}}
-                                        <td scope="row"
-                                            style="min-width:fit-content;width:35px;"id="type_{{ $user->id }}">
-                                            @if ($user->role->id === 3)
-                                                <img src="{{ asset('images/worker-svgrepo-com.svg') }}"
-                                                    style="border-radius:0 !important"alt="{{ $user->role->role }}">
-                                            @endif
-                                            @if ($user->role->id === 2)
-                                                <img src="{{ asset('images/building-svgrepo-com.svg') }}"
-                                                    style="border-radius:0 !important"alt="{{ $user->role->role }}">
-                                            @endif
-                                            @if ($user->role->id === 1)
-                                                <p class="font-bold m-0">ADMIN</p>
-                                            @endif
-                                        </td>
-                                        <input type="text" id="type_id_{{ $user->id }}" hidden
-                                            value="{{ $user->role->id }}">
-                                        {{-- Email  --}}
-                                        <td scope="row" style="min-width:fit-content;width:5rem"
-                                            id="user_email_{{ $user->id }}">
-                                            {{ $user->email }}
-                                        </td>
-                                        {{-- Status --}}
-                                        <td scope="row"id="user_status_{{ $user->id }}">
-                                            @if ($user->status->id === 1)
-                                                {{-- <p class="font-bold m-0">deshabilitado</p> --}}
-                                            @endif
-                                            @if ($user->status->id === 2)
-                                                <div
-                                                    class="rounded-full border-solid border border-black bg-green-500 w-50 h-2 mx-3">
-                                                </div>
-                                            @endif
-                                            @if ($user->status->id === 3)
-                                                <div
-                                                    class="rounded-full border-solid border border-black bg-yellow-500 w-50 h-2 mx-3">
-                                                </div>
-                                            @endif
-                                        </td>
-                                        {{-- PHONE --}}
-                                        <td scope="row" style="min-width:fit-content;width:1rem"
-                                            id="user_phone_{{ $user->id }}">
-                                            {{ $user->phone }}
-                                        </td>
-                                        {{-- ACCIONES --}}
-                                        <td scope="row" style="min-width:fit-content; white-space:initial">
-                                            <div class="flex justify-betstartween">
-                                                <button
-                                                    class="bg-red-500 px-3 py-2 border-none font-bold text-white rounded hover:bg-red-600 hover:text-sm mr-3"
-                                                    onclick="handleToogle({{ $user->id }}, {{ $user->status->id }})">
-                                                    <i class="fas fa-trash"></i></button>
-                                                <button
-                                                    class="bg-emerald-500 px-3 py-2 border-none font-bold text-white rounded hover:bg-emerald-600 hover:text-sm"
-                                                    onclick="profilePage({{ $user->id }})">
-                                                    <i class="fas fa-eye"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="mt-4">
-                        {{ $users->links() }}
-                    </div>
-                </div>
-            @else
-                <div class="flex relative justify-center p-5">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#modal-users"
-                        class="text-decoration-none rounded  inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-purple-600 active:shadow-none shadow-lg bg-gradient-to-tr from-purple-600 to-purple-500 border-purple-700 text-white absolute right-0 top-0"
+                        class="text-decoration-none rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-purple-600 active:shadow-none shadow-lg bg-gradient-to-tr from-purple-600 to-purple-500 border-purple-700 text-white"
                         data-modal='crear' onclick="handleCreate(this)">
                         <span
                             class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
@@ -151,19 +39,125 @@ left: calc(50% - 24px);
                             Nuevo
                         </span>
                     </a>
-                    <p class="text-2xl text-center">No existen usuarios habilitados</p>
                 </div>
-            @endif
+                <hr>
+                @if (count($users))
+                    <div class="table-responsive">
+                        <table class="table table-striped align-middle">
+                            <thead class="table-dark text-white">
+                                <tr>
+                                    <th class="text-white font-bold w-1/12" scope="col">Id</th>
+                                    <th class="text-white font-bold w-3/12" scope="col">Nombre</th>
+                                    <th class="text-white font-bold w-1/12" scope="col">Tipo</th>
+                                    <th class="text-white font-bold w-2/12" scope="col">Email</th>
+                                    <th class="text-white font-bold w-2/12" scope="col">Status</th>
+                                    <th class="text-white font-bold w-1/12" scope="col">Teléfono</th>
+                                    <th class="text-white font-bold w-2/12" scope="col">Perfil</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                @forelse ($users as $user)
+                                    @if ($user->status->id !== 1)
+                                        <tr id="row_{{ $user->id }}"
+                                            class=" {{ $user->status->id > 1 ? '' : 'deshabilitado' }}">
+                                            {{-- ID --}}
+                                            <td scope="row" style="min-width:fit-content;width:1rem">
+                                                <p id="id_{{ $user->id }}"
+                                                    class='p-0 m-0 text-xs text-gray-500 text-center'>
+                                                    {{ $user->id }}
+                                            </td>
+                                            </p>
+                                            {{-- Name Last Name --}}
+                                            <td scope="row" style="min-width:fit-content;width:15rem">
+                                                <div class="flex">
+                                                    <p id="user_name_{{ $user->id }}" class="p-0 m-0">
+                                                        {{ $user->name }}</p>&nbsp;
+                                                    <p id="user_lastname_{{ $user->id }}" class="p-0 m-0">
+                                                        {{ $user->last_name }}</p>
+                                                </div>
+                                            </td>
+                                            {{-- TIPO --}}
+                                            <td scope="row" style="min-width:fit-content;width:35px;"
+                                                id="type_{{ $user->id }}">
+                                                @if ($user->role->id === 3)
+                                                    <img src="{{ asset('images/worker-svgrepo-com.svg') }}"
+                                                        style="border-radius:0 !important"
+                                                        alt="{{ $user->role->role }}">
+                                                @endif
+                                                @if ($user->role->id === 2)
+                                                    <img src="{{ asset('images/building-svgrepo-com.svg') }}"
+                                                        style="border-radius:0 !important"
+                                                        alt="{{ $user->role->role }}">
+                                                @endif
+                                                @if ($user->role->id === 1)
+                                                    <p class="font-bold m-0">ADMIN</p>
+                                                @endif
+                                            </td>
+                                            <input type="text" id="type_id_{{ $user->id }}" hidden
+                                                value="{{ $user->role->id }}">
+                                            {{-- Email  --}}
+                                            <td scope="row" style="min-width:fit-content;width:5rem"
+                                                id="user_email_{{ $user->id }}">
+                                                {{ $user->email }}
+                                            </td>
+                                            {{-- Status --}}
+                                            <td scope="row" id="user_status_{{ $user->id }}">
+                                                @if ($user->status->id === 1)
+                                                    {{-- <p class="font-bold m-0">deshabilitado</p> --}}
+                                                @endif
+                                                @if ($user->status->id === 2)
+                                                    <div
+                                                        class="rounded-full border-solid border border-black bg-green-500 w-50 h-2 mx-3">
+                                                    </div>
+                                                @endif
+                                                @if ($user->status->id === 3)
+                                                    <div
+                                                        class="rounded-full border-solid border border-black bg-yellow-500 w-50 h-2 mx-3">
+                                                    </div>
+                                                @endif
+                                            </td>
+                                            {{-- PHONE --}}
+                                            <td scope="row" style="min-width:fit-content;width:1rem"
+                                                id="user_phone_{{ $user->id }}">
+                                                {{ $user->phone }}
+                                            </td>
+                                            {{-- ACCIONES --}}
+                                            <td scope="row" style="min-width:fit-content; white-space:initial">
+                                                <div class="flex justify-betstartween">
+                                                    <button
+                                                        class="bg-red-500 px-5 py-3 border-none font-bold text-white rounded hover:bg-red-600 hover:text-sm mr-3"
+                                                        onclick="handleToogle({{ $user->id }}, {{ $user->status->id }})">
+                                                        <i class="fas fa-trash"></i></button>
+                                                    <button
+                                                        class="bg-emerald-500 px-5 py-3 border-none font-bold text-white rounded hover:bg-emerald-600 hover:text-sm"
+                                                        onclick="profilePage({{ $user->id }})">
+                                                        <i class="fas fa-eye"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @empty
+                                    <h1>No hay empresas</h1>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4">
+                        {{ $users->links() }}
+                    </div>
+                @else
+                    <p class="text-2xl ">No existen usuarios habilitados</p>
+                @endif
+            </div>
         </div>
     </div>
 </div>
 
 
-
-<div class="row" id="table_deshabilitados">
-    <div class="col-lg-12 stretch-card grid-margin">
-        <div class="card">
-            @if (count($users_inactivos) !== 0)
+@if (count($users_inactivos))
+    <div class="row" id="table_deshabilitados">
+        <div class="col-lg-12 stretch-card grid-margin">
+            <div class="card">
                 <div class="card-body">
                     <div class="flex">
                         <p class="text-xl p-0 m-0 text-center self-center">
@@ -171,20 +165,21 @@ left: calc(50% - 24px);
                         </p>
                     </div>
                     <hr>
+
                     <div class="table-responsive mt-5">
                         <table class="table table-striped align-middle">
                             <thead class="table-dark text-white">
                                 <tr>
-                                    <th class="text-white font-bold w-1/12"scope="col">Id</th>
-                                    <th class="text-white font-bold w-3/12"scope="col">Nombre</th>
-                                    <th class="text-white font-bold w-1/12"scope="col">Tipo</th>
-                                    <th class="text-white font-bold w-2/12"scope="col">Email</th>
-                                    <th class="text-white font-bold w-1/12"scope="col">Teléfono</th>
-                                    <th class="text-white font-bold w-2/12"scope="col">Perfil</th>
+                                    <th class="text-white font-bold w-1/12" scope="col">Id</th>
+                                    <th class="text-white font-bold w-3/12" scope="col">Nombre</th>
+                                    <th class="text-white font-bold w-1/12" scope="col">Tipo</th>
+                                    <th class="text-white font-bold w-2/12" scope="col">Email</th>
+                                    <th class="text-white font-bold w-1/12" scope="col">Teléfono</th>
+                                    <th class="text-white font-bold w-2/12" scope="col">Perfil</th>
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider">
-                                @foreach ($users_inactivos as $user)
+                                @forelse ($users_inactivos as $user)
                                     @if ($user->status->id === 1)
                                         <tr id="row_{{ $user->id }}"
                                             class=" {{ $user->status->id > 1 ? '' : 'deshabilitado' }}">
@@ -205,15 +200,17 @@ left: calc(50% - 24px);
                                                 </div>
                                             </td>
                                             {{-- TIPO --}}
-                                            <td scope="row"
-                                                style="min-width:fit-content;width:35px;"id="type_{{ $user->id }}">
+                                            <td scope="row" style="min-width:fit-content;width:35px;"
+                                                id="type_{{ $user->id }}">
                                                 @if ($user->role->id === 3)
                                                     <img src="{{ asset('images/worker-svgrepo-com.svg') }}"
-                                                        style="border-radius:0 !important"alt="{{ $user->role->role }}">
+                                                        style="border-radius:0 !important"
+                                                        alt="{{ $user->role->role }}">
                                                 @endif
                                                 @if ($user->role->id === 2)
                                                     <img src="{{ asset('images/building-svgrepo-com.svg') }}"
-                                                        style="border-radius:0 !important"alt="{{ $user->role->role }}">
+                                                        style="border-radius:0 !important"
+                                                        alt="{{ $user->role->role }}">
                                                 @endif
                                                 @if ($user->role->id === 1)
                                                     <p class="font-bold m-0">ADMIN</p>
@@ -238,34 +235,38 @@ left: calc(50% - 24px);
                                                 <div class="flex">
 
                                                     <button
-                                                        class="bg-red-500 px-3 py-2 border-none font-bold text-white rounded hover:bg-red-600 hover:text-sm mr-3"
+                                                        class="bg-red-500 px-5 py-3 border-none font-bold text-white rounded hover:bg-red-600 hover:text-sm mr-3"
                                                         onclick="handleToogle({{ $user->id }}, {{ $user->status->id }})">Activar</button>
                                                     <button
-                                                        class="bg-emerald-500 px-3 py-2 border-none font-bold text-white rounded hover:bg-emerald-600 hover:text-sm"
+                                                        class="bg-emerald-500 px-5 py-3 border-none font-bold text-white rounded hover:bg-emerald-600 hover:text-sm"
                                                         onclick="profilePage({{ $user->id }})"><i
                                                             class="fas fa-eye"></i></button>
                                                 </div>
                                             </td>
                                         </tr>
                                     @endif
-                                @endforeach
+                                @empty
+                                    <h1>No hay empresas</h1>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
+
+
                 </div>
-            @endif
+            </div>
         </div>
     </div>
-</div>
+@else
+@endif
 
 
-<div id="profile" style="display:none">
+<div id="profile" style="opacity:0">
     @include('admin._users_profile')
 </div>
 
 <script>
     document.querySelector('#page-title').innerHTML = 'GNC - {{ $section_cute }}';
-
     const clean = document.querySelector('#clean')
     const name = document.querySelector('#name')
     const last_name = document.querySelector('#last_name')
@@ -275,7 +276,6 @@ left: calc(50% - 24px);
     const password = document.querySelector('#password')
     const password_confirmation = document.querySelector('#password_confirmation')
     const image = document.querySelector('#profile_photo')
-
     const name_error = document.querySelector('#name_error')
     const last_name_error = document.querySelector('#last_name_error')
     const email_error = document.querySelector('#email_error')
@@ -284,10 +284,7 @@ left: calc(50% - 24px);
     const password_error = document.querySelector('#password_error')
     const password_confirmation_error = document.querySelector('#password_confirmation_error')
     const image_error = document.querySelector('#image_error')
-
     const submit = document.querySelector('#modal-form')
-
-
 
     function handleErrors() {
         let x = 0
@@ -299,7 +296,6 @@ left: calc(50% - 24px);
             subestacion_error.textContent = ''
             subestacion.classList.add('input-validated')
         }
-
         if (type_id.value === "0") {
             type_id_error.textContent = 'Este campo es requerido'
             x = 1
@@ -319,7 +315,6 @@ left: calc(50% - 24px);
             enterprise_id_error.textContent = ''
         }
         if (x === 1) return false
-
         console.log('regresadn ??')
         return true;
     }
@@ -328,16 +323,14 @@ left: calc(50% - 24px);
         console.log('escoder')
         $("#table").hide()
         $("#table_deshabilitados").hide()
-
         $("#spinner_profile").show()
         const route = "{{ route('users.get_user') }}"
-        id = {
+        id_data = {
             'id': id
         }
-        axios.post(route, id)
+        axios.post(route, id_data)
             .then(res => {
                 console.log(res.data)
-
                 const {
                     name,
                     last_name,
@@ -347,17 +340,18 @@ left: calc(50% - 24px);
                     status_id,
                     image
                 } = res.data
-                document.querySelector('#perfil_nombre').textContent = name + ' ' + last_name
+                document.getElementById('perfil_nombre').value = name;
+                // console.log(name)
+                document.getElementById('perfil_id').value = id;
+                document.getElementById('perfil_apellido').value = last_name;
                 document.querySelector("#perfil_ocupacion").textContent = role_id === 1 ? 'ADMIN' : role_id === 2 ?
                     'EMPRESA' : 'TÉCNICO'
-                document.querySelector('#perfil_correo').textContent = email
-                document.querySelector('#perfil_telefono').textContent = phone
+                document.getElementById('perfil_correo').value = email
+                document.getElementById('perfil_telefono').value = phone
                 document.querySelector('#perfil_status').textContent = status_id === 1 ? 'INACTIVO' :
                     status_id === 2 ? 'En una inspección' : 'DISPONIBLE'
-
                 document.querySelector('#perfil_status_color').classList.add(status_id === 1 ? 'bg-red-500' :
                     status_id === 2 ? 'bg-yellow-500' : 'bg-green-500')
-
                 if (image) {
                     let image_route = "{{ asset('images/profile/:image') }}"
                     image_route = image_route.replace(':image', image)
@@ -375,53 +369,128 @@ left: calc(50% - 24px);
                         const src = "{{ asset('images/hacker.jpg') }}"
                         document.querySelector('#perfil_foto').src = src
                     }
-
                 }
-
-                $('#profile').css('display', 'block')
+                document.querySelector('#profile').style.opacity = 1
                 $("#spinner_profile").hide()
-
             }).catch(err => message('Hubo un problema con la petición'))
     }
+
+    function edit_user() {
+        //console.log('click')
+        const route = "{{ route('users.update') }}"
+        const id = document.getElementById('perfil_id').value
+        const name = document.getElementById('perfil_nombre').value
+        const last_name = document.getElementById('perfil_apellido').value
+        const email = document.getElementById('perfil_correo').value
+        const phone = document.getElementById('perfil_telefono').value
+        const body = new FormData()
+        body.append('id', id)
+        body.append('name', name)
+        body.append('last_name', last_name)
+        body.append('email', email)
+        body.append('phone', phone)
+        console.log(body)
+        axios.post(route, body)
+            .then(res => {
+                console.log(res.data)
+                if (res.data.response === true) {
+                    message('Usuario actualizado')
+                    profilePage(id)
+                } else {
+                    const errors = res.data.errors
+                    const {
+                        name: name_mensaje,
+                        last_name: last_name_mensaje,
+                        email: email_mensaje,
+                        phone: phone_mensaje,
+                    } = errors
+                    if (name_mensaje) {
+                        nombre_error_edit.textContent = name_mensaje
+                        perfil_nombre.classList.remove('input-validated')
+                    }
+                    if (!name_mensaje) {
+                        nombre_error_edit.textContent = ''
+                        perfil_nombre.classList.add('input-validated')
+                    } // console.log(email_mensaje)
+                    if (last_name_mensaje) {
+                        apellido_error_edit.textContent = last_name_mensaje
+                        perfil_apellido.classList.remove('input-validated')
+                    }
+                    if (!last_name_mensaje) {
+                        apellido_error_edit.textContent = ''
+                        perfil_apellido.classList.add('input-validated')
+                    }
+                    if (email_mensaje) {
+                        console.log('entro')
+                        correo_error_edit.textContent = email_mensaje
+                        perfil_correo.classList.remove('input-validated')
+                    } else {
+                        correo_error_edit.textContent = ''
+                        perfil_correo.classList.add('input-validated')
+                    }
+                    if (phone_mensaje) {
+                        telefono_error_edit.textContent = phone_mensaje
+                        perfil_telefono.classList.remove('input-validated')
+                    } else {
+                        telefono_error_edit.textContent = ''
+                        perfil_telefono.classList.add('input-validated')
+                    }
+                }
+            }).catch(err => message('Hubo un problema con la petición'))
+    };
     document.addEventListener('DOMContentLoaded', () => {
+        const editar_nom = document.querySelector('#perfil_nombre');
+        const editar_apellido = document.querySelector('#perfil_apellido');
+        const editar_correo = document.querySelector('#perfil_correo');
+        const editar_tel = document.querySelector('#perfil_telefono');
+        const editar = document.querySelector('#perfil_editar');
+        editar_nom.addEventListener('change', (event) => {
+            editar.innerHTML =
+                '<button id="btn_edit" class="bg-yellow-500 text-white rounded-full px-4 py-2" onclick="edit_user()"> Editar </button>';
+        });
+        editar_apellido.addEventListener('change', (event) => {
+            editar.innerHTML =
+                '<button id="btn_edit" class="bg-yellow-500 text-white rounded-full px-4 py-2" onclick="edit_user()"> Editar </button>';
+        });
+        editar_correo.addEventListener('change', (event) => {
+            editar.innerHTML =
+                '<button id="btn_edit"  class="bg-yellow-500 text-white rounded-full px-4 py-2" onclick="edit_user()"> Editar </button>';
+        });
+        editar_tel.addEventListener('change', (event) => {
+            editar.innerHTML =
+                '<button id="btn_edit"  class="bg-yellow-500 text-white rounded-full px-4 py-2" onclick="edit_user()" > Editar </button>';
+        });
         document.querySelector('#back_users').addEventListener('click', () => {
-            $('#profile').hide()
+            document.querySelector('#profile').style.opacity = 0
             $("#table").show()
             $("#table_deshabilitados").show()
         })
         submit.addEventListener("submit", function(e) {
-
             e.preventDefault()
-
             const validate = handleErrors()
-
             if (validate === false) return false
             const type = document.querySelector('#btn-submit').getAttribute('data-modal')
-
             let body = new FormData(document.getElementById("modal-form"))
-
             const foto = document.querySelector('#profile_photo').files[0]
             body.append('role_id', role_id.value)
-
             body.append('image', foto)
             //CREAR PARQUE  
             if (type === 'create') {
-
-                const route = '{{ route('users.store') }}'
+                const route = "{{ route('users.store') }}"
                 axios.post(route, body)
                     .then(res => {
                         console.log(res.data)
                         if (res.data.response === true) {
                             console.log('creado')
                             const message = 4
-                            const route = '{{ route('message') }}'
+                            const route = "{{ route('message') }}"
                             axios.post(route, {
                                     'message': message
                                 })
                                 .then(res => {
                                     console.log(res.data)
                                     window.location.href =
-                                        '{{ route('users.home') }}'
+                                        "{{ route('users.home') }}"
                                 })
                                 .catch(err => {
                                     console.log(err)
@@ -438,8 +507,6 @@ left: calc(50% - 24px);
                                 role_id: role_id_mensaje,
                                 image: image_mensaje
                             } = errors
-
-
                             if (name_mensaje) {
                                 name_error.textContent = name_mensaje
                                 name.classList.remove('input-validated')
@@ -493,7 +560,6 @@ left: calc(50% - 24px);
                                 image_error.textContent = ''
                                 image.classList.add('input-validated')
                             }
-
                         }
                     })
                     .catch(err => {
@@ -502,10 +568,8 @@ left: calc(50% - 24px);
                     })
             }
             // if (type === 'edit') {
-
             // }
         });
-
         clean.addEventListener('click', () => {
             name.value = ''
             last_name.value = ''
@@ -532,25 +596,19 @@ left: calc(50% - 24px);
             role.value = 0
             document.querySelector('#id').value = null
         })
-
     })
-
     const handleCreate = () => {
         document.querySelector('#btn-submit').setAttribute('data-modal', 'create')
         document.querySelector('#modal-title').innerHTML = 'Registrar usuario'
     }
-
     // document.querySelector('#toggleInput').addEventListener('click', (e) => {
     //     document.querySelector('#profile_photo').click()
     // })
-
     // CERRAR MODAL
     const clearModal = (e) => {
-
         const type = document.querySelector('#btn-submit').getAttribute('data-modal')
         if (type === 'create') return false
         console.log('entro a limopiar')
-
         parque_id.length = 1
         enterprise_id.length = 1
         subestacion.value = ''
@@ -605,7 +663,6 @@ left: calc(50% - 24px);
             password_error.textContent = ''
             // password.classList.add('input-validated')
         }
-
         if (password_confirmation.value === "") {
             password_confirmation_error.textContent = 'Este campo es requerido'
             x = 1
@@ -629,13 +686,10 @@ left: calc(50% - 24px);
         const row = document.querySelector(`#row_${id}`)
         const url = "{{ route('users.disable') }}"
         const barra = document.querySelector(`#user_status_${id}`)
-
         if (status !== 1) {
-
             const confirmar = confirm('¿Estás seguro de eliminar este usuario?')
             console.log(confirmar)
             if (confirmar === false) return false
-
             axios.post(url, {
                 status_id: 1,
                 id: id
@@ -648,19 +702,14 @@ left: calc(50% - 24px);
                 }).catch(err => {
                     message('Inténtalo más tarde')
                 })
-
-
             }).catch(err => {
                 console.log(err)
                 message('Inténtalo más tarde')
             })
         } else {
-
             const confirmar = confirm('¿Estás seguro de activar este usuario?')
             console.log(confirmar)
             if (confirmar === false) return false
-
-
             axios.post(url, {
                 status_id: 2,
                 id: id
@@ -685,10 +734,10 @@ left: calc(50% - 24px);
             message('Usuario registrado')
         @endif
         @if (Session::get('message') == 5)
-            message('Usuario deshabilitado')
+            message('Usuario eliminado')
         @endif
         @if (Session::get('message') == 6)
-            message('Usuario habilitado')
+            message('Usuario activado')
         @endif
     @endif
 </script>

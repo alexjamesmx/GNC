@@ -10,6 +10,8 @@ use App\Http\Controllers\SubestacionController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\InspeccionesController;
 use App\Http\Controllers\TecnicoController;
+use App\Http\Controllers\CalendarioController;
+use App\Http\Controllers\PDFController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -57,6 +59,7 @@ Route::prefix('/admin/subestaciones')->middleware(['accesos', 'admin'])->control
 Route::prefix('/admin/usuarios')->middleware(['accesos', 'admin'])->controller(UsersController::class)->group(function () {
     Route::get('/', 'home')->name('users.home');
     Route::post('/store', 'store')->name('users.store');
+    Route::post('/update', 'update')->name('users.update');
     Route::post('/get_user', 'get_user')->name('users.get_user');
     Route::post('/disable', 'disable')->name('users.disable');
 });
@@ -66,6 +69,16 @@ Route::prefix('/admin/inspecciones')->middleware(['accesos', 'admin'])->controll
     Route::post('/delete/{id}',     'delete')->name('inspeccion.delete');
     Route::post('/getParques',    'getParques')->name('inspeccion.getParques');
     Route::post('/getSubestaciones',    'getSubestaciones')->name('inspeccion.getSubestaciones');
+});
+Route::prefix('/admin/calendario')->middleware(['accesos', 'admin'])->controller(CalendarioController::class)->group(function () {
+    Route::get('/', 'home')->name('calendario.home');
+    Route::post('/mes_parque', 'c_parques')->name('calendario.c_parques');
+    Route::post('/mes_empresas', 'c_empresas')->name('calendario.c_empresas');
+    Route::post('/mes_inpecciones', 'c_inpecciones')->name('calendario.c_inpecciones');
+});
+
+Route::prefix('/admin/reportes')->middleware(['accesos', 'admin'])->controller(PDFController::class)->group(function () {
+    Route::get('/edificio/{id}', 'enterprise')->name('reportes.enterprise');
 });
 //ADMINISTRAODR ************************************************************
 

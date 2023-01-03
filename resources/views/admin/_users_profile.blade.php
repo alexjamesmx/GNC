@@ -21,19 +21,42 @@
                             id="perfil_ocupacion"class="m-0 text-center text-sm text-gray-700 text-white
                         ">
                         </p>
-                        <div class="flex mb-1 mt-2 last:justify-center">
-                            <p id="perfil_nombre"class='text-center text-3xl font-bold m-0 p-0 text-white'></p>
+                        <div class="flex mt-2 last:justify-center">
+                            <!-- <p id="perfil_nombre"class='text-center text-3xl font-bold m-0 p-0 text-white'></p> -->
+                            <input id="perfil_nombre" type="text" value="">
+                            <input id="perfil_id" type="hidden" value="">
+                        </div>
 
+                        <div class="flex last:justify-center">
+                            <label id="nombre_error_edit" class="text-sm m-0 p-0 text-red-500 tracking-wide"></label>
+                        </div>
+
+                        <div class="flex mt-2 last:justify-center">
+                            <input id="perfil_apellido" type="text" value="">
+                        </div>
+
+                        <div class="flex last:justify-center">
+                            <label id="apellido_error_edit" class="text-sm m-0 p-0 text-red-500 tracking-wide"></label>
                         </div>
 
 
                         <div class="flex mt-2 justify-start">
-                            <p id="perfil_correo" class='text-center text-lg font-bold m-0 p-0 text-white'></p>
+                            <!-- <p id="perfil_correo" class='text-center text-lg font-bold m-0 p-0 text-white'></p> -->
+                            <input id="perfil_correo" type="email" value="">
+                        </div>
+
+                        <div class="flex last:justify-center">
+                            <label id="correo_error_edit" class="text-sm m-0 p-0 text-red-500 tracking-wide"></label>
                         </div>
 
                         <div class="flex mt-2 justify-start">
                             <i class="fas fa-phone align-self-center mr-3"></i>
-                            <p id="perfil_telefono"class='text-center text-lg font-bold m-0 p-0 text-white'></p>
+                            <!-- <p id="perfil_telefono"class='text-center text-lg font-bold m-0 p-0 text-white'></p> -->
+                            <input id="perfil_telefono" type="tel" value="">
+                        </div>
+
+                        <div class="flex last:justify-center">
+                            <label id="telefono_error_edit" class="text-sm m-0 p-0 text-red-500 tracking-wide"></label>
                         </div>
 
                         <div class="flex mt-2 justify-start align-items-center">
@@ -42,10 +65,12 @@
                             </div>
                             <p id="perfil_status"class='text-center text-lg font-bold m-0 p-0 text-white'></p>
                         </div>
+                        <div id="perfil_editar">
+
+                        </div>
                     </div>
                 </section>
-                <section class="w-4/5
-                            bg-[#f2f2f2]">
+                <section class="w-4/5 bg-[#f2f2f2]">
                 </section>
             </div>
         </div>

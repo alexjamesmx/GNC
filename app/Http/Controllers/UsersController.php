@@ -122,4 +122,44 @@ class UsersController extends Controller
         $user->status_id = $request->status_id;
         return response()->json(['response' => $user->save()]);
     }
+    public function update(Request $request)
+    {
+        if (!$request->isMethod('post')) {
+            return dd('error');
+        }
+        $validated = Validator::make($request->except('id'), [
+            'name' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'email' => 'required|email|unique:users,email,' . $request->id,
+            'phone' => 'required|numeric|unique:users,phone,' . $request->id,
+        ], [
+            'name.required' => 'Este campo es requerido',
+            'name.max' => 'Este campo no puede tener más de 255 caracteres',
+
+            'last_name.required' => 'Este campo es requerido',
+            'last_name.max' => 'Este campo no puede tener más de 255 caracteres',
+
+            'email.required' => 'Este campo es requerido',
+            'email.email' => 'Este campo debe ser un correo electrónico',
+            'email.unique' => 'Este correo electrónico ya está registrado',
+
+            'phone.required' => 'Este campo es requerido',
+            'phone.numeric' => 'Este campo debe ser un número',
+            'phone.unique' => 'Este número de teléfono ya está registrado',
+
+        ]);
+
+        if ($validated->fails()) {
+            return response()->json(['response' => false, 'errors' => $validated->errors()]);
+        }
+
+        $user = User::findOrFail($request->id);
+        $user->name = $request->name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->status_id = 2;
+        $user->phone = $request->phone;
+
+        return response()->json(['response' => $user->save()]);
+    }
 }

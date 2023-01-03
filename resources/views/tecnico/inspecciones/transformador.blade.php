@@ -5,51 +5,51 @@
     <div class="col-12 grid-margin">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Ingresa los datos</h4>
                 <form id="form-inspecciones" class="form-sample needs-validation" novalidate
                     onsubmit="event.preventDefault(); saveInspeccion({{ $inspeccion->id }})">
                     {{-- INPUT --}}
                     <input type="hidden" name="inspeccion_id" id="inspeccion_id"value="{{ $inspeccion->id }}">
                     {{-- DATOS GENERALES --}}
-                    <p class="card-description">Datos generales</p>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Nombre empresa:</label>
+                    <div class="">
+                        <p class="font-bold">Datos generales</p>
+                        <div class="row">
+                            <div class="col-md-6 row">
+                                <label class="col-sm-3 text-sm">Nombre parque:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" readonly=»readonly»/
+                                    <input type="text" class="form-control" readonly=»readonly»
+                                        value="{{ $inspeccion->parque->parque }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label class="col-sm-3 text-sm">Nombre empresa:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" readonly=»readonly»
                                         value="{{ $inspeccion->enterprise->enterprise }}">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Otorgada en</label>
+                        <div class="row my-5">
+                            <div class="col-md-6 row">
+                                <label class="col-sm-3 text-sm">Nombre de la<br>subestación:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" readonly=»readonly»
+                                        value="{{ $inspeccion->subestacion->subestacion }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 row">
+                                <label class="col-sm-3 text-sm">Otorgada en:</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" readonly=»readonly»
                                         value="{{ $inspeccion->fecha_inicio }}" />
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Iniciada en:</label>
+                            <div class="col-md-6 row">
+                                <label class="col-sm-3 text-sm">Iniciada en:</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" readonly=»readonly»
-                                        value="@php echo date('Y-d-m h:i', time()); @endphp" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Nombre de la <br>Sub -
-                                    estacion:</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" readonly=»readonly»/
-                                        value="{{ $inspeccion->subestacion->subestacion }}">
+                                        value="{{ $inspeccion->fecha_comienzo }}" />
                                 </div>
                             </div>
                         </div>
