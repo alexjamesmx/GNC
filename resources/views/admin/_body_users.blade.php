@@ -376,7 +376,7 @@ left: calc(50% - 24px);
     }
 
     function edit_user() {
-        //console.log('click')
+        console.log('click')
         const route = "{{ route('users.update') }}"
         const id = document.getElementById('perfil_id').value
         const name = document.getElementById('perfil_nombre').value
@@ -395,7 +395,20 @@ left: calc(50% - 24px);
                 console.log(res.data)
                 if (res.data.response === true) {
                     message('Usuario actualizado')
-                    profilePage(id)
+
+                    nombre_error_edit.textContent = ''
+                    perfil_nombre.classList.remove('input-validated')
+
+                    apellido_error_edit.textContent = ''
+                    perfil_apellido.classList.remove('input-validated')
+
+                    telefono_error_edit.textContent = ''
+                    perfil_telefono.classList.remove('input-validated')
+
+                    correo_error_edit.textContent = ''
+                    perfil_correo.classList.remove('input-validated')
+
+
                 } else {
                     const errors = res.data.errors
                     const {
@@ -445,21 +458,22 @@ left: calc(50% - 24px);
         const editar_tel = document.querySelector('#perfil_telefono');
         const editar = document.querySelector('#perfil_editar');
         editar_nom.addEventListener('change', (event) => {
-            editar.innerHTML =
-                '<button id="btn_edit" class="bg-yellow-500 text-white rounded-full px-4 py-2" onclick="edit_user()"> Editar </button>';
+            dibujarBoton()
         });
         editar_apellido.addEventListener('change', (event) => {
-            editar.innerHTML =
-                '<button id="btn_edit" class="bg-yellow-500 text-white rounded-full px-4 py-2" onclick="edit_user()"> Editar </button>';
+            dibujarBoton()
         });
         editar_correo.addEventListener('change', (event) => {
-            editar.innerHTML =
-                '<button id="btn_edit"  class="bg-yellow-500 text-white rounded-full px-4 py-2" onclick="edit_user()"> Editar </button>';
+            dibujarBoton()
         });
         editar_tel.addEventListener('change', (event) => {
-            editar.innerHTML =
-                '<button id="btn_edit"  class="bg-yellow-500 text-white rounded-full px-4 py-2" onclick="edit_user()" > Editar </button>';
+            dibujarBoton()
         });
+
+        function dibujarBoton() {
+            editar.innerHTML =
+                '<button id="btn_edit"  class="border-none bg-yellow-500 hover:bg-yellow-600 text-white rounded-full px-4 py-2 font-semibold text-lg" onclick="edit_user()" ><i class="fas fa-edit"></i>  Editar </button>';
+        }
         document.querySelector('#back_users').addEventListener('click', () => {
             document.querySelector('#profile').style.opacity = 0
             $("#table").show()

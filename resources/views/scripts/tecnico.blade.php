@@ -31,5 +31,10 @@
     <script src="{{ asset('js/tecnico/test_transformador.js') }}"></script>
 @endif
 @if ($role === 'tecnico' && $section === 'test' && $subsection === 'electrica')
+    <script>
+        route = [
+            "{{ route('tecnico.electrica_subir') }}",
+        ];
+    </script>
     <script src="{{ asset('js/tecnico/test_electrico.js') }}"></script>
 @endif

@@ -84,7 +84,7 @@ class TecnicoController extends Controller
             'tecnico.inspecciones.transformador',
             [
                 'section' => 'test',
-                'subsection' => 'electrico',
+                'subsection' => 'transformador',
                 'section_cute' => 'Inspección eléctrica',
                 'role' => 'tecnico',
                 'role_cute' => 'Técnico',
@@ -504,7 +504,82 @@ class TecnicoController extends Controller
         }
         return response()->json(['response' => $response]);
     }
+    public function electrica_subir(Request $request)
+    {
 
+        // dd($request->all());
+        $validated = Validator::make(
+            $request->except('id'),
+            [
+                'disasolve_req' => 'required|between:0,1',
+                'disasolve_cantidad' => 'required|max:255',
+                'ten_media_soporteria' => 'required|between:0,1',
+                'ten_media_soporteria_edo' => 'between:0,1',
+                'ten_media_soporteria_faltante' => 'required|max:255',
+
+                'mt_observaciones' => 'required|max:255',
+                'img1' => 'required|image|mimes:png,jpg,jpeg|max:2048',
+                'img2' => 'required|image|mimes:png,jpg,jpeg|max:2048',
+                'img3' => 'required|image|mimes:png,jpg,jpeg|max:2048',
+                'img4' => 'image|mimes:png,jpg,jpeg|max:2048',
+                'img5' => 'image|mimes:png,jpg,jpeg|max:2048',
+                'img6' => 'image|mimes:png,jpg,jpeg|max:2048',
+            ],
+            [
+                'disasolve_req.required' => 'Este campo es requerido',
+                'disasolve_req.between' => 'Este campo debe ser 0 o 1',
+
+                'disasolve_cantidad.required' => 'Este campo es requerido',
+                'disasolve_cantidad.max' => 'Este campo no puede tener más de 255 caracteres',
+
+                'ten_media_soporteria.required' => 'Este campo es requerido',
+
+                'ten_media_soporteria_edo.between' => 'Este campo debe ser 0 o 1',
+
+                'ten_media_soporteria_faltante.required' => 'Este campo es requerido',
+
+                'mt_observaciones.required' => 'Este campo es requerido',
+                'mt_observaciones.max' => 'Este campo no puede tener más de 255 caracteres',
+
+
+                'observaciones.required' => 'Este campo es requerido',
+                'observaciones.max' => 'Este campo no puede tener más de 255 caracteres',
+
+                'img1.required' => 'Este campo es requerido',
+                'img1.image' => 'El archivo debe ser una imagen',
+                'img1.mimes' => 'El archivo debe ser una imagen con formato png, jpg o jpeg',
+                'img1.max' => 'El archivo no puede pesar más de 2MB',
+
+                'img2.required' => 'Este campo es requerido',
+                'img2.image' => 'El archivo debe ser una imagen',
+                'img2.mimes' => 'El archivo debe ser una imagen con formato png, jpg o jpeg',
+                'img2.max' => 'El archivo no puede pesar más de 2MB',
+
+                'img3.required' => 'Este campo es requerido',
+                'img3.image' => 'El archivo debe ser una imagen',
+                'img3.mimes' => 'El archivo debe ser una imagen con formato png, jpg o jpeg',
+                'img3.max' => 'El archivo no puede pesar más de 2MB',
+
+                'img4.image' => 'El archivo debe ser una imagen',
+                'img4.mimes' => 'El archivo debe ser una imagen con formato png, jpg o jpeg',
+                'img4.max' => 'El archivo no puede pesar más de 2MB',
+
+                'img5.image' => 'El archivo debe ser una imagen',
+                'img5.mimes' => 'El archivo debe ser una imagen con formato png, jpg o jpeg',
+                'img5.max' => 'El archivo no puede pesar más de 2MB',
+
+                'img6.image' => 'El archivo debe ser una imagen',
+                'img6.mimes' => 'El archivo debe ser una imagen con formato png, jpg o jpeg',
+                'img6.max' => 'El archivo no puede pesar más de 2MB',
+            ],
+        );
+
+        if ($validated->fails()) {
+            return response()->json(['response' => false, 'errors' => $validated->errors()]);
+        }
+
+        return response()->json(['response' => true]);
+    }
     public function anomalia(Request $request)
     {
         $anomalia = new Anomalias();

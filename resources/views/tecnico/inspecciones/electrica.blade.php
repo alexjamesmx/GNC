@@ -11,7 +11,6 @@
                         font-size: 0.875rem !important;
                         line-height: 1.25rem !important;
                     }
-                    }
 
                     input {
                         font-size: 0.875rem !important;
@@ -78,13 +77,13 @@
                                 <label class="col-md-3" for="disasolve_req">Requiere disasolve</label>
                                 <div class="col-md-9 flex">
                                     <div class="form-radio flex justify-center w-1/2">
-                                        <input id="disasolve_req_si" type="radio" name="disasolve_req" value="1">
+                                        <input id="disasolve_req_si" type="radio" name="disasolve_req"
+                                            value="1"existe='1'>
                                         <label for="disasolve_req" class="ml-1">Si</label>
                                     </div>
-                                    {{-- ANOMALIA PINTURA --}}
                                     <div class="form-radio flex justify-center w-1/2">
                                         <input id="disasolve_req_no"type="radio" class="" name="disasolve_req"
-                                            value="0">
+                                            value="0"existe='1'>
                                         <label for="disasolve_req"class="ml-1">No</label>
                                     </div>
                                 </div>
@@ -92,10 +91,10 @@
                         </div>
                         <div class="col-md-5">
                             <div class="row">
-                                <label class="col-md-5" for="disasolve_cantidad">Cantidad</label>
-                                <div class="col-md-7">
+                                <label class="col-md-3" for="disasolve_cantidad">Cantidad</label>
+                                <div class="col-md-9">
                                     <input type="text" class="form-control" name="disasolve_cantidad"
-                                        id="disasolve_cantidad" />
+                                        id="disasolve_cantidad" existe='1' />
                                     <div id="disasolve_cantidad_error"class="invalid-feedback"></div>
                                 </div>
                             </div>
@@ -109,12 +108,14 @@
                                 <label class="col-md-3" for="mt_limpieza_req">Requiere limpieza:</label>
                                 <div class="col-md-9 flex">
                                     <div class="form-radio flex justify-center w-1/2">
-                                        <input type="radio" name="mt_limpieza_req" id="mt_limpieza_req_si" value="1">
+                                        <input type="radio" name="mt_limpieza_req" id="mt_limpieza_req_si"
+                                            value="1"existe='1'>
                                         <label class="ml-1">Si</label>
                                     </div>
                                     {{-- ANOMALIA PINTURA --}}
                                     <div class="form-radio flex justify-center w-1/2">
-                                        <input type="radio" name="mt_limpieza_req" value="0"id="mt_limpieza_req_no">
+                                        <input type="radio" name="mt_limpieza_req"
+                                            value="0"id="mt_limpieza_req_no"existe='1'>
                                         <label class="ml-1">No</label>
                                     </div>
                                 </div>
@@ -126,62 +127,63 @@
                     <div class="row">
                         <div class="col-md-7">
                             <div class="row">
-                                <label class="col-md-2" for="disasolve_req">Soportería</label>
+                                <label class="col-md-2" for="ten_media_soporteria">Soportería</label>
                                 <div class="col-md-10 flex">
                                     <div class="form-radio flex justify-center w-1/4">
-                                        <input id="disasolve_req_si" type="radio" name="disasolve_req" value="1">
-                                        <label for="disasolve_req" class="ml-1">Si</label>
+                                        <input id="ten_media_soporteria_si" type="radio" name="ten_media_soporteria"
+                                            value="1"existe='1' class="ten_media_soporteria">
+                                        <label for="ten_media_soporteria" class="ml-1">Si</label>
                                     </div>
                                     <div class="form-radio flex justify-center w-1/4">
-                                        <input id="disasolve_req_no"type="radio" class="" name="disasolve_req"
-                                            value="0">
-                                        <label for="disasolve_req" class="ml-1">No</label>
+                                        <input id="ten_media_soporteria_no"type="radio" class="ten_media_soporteria"
+                                            name="ten_media_soporteria" value="0"existe='1'>
+                                        <label for="ten_media_soporteria" class="ml-1">No</label>
                                     </div>
                                     <div class="form-radio flex justify-center w-1/4">
-                                        <input id="disasolve_req_si" type="radio" name="disasolve_req" value="1"
-                                            disabled>
-                                        <label for="disasolve_req" class="ml-1 opacity-50">Buen estado</label>
+                                        <input id="ten_media_soporteria_edo_si" type="radio"
+                                            name="ten_media_soporteria_edo" value="1" disabled existe='1'>
+                                        <label for="ten_media_soporteria_edo" class="ml-1 opacity-50">Buen estado</label>
                                     </div>
                                     {{-- ANOMALIA SOPORTERIA --}}
                                     <div class="form-radio flex justify-center w-1/4">
-                                        <input id="disasolve_req_no"type="radio" class="" name="disasolve_req"
-                                            value="0"disabled>
-                                        <label for="disasolve_req" class="ml-1 opacity-50">Mal estado</label>
+                                        <input id="ten_media_soporteria_edo_no"type="radio" class=""
+                                            name="ten_media_soporteria_edo" value="0" disabled existe='1'>
+                                        <label for="ten_media_soporteria_edo" class="ml-1 opacity-50">Mal estado</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-5">
                             <div class="row">
-                                <label class="col-md-5" for="disasolve_cantidad">Faltante</label>
-                                <div class="col-md-7">
-                                    <input type="text" class="form-control" name="disasolve_cantidad"
-                                        id="disasolve_cantidad" />
-                                    <div id="disasolve_cantidad_error"class="invalid-feedback"></div>
+                                <label class="col-md-3" for="ten_media_soporteria_faltante">Faltante</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="ten_media_soporteria_faltante"
+                                        id="ten_media_soporteria_faltante"existe='1' />
+                                    <div id="ten_media_soporteria_faltante_error"class="invalid-feedback"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     {{-- ********** --}}
 
-                    <div>
+                    <div class="row my-5">
                         <div class="col-md-12">
                             <div class="form-group row">
-                                <label>Observaciones:</label>
-                                <textarea class="form-control" rows="5" name="herreria_observaciones" id="herreria_observaciones"></textarea>
-                                <div id="herreria_observaciones_error"class="invalid-feedback"></div>
+                                <label for="mt_observaciones">Observaciones:</label>
+                                <textarea class="form-control" rows="5" name="mt_observaciones" id="mt_observaciones" existe='1'></textarea>
+                                <div id="mt_observaciones_error"class="invalid-feedback"></div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword4">Imagen (3 requeridas)</label>
+                        <label>Imagen (3 requeridas)</label>
                     </div>
                     <div class="row">
                         <div class="col-md-2">
                             <div class="form-group row">
                                 <div class="col-sm-12">
                                     <input type="file" class="form-control" name="img1" id="img1"
-                                        accept=".png, .jpg, .jpeg" />
+                                        accept=".png, .jpg, .jpeg"existe='1' />
                                     <div id="img1_error"class="invalid-feedback"></div>
                                 </div>
                             </div>
@@ -191,7 +193,7 @@
                             <div class="form-group row">
                                 <div class="col-sm-12">
                                     <input type="file" class="form-control"id="img2" name="img2"
-                                        accept=".png, .jpg, .jpeg" />
+                                        accept=".png, .jpg, .jpeg" existe='1' />
                                     <div id="img2_error"class="invalid-feedback"></div>
                                 </div>
                             </div>
@@ -201,7 +203,7 @@
                             <div class="form-group row">
                                 <div class="col-sm-12">
                                     <input type="file" class="form-control" accept=".png, .jpg, .jpeg"
-                                        name="img3"id="img3" />
+                                        name="img3"id="img3" existe='1' />
                                     <div id="img3_error"class="invalid-feedback"></div>
                                 </div>
                             </div>
@@ -211,7 +213,7 @@
                             <div class="form-group row">
                                 <div class="col-sm-12">
                                     <input type="file" class="form-control" accept=".png, .jpg, .jpeg"
-                                        name="img4"id="img4" />
+                                        name="img4"id="img4" existe='1' />
                                     <div id="img4_error"class="invalid-feedback"></div>
                                 </div>
                             </div>
@@ -221,7 +223,7 @@
                             <div class="form-group row">
                                 <div class="col-sm-12">
                                     <input type="file" class="form-control" accept=".png, .jpg, .jpeg"
-                                        name="img5"id="img5" />
+                                        name="img5"id="img5"existe='1' />
                                     <div id="img5_error"class="invalid-feedback"></div>
                                 </div>
                             </div>
@@ -231,14 +233,13 @@
                             <div class="form-group row">
                                 <div class="col-sm-12">
                                     <input type="file" class="form-control" accept=".png, .jpg, .jpeg"
-                                        name="img6"id="img6" />
+                                        name="img6"id="img6"existe='1' />
                                     <div id="img6_error"class="invalid-feedback"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <input type="hidden" value="{{ $inspeccion->id }}" name="inspeccion_id">
                     <button type="submit" class="btn btn-success mr-2">Guardar</button>
                     <button type="button"class="btn btn-light" id="btn-cancelar">Cancelar</button>
                 </form>
