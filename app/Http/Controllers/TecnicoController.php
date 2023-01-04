@@ -84,7 +84,7 @@ class TecnicoController extends Controller
             'tecnico.inspecciones.transformador',
             [
                 'section' => 'test',
-                'subsection' => 'electrico',
+                'subsection' => 'transformador',
                 'section_cute' => 'Inspección eléctrica',
                 'role' => 'tecnico',
                 'role_cute' => 'Técnico',
@@ -246,12 +246,44 @@ class TecnicoController extends Controller
         $rep_edificio->herreria_estado = $request->herreria_estado;
         $rep_edificio->herreria_requiere = $request->herreria_requiere;
         $rep_edificio->herreria_observaciones = $request->herreria_observaciones;
-        $rep_edificio->img1 = $request->img1;
-        $rep_edificio->img2 = $request->img2;
-        $rep_edificio->img3 = $request->img3;
-        $rep_edificio->img4 = $request->img4;
-        $rep_edificio->img5 = $request->img5;
-        $rep_edificio->img6 = $request->img6;
+        //$rep_edificio->img1 = $request->img1;
+
+        if ($request->img1 != null && $request->img1 != 'undefined') {
+            $imageName = time() . 'img1' . auth()->id() . '.' . $request->img1->extension();
+            $request->img1->move(public_path('images/reportes/edificio'), $imageName);
+            $rep_edificio->img1 = $imageName;
+        } 
+        
+        if ($request->img2 != null && $request->img2 != 'undefined') {
+            $imageName = time() . 'img2' . auth()->id() . '.' . $request->img2->extension();
+            $request->img2->move(public_path('images/reportes/edificio'), $imageName);
+            $rep_edificio->img2 = $imageName;
+        }
+
+        if ($request->img3 != null && $request->img3 != 'undefined') {
+            $imageName = time() . 'img3' . auth()->id() . '.' . $request->img3->extension();
+            $request->img3->move(public_path('images/reportes/edificio'), $imageName);
+            $rep_edificio->img3 = $imageName;
+        }
+
+        if ($request->img4 != null && $request->img4 != 'undefined') {
+            $imageName = time() . 'img4' . auth()->id() . '.' . $request->img4->extension();
+            $request->img4->move(public_path('images/reportes/edificio'), $imageName);
+            $rep_edificio->img4 = $imageName;
+        }
+
+        if ($request->img5 != null && $request->img5 != 'undefined') {
+            $imageName = time() . 'img5' . auth()->id() . '.' . $request->img5->extension();
+            $request->img5->move(public_path('images/reportes/edificio'), $imageName);
+            $rep_edificio->img5 = $imageName;
+        }
+
+        if ($request->img6 != null && $request->img6 != 'undefined') {
+            $imageName = time() . 'img6' . auth()->id() . '.' . $request->img6->extension();
+            $request->img6->move(public_path('images/reportes/edificio'), $imageName);
+            $rep_edificio->img6 = $imageName;
+        }
+
         $rep_edificio->status_id = 5;
 
         $r = $rep_edificio->save();
