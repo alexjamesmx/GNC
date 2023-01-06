@@ -13,7 +13,7 @@
                     <!-- Body -->
                     <div class="inspeccion-test">
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 mt-5">
                                 <div id="nav_edificio"class="card hover:bg-amber-100  cursor-pointer"
                                     onclick="edificio({{ $id }})" style="height:75vh; min-width:fit-content">
                                     <div class="card-body grid ">
@@ -25,7 +25,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 mt-5">
                                 <div id="nav_electrica" onclick="electrica({{ $id }})"
                                     class="card hover:bg-amber-100 cursor-pointer"style="height:75vh; min-width:fit-content">
                                     <div class="card-body grid ">
@@ -37,7 +37,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 mt-5">
                                 <div id="nav_transformador" onclick="transformador({{ $id }})"
                                     class="card hover:bg-amber-100 cursor-pointer"style="height:75vh; min-width:fit-content">
                                     <div class="card-body grid ">

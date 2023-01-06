@@ -5,12 +5,10 @@
     <div class="col-12 grid-margin">
         <div class="card">
             <div class="card-body">
-
                 <style>
                     label {
                         font-size: 0.875rem !important;
                         line-height: 1.25rem !important;
-                    }
                     }
 
                     input {
@@ -18,32 +16,32 @@
                         line-height: 1.25rem !important;
                     }
                 </style>
-                <form id="form-inspecciones" class="form-sample needs-validation" novalidate
+                <form class="form-sample needs-validation" id="form-inspecciones" novalidate
                     onsubmit="event.preventDefault(); saveInspeccion({{ $inspeccion->id }})">
                     {{-- DATOS GENERALES --}}
-                    <div class="">
+                    <div class="grid gap-5">
                         <p class="font-bold">Datos generales</p>
                         <div class="row">
                             <div class="col-md-6 row">
-                                <label class="col-sm-3">Nombre parque:</label>
+                                <label class="col-sm-3">Parque:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" readonly=»readonly»
+                                    <input class="form-control" readonly=»readonly» type="text"
                                         value="{{ $inspeccion->parque->parque }}">
                                 </div>
                             </div>
                             <div class="col-md-6 row">
-                                <label class="col-sm-3">Nombre empresa:</label>
+                                <label class="col-sm-3">Cliente:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" readonly=»readonly»
+                                    <input class="form-control" readonly=»readonly» type="text"
                                         value="{{ $inspeccion->enterprise->enterprise }}">
                                 </div>
                             </div>
                         </div>
-                        <div class="row my-5">
+                        <div class="row">
                             <div class="col-md-6 row">
-                                <label class="col-sm-3">Nombre de la<br>subestación:</label>
+                                <label class="col-sm-3">Subestación:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" readonly=»readonly»
+                                    <input class="form-control" readonly=»readonly» type="text"
                                         value="{{ $inspeccion->subestacion->subestacion }}">
                                 </div>
                             </div>
@@ -52,232 +50,633 @@
                             <div class="col-md-6 row">
                                 <label class="col-sm-3">Otorgada en:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" readonly=»readonly»
+                                    <input class="form-control" readonly=»readonly» type="text"
                                         value="{{ $inspeccion->fecha_inicio }}" />
                                 </div>
                             </div>
                             <div class="col-md-6 row">
                                 <label class="col-sm-3">Iniciada en:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" readonly=»readonly»
+                                    <input class="form-control" readonly=»readonly» type="text"
                                         value="{{ $inspeccion->fecha_comienzo }}" />
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {{-- ********** --}}
                     <hr>
                     {{-- INICIA ENCUESTA --}}
-                    <input type="hidden" name="inspeccion_id" id="inspeccion_id" value="{{ $inspeccion->id }}">
-                    <p class="font-bold">Canalizaciones en M.T.</p>
-                    {{-- CANALIZACIONES EN M.T --}}
-                    {{-- DISASOLVE --}}
-                    <div class="row">
-                        <div class="col-md-7">
-                            <div class="row">
-                                <label class="col-md-3" for="disasolve_req">Requiere disasolve</label>
-                                <div class="col-md-9 flex">
-                                    <div class="form-radio flex justify-center w-1/2">
-                                        <input id="disasolve_req_si" type="radio" name="disasolve_req" value="1">
-                                        <label for="disasolve_req" class="ml-1">Si</label>
+                    <input id="inspeccion_id" name="inspeccion_id" type="hidden" value="{{ $inspeccion->id }}">
+
+                    <div class="grid gap-5">
+                        {{-- CANALIZACIONES EN M.T --}}
+                        <p class="font-bold">Canalizaciones en M.T.</p>
+
+                        {{-- DISASOLVE --}}
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <label class="col-md-3" for="disasolve_req">Requiere desasolve</label>
+                                    <div class="col-md-9 flex">
+                                        <div class="form-radio flex w-1/2 justify-center">
+                                            <input existe='1' id="disasolve_req_si" name="disasolve_req" type="radio"
+                                                value=1>
+                                            <label class="ml-1" for="disasolve_req">Si</label>
+                                        </div>
+                                        <div class="form-radio flex w-1/2 justify-center">
+                                            <input id="disasolve_req_no"type="radio" name="disasolve_req"
+                                                value="0"existe='1'>
+                                            <label for="disasolve_req"class="ml-1">No</label>
+                                        </div>
                                     </div>
-                                    {{-- ANOMALIA PINTURA --}}
-                                    <div class="form-radio flex justify-center w-1/2">
-                                        <input id="disasolve_req_no"type="radio" class="" name="disasolve_req"
-                                            value="0">
-                                        <label for="disasolve_req"class="ml-1">No</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="row">
+                                    <label class="col-md-3" for="disasolve_cantidad">Cantidad (desasolve)</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" existe='1' id="disasolve_cantidad"
+                                            name="disasolve_cantidad" requerido_generico=1 type="text" />
+                                        <div id="disasolve_cantidad_error"class="invalid-feedback"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-5">
-                            <div class="row">
-                                <label class="col-md-5" for="disasolve_cantidad">Cantidad</label>
-                                <div class="col-md-7">
-                                    <input type="text" class="form-control" name="disasolve_cantidad"
-                                        id="disasolve_cantidad" />
-                                    <div id="disasolve_cantidad_error"class="invalid-feedback"></div>
+                        {{-- LIMPIEZA --}}
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <label class="col-md-3" for="mt_limpieza_req">Requiere limpieza (desasolve):</label>
+                                    <div class="col-md-9 flex">
+                                        <div class="form-radio flex w-1/2 justify-center">
+                                            <input id="mt_limpieza_req_si" name="mt_limpieza_req" type="radio"
+                                                value="1"existe='1'>
+                                            <label class="ml-1">Si</label>
+                                        </div>
+                                        {{-- ANOMALIA PINTURA --}}
+                                        <div class="form-radio flex w-1/2 justify-center">
+                                            <input name="mt_limpieza_req" type="radio"
+                                                value="0"id="mt_limpieza_req_no"existe='1'>
+                                            <label class="ml-1">No</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="row">
+                                    <label class="col-md-3" for="mt_limpieza_cantidad">Cantidad (limpieza)</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" existe='1' id="mt_limpieza_cantidad"
+                                            name="mt_limpieza_cantidad" requerido_generico=1 type="text" />
+                                        <div class="invalid-feedback"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        {{-- Soporteria --}}
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <label class="col-md-2" for="ten_media_soporteria">Soportería</label>
+                                    <div class="col-md-10 flex">
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input existe='1' id="ten_media_soporteria_si"
+                                                name="ten_media_soporteria" tipo="ten_media_soporteria" type="radio"
+                                                value=1>
+                                            <label class="ml-1" for="ten_media_soporteria"
+                                                tipo="ten_media_soporteria">Si</label>
+                                        </div>
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input class="" existe='1'
+                                                id="ten_media_soporteria_no"type="radio" name="ten_media_soporteria"
+                                                tipo="ten_media_soporteria" value=0>
+                                            <label class="ml-1" for="ten_media_soporteria"
+                                                tipo="ten_media_soporteria">No</label>
+                                        </div>
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input disabled existe='1' id="ten_media_soporteria_edo_si"
+                                                name="ten_media_soporteria_edo" tipo="ten_media_soporteria"
+                                                type="radio" value="1">
+                                            <label class="ml-1 opacity-50" for="ten_media_soporteria_edo"
+                                                tipo="ten_media_soporteria">Buen
+                                                estado</label>
+                                        </div>
+                                        {{-- ANOMALIA SOPORTERIA --}}
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input class="" disabled existe='1'
+                                                id="ten_media_soporteria_edo_no"type="radio"
+                                                name="ten_media_soporteria_edo" onclick="handleAnomalia(this.name)"
+                                                tipo="ten_media_soporteria" value="0">
+                                            <label class="ml-1 opacity-50" for="ten_media_soporteria_edo"
+                                                tipo="ten_media_soporteria">Mal
+                                                estado</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="row">
+                                    <label class="col-md-3" for="ten_media_soporteria_faltante">Faltante</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" id="ten_media_soporteria_faltante"existe='1'
+                                            name="ten_media_soporteria_faltante" requerido_generico=1 type="text" />
+                                        <div id="ten_media_soporteria_faltante_error"class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- Sistema de tierra --}}
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <label class="col-md-2" for="sis_tierra">Sistema de tierra</label>
+                                    <div class="col-md-10 flex">
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input existe='1' id="sis_tierra_si"type="radio" name="sis_tierra"
+                                                tipo="sis_tierra" value=1>
+                                            <label class="ml-1" for="sis_tierra" tipo="sis_tierra">Si</label>
+                                        </div>
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input class="" existe='1' id="sis_tierra_no"type="radio"
+                                                name="sis_tierra" tipo="sis_tierra" value=0>
+                                            <label class="ml-1" for="sis_tierra" tipo="sis_tierra">No</label>
+                                        </div>
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input disabled existe='1' id="sis_tierra_edo_si"type="radio"
+                                                name="sis_tierra_edo" tipo="sis_tierra" value=1>
+                                            <label class="ml-1 opacity-50" for="sis_tierra_edo" tipo="sis_tierra">Buen
+                                                estado</label>
+                                        </div>
+                                        {{-- ANOMALIA TIERRA --}}
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input disabled existe='1' id="sis_tierra_edo_no"type="radio"
+                                                name="sis_tierra_edo" onclick="handleAnomalia(this.name)"
+                                                tipo="sis_tierra" value=0>
+                                            <label class="ml-1 opacity-50" for="sis_tierra_edo" tipo="sis_tierra">Mal
+                                                estado</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="row">
+                                    <label class="col-md-3" for="sis_tierra_faltante">Faltante</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" existe='1' name="sis_tierra_faltante"
+                                            requerido_generico=1 type="text" />
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- Conexión de tierra --}}
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <label class="col-md-2" for="conex_tierra">Conexión de tierra</label>
+                                    <div class="col-md-10 flex">
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input existe='1' id="conex_tierra_si"type="radio" name="conex_tierra"
+                                                tipo="conex_tierra" value=1>
+                                            <label class="ml-1" for="conex_tierra" tipo="conex_tierra">Si</label>
+                                        </div>
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input existe='1' id="conex_tierra_no"type="radio" name="conex_tierra"
+                                                tipo="conex_tierra" value=0>
+                                            <label class="ml-1" for="conex_tierra" tipo="conex_tierra">No</label>
+                                        </div>
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input disabled existe='1' id="conex_tierra_edo_si"type="radio"
+                                                name="conex_tierra_edo" tipo="conex_tierra" value=1>
+                                            <label class="ml-1 opacity-50" for="conex_tierra_edo"
+                                                tipo="conex_tierra">Buen
+                                                estado</label>
+                                        </div>
+                                        {{-- ANOMALIA TIERRA --}}
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input disabled existe='1' id="conex_tierra_edo_no"type="radio"
+                                                name="conex_tierra_edo" onclick="handleAnomalia(this.name)"
+                                                tipo="conex_tierra" value=0>
+                                            <label class="ml-1 opacity-50" for="conex_tierra_edo" tipo="conex_tierra">Mal
+                                                estado</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="row">
+                                    <label class="col-md-3" for="conex_tierra_faltante">Faltante</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" existe='1' name="conex_tierra_faltante"
+                                            requerido_generico=1 type="text" />
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- Sellado de ductería --}}
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <label class="col-md-2" for="sellado_ducteria">Sellado de ductería</label>
+                                    <div class="col-md-10 flex">
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input existe='1' id="sellado_ducteria_si"type="radio"
+                                                name="sellado_ducteria" tipo="sellado_ducteria" value=1>
+                                            <label class="ml-1" for="sellado_ducteria"
+                                                tipo="sellado_ducteria">Si</label>
+                                        </div>
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input existe='1' id="sellado_ducteria_no"type="radio"
+                                                name="sellado_ducteria" tipo="sellado_ducteria" value=0>
+                                            <label class="ml-1" for="sellado_ducteria"
+                                                tipo="sellado_ducteria">No</label>
+                                        </div>
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input disabled existe='1' id="sellado_ducteria_edo_si"type="radio"
+                                                name="sellado_ducteria_edo" tipo="sellado_ducteria" value=1>
+                                            <label class="ml-1 opacity-50" for="sellado_ducteria_edo"
+                                                tipo="sellado_ducteria">Buen
+                                                estado</label>
+                                        </div>
+                                        {{-- ANOMALIA DUCTERIA --}}
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input disabled existe='1' id="sellado_ducteria_edo_no"type="radio"
+                                                name="sellado_ducteria_edo" onclick="handleAnomalia(this.name)"
+                                                tipo="sellado_ducteria" value=0>
+                                            <label class="ml-1 opacity-50" for="sellado_ducteria_edo"
+                                                tipo="sellado_ducteria">Mal
+                                                estado</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="row">
+                                    <label class="col-md-3" for="sellado_ducteria_faltante">Faltante</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" existe='1' name="sellado_ducteria_faltante"
+                                            requerido_generico=1 type="text" />
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- m.t observaciones  --}}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label for="mt_observaciones">Observaciones:</label>
+                                    <textarea class="form-control" existe='1'requerido_generico=1 id="mt_observaciones" name="mt_observaciones"
+                                        rows="5"></textarea>
+                                    <div id="mt_observaciones_error"class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- CANALIZACIONES EN B.T. --}}
+                        <label class="font-bold">Canalizaciones en B.T.</label>
+                        <div class="row flex justify-between">
+                            <p class="col-md-2 self-center">Tipo canalizaciones</p>
+                        </div>
+                        {{-- tipo canalizacion --}}
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input existe='1'onclick="disableOtro()" type="radio"name="tipo_canalizacion"
+                                    value="T.conduit"> <label class="ml-1">T. conduit
+                                </label></input>
+                            </div>
+                            <div class="col-md-4">
+                                <input existe='1'onclick="disableOtro()" name="tipo_canalizacion" type="radio"
+                                    value="Charola">
+                                <label class="ml-1">Charola</label></input>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="">
+                                    <input type="radio"
+                                        value="0"id="tipo_canalizacion_otro"existe='1'name="tipo_canalizacion">
+                                    <label class="ml-1">Otro:
+                                    </label>
+                                    <input class="form-control ml-3 self-center"disabled existe='1'
+                                        id="tipo_canalizacion_otro_input"type="text" name="tipo_canalizacion"
+                                        requerido_generico=1 />
+                                </div>
+                            </div>
+                        </div>
+                        {{-- requiere tornilleria --}}
+                        <div class="row">
+                            <p class="col-md-2 self-center">Requiere tornillería</p>
+                            <div class="col-md-4 flex">
+                                <div class="form-radio flex w-2/4 justify-center">
+                                    <input existe='1' name="torni" tipo="torni" type="radio" value=1>
+                                    <label class="ml-1" for="torni" tipo="torni">Si</label>
+                                </div>
+                                <div class="form-radio flex w-2/4 justify-center">
+                                    <input existe='1' name="torni" tipo="torni" type="radio" value=0>
+                                    <label class="ml-1" for="torni" tipo="torni">No</label>
+                                </div>
+                            </div>
+                            <p class="col-md-2 self-center">Cantidad (tornillería)</p>
+                            <div class="col-md-4">
+                                <input class="form-control" existe='1' name="torni_cantidad" requerido_generico=1
+                                    type="text" />
+                                <div class="invalid-feedback"></div>
+                            </div>
+
+                        </div>
+                        {{-- LIMPIEZA --}}
+                        <div class="row">
+                            <p class="col-md-2 self-center">Requiere limpieza (tornillería)</p>
+                            <div class="col-md-4 flex">
+                                <div class="form-radio flex w-2/4 justify-center">
+                                    <input name="torni_limpieza" type="radio" value="1"existe='1'>
+                                    <label class="ml-1">Si</label>
+                                </div>
+                                {{-- ANOMALIA PINTURA --}}
+                                <div class="form-radio flex w-2/4 justify-center">
+                                    <input existe='1' name="torni_limpieza" type="radio" value="0">
+                                    <label class="ml-1">No</label>
+                                </div>
+                            </div>
+                            {{-- <p class="col-md-2 self-center">Cantidad (limpieza)</p>
+                            <div class="col-md-4">
+                                <input class="form-control" existe='1' id="bt_soporteria" name="bt_soporteria"
+                                    requerido_generico=1 type="text" />
+                                <div class="invalid-feedback"></div>
+                            </div> --}}
+                        </div>
+                        {{-- BT - soportería --}}
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <label class="col-md-2" for="bt_soporteria">Soportería</label>
+                                    <div class="col-md-10 flex">
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input existe='1' id="bt_soporteria_si"type="radio"
+                                                name="bt_soporteria" tipo="bt_soporteria" value=1>
+                                            <label class="ml-1" for="bt_soporteria" tipo="bt_soporteria">Si</label>
+                                        </div>
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input existe='1' id="bt_soporteria_no"type="radio"
+                                                name="bt_soporteria" tipo="bt_soporteria" value=0>
+                                            <label class="ml-1" for="bt_soporteria" tipo="bt_soporteria">No</label>
+                                        </div>
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input disabled existe='1' id="bt_soporteria_edo_si"type="radio"
+                                                name="bt_soporteria_edo" tipo="bt_soporteria" value=1>
+                                            <label class="ml-1 opacity-50" for="bt_soporteria_edo"
+                                                tipo="bt_soporteria">Buen
+                                                estado</label>
+                                        </div>
+                                        {{-- ANOMALIA DUCTERIA --}}
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input disabled existe='1' id="bt_soporteria_edo_no"type="radio"
+                                                name="bt_soporteria_edo" onclick="handleAnomalia(this.name)"
+                                                tipo="bt_soporteria" value=0>
+                                            <label class="ml-1 opacity-50" for="bt_soporteria_edo"
+                                                tipo="bt_soporteria">Mal
+                                                estado</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="row">
+                                    <label class="col-md-3" for="bt_soporteria_faltante">Faltante</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" existe='1' name="bt_soporteria_faltante"
+                                            requerido_generico=1 type="text" />
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- BT  observaciones  --}}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label for="mb_observaciones">Observaciones:</label>
+                                    <textarea class="form-control" existe='1'requerido_generico=1 id="mb_observaciones" name="mb_observaciones"
+                                        rows="5"></textarea>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- interruptores en B.T --}}
+                        <p class="font-bold">Interruptores en B.T.</p>
+                        <div class="row">
+                            <p class="col-md-2 self-center">No. Interruptores y/o gabinetes</p>
+                            <div class="col-md-2">
+                                <input class="form-control" existe='1' name="int_no" requerido_generico=1
+                                    type="text" />
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <p class="col-md-2 self-center">Requiere limpieza (int/gabinetes)</p>
+                            <div class="col-md-2 flex">
+                                <div class="form-radio flex w-2/4 justify-center">
+                                    <input name="int_limpieza" type="radio" value="1"existe='1'>
+                                    <label class="ml-1">Si</label>
+                                </div>
+                                <div class="form-radio flex w-2/4 justify-center">
+                                    <input existe='1' name="int_limpieza" type="radio" value="0">
+                                    <label class="ml-1">No</label>
+                                </div>
+                            </div>
+                            <p class="col-md-2 self-center">Cantidad (limpieza)</p>
+                            <div class="col-md-2">
+                                <input class="form-control" existe='1' id="int_limpieza_cantidad"
+                                    name="int_limpieza_cantidad" requerido_generico=1 type="text" />
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        {{-- Interruptores estado, y si requieren tornilleria  --}}
+                        <div class="row">
+                            <p class="col-md-2 self-center">Estado de interruptores</p>
+                            {{-- ANOMALIA Interruptores --}}
+                            <div class="col-md-4 flex">
+                                <div class="form-radio flex w-2/4 justify-center">
+                                    <input name="int_edo" type="radio" value="1"existe='1'tipo="int_edo">
+
+                                    <label class="ml-1"tipo="int_edo">Buen estado</label>
+                                </div>
+                                <div class="form-radio flex w-2/4 justify-center">
+                                    <input existe='1' name="int_edo" onclick="handleAnomalia(this.name)"
+                                        tipo="int_edo" type="radio" value=0>
+                                    <label class="ml-1" for="int_edo" tipo="int_edo">Mal
+                                        estado</label>
+                                </div>
+                            </div>
+                            <p class="col-md-2 self-center">¿Requiere tornillería?</p>
+                            <div class="col-md-4 flex">
+                                <div class="form-radio flex w-2/4 justify-center">
+                                    <input name="int_torni" type="radio" value="1"existe='1'>
+                                    <label class="ml-1">Si</label>
+                                </div>
+                                <div class="form-radio flex w-2/4 justify-center">
+                                    <input existe='1' name="int_torni" type="radio" value="0">
+                                    <label class="ml-1">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- Señalización Interruptores  --}}
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <p class="col-md-2">Señalización Interruptores</p>
+                                    <div class="col-md-10 flex">
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input existe='1' id="int_senalizacion_si"type="radio"
+                                                name="int_senalizacion" tipo="int_senalizacion" value=1>
+                                            <label class="ml-1" for="int_senalizacion"
+                                                tipo="int_senalizacion">Si</label>
+                                        </div>
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input existe='1' id="int_senalizacion_no"type="radio"
+                                                name="int_senalizacion" tipo="int_senalizacion" value=0>
+                                            <label class="ml-1" for="int_senalizacion"
+                                                tipo="int_senalizacion">No</label>
+                                        </div>
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input disabled existe='1' id="int_senalizacion_edo_si"type="radio"
+                                                name="int_senalizacion_edo" tipo="int_senalizacion" value=1>
+                                            <label class="ml-1 opacity-50" for="int_senalizacion_edo"
+                                                tipo="int_senalizacion">Buen
+                                                estado</label>
+                                        </div>
+                                        {{-- ANOMALIA TIERRA --}}
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input disabled existe='1' id="int_senalizacion_edo_no"type="radio"
+                                                name="int_senalizacion_edo" onclick="handleAnomalia(this.name)"
+                                                tipo="int_senalizacion" value=0>
+                                            <label class="ml-1 opacity-50" for="int_senalizacion_edo"
+                                                tipo="int_senalizacion">Mal
+                                                estado</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="row">
+                                    <label class="col-md-3" for="int_senalizacion_faltante">Faltante</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" existe='1' name="int_senalizacion_faltante"
+                                            requerido_generico=1 type="text" />
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- Señalización Circuitos  --}}
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <p class="col-md-2">Señalización Circuitos</p>
+                                    <div class="col-md-10 flex">
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input existe='1' id="circuitos_si"type="radio" name="circuitos"
+                                                tipo="circuitos" value=1>
+                                            <label class="ml-1" for="circuitos" tipo="circuitos">Si</label>
+                                        </div>
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input existe='1' id="circuitos_no"type="radio" name="circuitos"
+                                                tipo="circuitos" value=0>
+                                            <label class="ml-1" for="circuitos" tipo="circuitos">No</label>
+                                        </div>
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input disabled existe='1' id="circuitos_edo_si"type="radio"
+                                                name="circuitos_edo" tipo="circuitos" value=1>
+                                            <label class="ml-1 opacity-50" for="circuitos_edo" tipo="circuitos">Buen
+                                                estado</label>
+                                        </div>
+                                        {{-- ANOMALIA TIERRA --}}
+                                        <div class="form-radio flex w-1/4 justify-center">
+                                            <input disabled existe='1' id="circuitos_edo_no"type="radio"
+                                                name="circuitos_edo" onclick="handleAnomalia(this.name)" tipo="circuitos"
+                                                value=0>
+                                            <label class="ml-1 opacity-50" for="circuitos_edo" tipo="circuitos">Mal
+                                                estado</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="row">
+                                    <label class="col-md-3" for="circuitos_faltante">Faltante</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" existe='1' name="circuitos_faltante"
+                                            requerido_generico=1 type="text" />
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- IMAGENES --}}
+                        <p class="font-bold">Imagenes (3 requeridas)</p>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <input accept=".png, .jpg, .jpeg"existe='1' class="form-control"
+                                            id="img1" name="img1" type="file" />
+                                        <div id="img1_error"class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <input accept=".png, .jpg, .jpeg" class="form-control"id="img2"
+                                            existe='1' name="img2" type="file" />
+                                        <div id="img2_error"class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <input accept=".png, .jpg, .jpeg" class="form-control" existe='1'
+                                            name="img3"id="img3" type="file" />
+                                        <div id="img3_error"class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <input accept=".png, .jpg, .jpeg" class="form-control" existe='1'
+                                            name="img4"id="img4" type="file" />
+                                        <div id="img4_error"class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <input accept=".png, .jpg, .jpeg" class="form-control"
+                                            name="img5"id="img5"existe='1' type="file" />
+                                        <div id="img5_error"class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <input accept=".png, .jpg, .jpeg" class="form-control"
+                                            name="img6"id="img6"existe='1' type="file" />
+                                        <div id="img6_error"class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
-                    {{-- ********** --}}
-                    {{-- LIMPIEZA --}}
-                    <div class="row my-4">
-                        <div class="col-md-7">
-                            <div class="row">
-                                <label class="col-md-3" for="mt_limpieza_req">Requiere limpieza:</label>
-                                <div class="col-md-9 flex">
-                                    <div class="form-radio flex justify-center w-1/2">
-                                        <input type="radio" name="mt_limpieza_req" id="mt_limpieza_req_si" value="1">
-                                        <label class="ml-1">Si</label>
-                                    </div>
-                                    {{-- ANOMALIA PINTURA --}}
-                                    <div class="form-radio flex justify-center w-1/2">
-                                        <input type="radio" name="mt_limpieza_req" value="0"id="mt_limpieza_req_no">
-                                        <label class="ml-1">No</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {{-- ********** --}}
-                    {{-- Soporteria --}}
-                    <div class="row">
-                        <div class="col-md-7">
-                            <div class="row">
-                                <label class="col-md-2" for="disasolve_req">Soportería</label>
-                                <div class="col-md-10 flex">
-                                    <div class="form-radio flex justify-center w-1/4">
-                                        <input id="disasolve_req_si" type="radio" name="disasolve_req" value="1">
-                                        <label for="disasolve_req" class="ml-1">Si</label>
-                                    </div>
-                                    <div class="form-radio flex justify-center w-1/4">
-                                        <input id="disasolve_req_no"type="radio" class="" name="disasolve_req"
-                                            value="0">
-                                        <label for="disasolve_req" class="ml-1">No</label>
-                                    </div>
-                                    <div class="form-radio flex justify-center w-1/4">
-                                        <input id="disasolve_req_si" type="radio" name="disasolve_req" value="1"
-                                            disabled>
-                                        <label for="disasolve_req" class="ml-1 opacity-50">Buen estado</label>
-                                    </div>
-                                    {{-- ANOMALIA SOPORTERIA --}}
-                                    <div class="form-radio flex justify-center w-1/4">
-                                        <input id="disasolve_req_no"type="radio" class="" name="disasolve_req"
-                                            value="0"disabled>
-                                        <label for="disasolve_req" class="ml-1 opacity-50">Mal estado</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="row">
-                                <label class="col-md-5" for="disasolve_cantidad">Faltante</label>
-                                <div class="col-md-7">
-                                    <input type="text" class="form-control" name="disasolve_cantidad"
-                                        id="disasolve_cantidad" />
-                                    <div id="disasolve_cantidad_error"class="invalid-feedback"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {{-- ********** --}}
 
-                    <div>
-                        <div class="col-md-12">
-                            <div class="form-group row">
-                                <label>Observaciones:</label>
-                                <textarea class="form-control" rows="5" name="herreria_observaciones" id="herreria_observaciones"></textarea>
-                                <div id="herreria_observaciones_error"class="invalid-feedback"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword4">Imagen (3 requeridas)</label>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div class="form-group row">
-                                <div class="col-sm-12">
-                                    <input type="file" class="form-control" name="img1" id="img1"
-                                        accept=".png, .jpg, .jpeg" />
-                                    <div id="img1_error"class="invalid-feedback"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2">
-                            <div class="form-group row">
-                                <div class="col-sm-12">
-                                    <input type="file" class="form-control"id="img2" name="img2"
-                                        accept=".png, .jpg, .jpeg" />
-                                    <div id="img2_error"class="invalid-feedback"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2">
-                            <div class="form-group row">
-                                <div class="col-sm-12">
-                                    <input type="file" class="form-control" accept=".png, .jpg, .jpeg"
-                                        name="img3"id="img3" />
-                                    <div id="img3_error"class="invalid-feedback"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2">
-                            <div class="form-group row">
-                                <div class="col-sm-12">
-                                    <input type="file" class="form-control" accept=".png, .jpg, .jpeg"
-                                        name="img4"id="img4" />
-                                    <div id="img4_error"class="invalid-feedback"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2">
-                            <div class="form-group row">
-                                <div class="col-sm-12">
-                                    <input type="file" class="form-control" accept=".png, .jpg, .jpeg"
-                                        name="img5"id="img5" />
-                                    <div id="img5_error"class="invalid-feedback"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2">
-                            <div class="form-group row">
-                                <div class="col-sm-12">
-                                    <input type="file" class="form-control" accept=".png, .jpg, .jpeg"
-                                        name="img6"id="img6" />
-                                    <div id="img6_error"class="invalid-feedback"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <input type="hidden" value="{{ $inspeccion->id }}" name="inspeccion_id">
-                    <button type="submit" class="btn btn-success mr-2">Guardar</button>
-                    <button type="button"class="btn btn-light" id="btn-cancelar">Cancelar</button>
+                    <button class="btn btn-success mr-2" type="submit">Guardar</button>
+                    <button id="btn-cancelar" type="button"class="btn btn-light">Cancelar</button>
                 </form>
-
                 <!-- fin form -->
             </div>
-        </div>
-    </div>
-    <!-- Anomalia -->
-    <div class="overlay" id="overlay">
-        <div class="popup" id="popup">
-            <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
-            <h3></h3>
-            <h4>ANOMALIA DETECTADA</h4>
-            <form name="anomalias" id="form-anomalias" enctype="multipart/form-data"
-                onsubmit="event.preventDefault(); saveAnomalia()" data-anomalia="">
-                <div class="contenedor-selects">
-                    <select class="contenedor-selects" name="urgencia" id="form-select-tipo">
-                        <option value="">-- Selecciona una opcion *</option>
-                        <option value="Urgente">Urgente</option>
-                        <option value="Inmediatamente">Inmediatamente</option>
-                        <option value="Normal">Normal</option>
-                    </select>
-                    <label id="form-select-tipo-error" class="text-sm text-red-500 tracking-wide mb-3"></label>
-                </div>
-                <div class="contenedor-inputs">
-                    <input placeholder="Marca" name="marca" id="form-marca">
-                    <input placeholder="Modelo" name="modelo" id="form-modelo">
-                    <input placeholder="Medidas" name="medidas" id="form-medidas">
-                    <textarea class="form-control" rows="3" name="descripcion" placeholder="Describa el problema"
-                        id="form-description"></textarea>
-                    <label id="form-description-error" class="text-sm text-red-500 tracking-wide mb-3"></label>
-                    <input id="form-foto" type="file" class="form-control" name="imagen" id="image" />
-                    <label id="form-foto-error" class="text-sm text-red-500 tracking-wide mb-3"></label>
-                </div>
-                <input type="hidden" value="{{ $inspeccion->id }}" name="inspeccion_id">
-                <input type="hidden" value="1" name="tipo_inspeccion_id">
-                <button type="submit">Guardar Datos</button>
-            </form>
         </div>
     </div>
 @endsection

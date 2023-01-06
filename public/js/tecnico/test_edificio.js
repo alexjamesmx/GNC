@@ -3,8 +3,6 @@ var lamparas = null,
     senalizacion = null,
     pintura = null,
     herreria = null,
-    overlay = document.getElementById( "overlay" ),
-    popup = document.getElementById( "popup" ),
     btnCerrarPopup = document.getElementById( "btn-cerrar-popup" );
 //ANOMALIAS
 const formAnomalias = document.querySelector( "#form-anomalias" ),
@@ -19,25 +17,15 @@ const formAnomalias = document.querySelector( "#form-anomalias" ),
     formDescriptionError = document.querySelector( "#form-description-error" ),
     formInspecciones = document.querySelector( "#form-inspecciones" );
 
-function handleAnomalia( anomaliaTipo )
-{
-    overlay.classList.add( "active" );
-    popup.classList.add( "active" );
-    formAnomalias.setAttribute( "data-anomalia", anomaliaTipo );
-}
 
-btnCerrarPopup.addEventListener( "click", function ( e )
-{
-    e.preventDefault();
-    overlay.classList.remove( "active" );
-    popup.classList.remove( "active" );
-    cleanAnomalia();
-} );
 
 function saveAnomalia()
 {
     const validado = validateAnomalia();
     if ( !validado ) return false;
+
+
+    
     const anomalia = formAnomalias.getAttribute( "data-anomalia" );
 
     let anomaliaData = new FormData( formAnomalias );
@@ -1120,27 +1108,4 @@ function cleanFormErrors()
     img6_error.innerHTML = "";
 }
 
-//CANCELAR
-document.querySelector( "#btn-cancelar" ).addEventListener( "click", () =>
-{
-    const confirmar = confirm( "¿Está seguro que desea cancelar?" );
-    if ( !confirmar ) return false;
-    console.log( route );
-    const id = document.querySelector( "#inspeccion_id" ).value;
-    const url = route[ 3 ].replace( ":id", id );
-    console.log( url );
-    window.location.href = url;
-} );
-//MENSAJE SUBIENDO INSPECCION
-async function subiendo()
-{
-    return new Promise( resolve =>
-    {
-        message( 'Subiendo inspección, por favor espere...' )
-        setTimeout( () =>
-        {
-            resolve( true )
-        }, 2000 )
-    } )
 
-}

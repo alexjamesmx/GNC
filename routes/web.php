@@ -98,6 +98,7 @@ Route::prefix('/tecnico')->controller(TecnicoController::class)->group(function 
     Route::post('/electrica/subir',     'electrica_subir')->middleware(['accesos', 'tecnico'])->name('tecnico.electrica_subir');
     Route::get('/transformador/{id}',   'transformador')->middleware(['accesos', 'tecnico', 'inspeccion_transformador'])->name('tecnico.ins_transformador');
     Route::post('/transformador/subir',     'transformador_subir')->middleware(['accesos', 'tecnico'])->name('tecnico.ins_transformador_subir');
+    Route::post('electrica/subir', 'electrica_subir')->middleware(['accesos', 'tecnico'])->name('tecnico.electrica_subir');
 });
 Route::get('/empresa', [SectionController::class, 'empresa'])->middleware(['accesos', 'empresa'])->name('empresa');
 

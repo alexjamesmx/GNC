@@ -9,53 +9,60 @@
                 </div>
 
             </div>
-            <div class="card-body vh-100 flex">
+            <div class="card-body flex" style="height:70vh">
                 <section
-                    class="w-1/5 h-full bg-[#585858] grid place-items-center text-white
-                grid-cols-1 grid-rows-3 relative gap-4 ">
-                    <img id="perfil_foto"src="{{ asset('images/user_transparent.jpg') }}"alt=""
-                        class="rounded-full bg-cover object-cover p-4" width="100%" height="100%">
+                    class="w-2/5
+                h-full bg-[#585858] grid place-items-center text-white grid-cols-1 grid-rows-3 relative gap-4 ">
+
+                    <div class="flex w-full h-full justify-center">
+
+                        <img id="perfil_foto"src="{{ asset('images/user_transparent.jpg') }}"alt=""
+                            class="rounded-full bg-cover object-cover p-4 aspect-square">
+
+                    </div>
 
                     <div class="align-self-baseline w-full px-4">
-                        <p
-                            id="perfil_ocupacion"class="m-0 text-center text-sm text-gray-700 text-white
-                        ">
+                        <p id="perfil_ocupacion"class="m-0 text-center text-xl text-gray-700 text-white">
                         </p>
-                        <div class="flex mt-2 last:justify-center">
-                            <!-- <p id="perfil_nombre"class='text-center text-3xl font-bold m-0 p-0 text-white'></p> -->
-                            <input id="perfil_nombre" type="text" value="">
+                        <div class="flex mt-2 last:justify-center" style="width:inherit">
+
+                            <input id="perfil_nombre" type="text" value="" style="width:inherit;"
+                                class="text-sm">
                             <input id="perfil_id" type="hidden" value="">
                         </div>
 
-                        <div class="flex last:justify-center">
+                        <div class="flex last:justify-center"style="width:inherit">
                             <label id="nombre_error_edit" class="text-sm m-0 p-0 text-red-500 tracking-wide"></label>
                         </div>
 
-                        <div class="flex mt-2 last:justify-center">
-                            <input id="perfil_apellido" type="text" value="">
+                        <div class="flex mt-2 last:justify-center"style="width:inherit">
+                            <input id="perfil_apellido" type="text" value=""style="width:inherit"
+                                class="text-sm">
                         </div>
 
-                        <div class="flex last:justify-center">
+                        <div class="flex last:justify-center"style="width:inherit">
                             <label id="apellido_error_edit" class="text-sm m-0 p-0 text-red-500 tracking-wide"></label>
                         </div>
 
 
-                        <div class="flex mt-2 justify-start">
-                            <!-- <p id="perfil_correo" class='text-center text-lg font-bold m-0 p-0 text-white'></p> -->
-                            <input id="perfil_correo" type="email" value="">
+                        <div class="flex mt-2 justify-start"style="width:inherit">
+
+                            <input id="perfil_correo" type="email" value=""style="width:inherit"
+                                class="text-sm">
                         </div>
 
-                        <div class="flex last:justify-center">
+                        <div class="flex last:justify-center"style="width:inherit">
                             <label id="correo_error_edit" class="text-sm m-0 p-0 text-red-500 tracking-wide"></label>
                         </div>
 
-                        <div class="flex mt-2 justify-start">
+                        <div class="flex mt-2 justify-start"style="width:inherit" class="text-sm">
                             <i class="fas fa-phone align-self-center mr-3"></i>
                             <!-- <p id="perfil_telefono"class='text-center text-lg font-bold m-0 p-0 text-white'></p> -->
-                            <input id="perfil_telefono" type="tel" value="">
+                            <input id="perfil_telefono" type="tel" value=""style="width:inherit"
+                                class="text-sm">
                         </div>
 
-                        <div class="flex last:justify-center">
+                        <div class="flex last:justify-center"style="width:inherit" class="text-sm">
                             <label id="telefono_error_edit" class="text-sm m-0 p-0 text-red-500 tracking-wide"></label>
                         </div>
 
@@ -65,7 +72,7 @@
                             </div>
                             <p id="perfil_status"class='text-center text-lg font-bold m-0 p-0 text-white'></p>
                         </div>
-                        <div id="perfil_editar">
+                        <div id="perfil_editar" class="grid place-content-center mt-4">
 
                         </div>
                     </div>

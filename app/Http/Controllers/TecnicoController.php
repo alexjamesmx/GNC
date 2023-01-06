@@ -4,26 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Models\Inspecciones;
 use App\Models\Anomalias;
+use App\Models\Rep_electrica;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Rep_enterprise;
 use App\Models\Rep_transformador;
 use Illuminate\Support\Str;
 
-class TecnicoController extends Controller {
+class TecnicoController extends Controller
+{
     private $role_type = 2;
 
-    public function test( $id = '' ) {
-        $rep_enterprise = Rep_enterprise::where( 'inspeccion_id', $id )->first();
-        $rep_transformador = Rep_transformador::where( 'inspeccion_id', $id )->first();
+    public function test($id = '')
+    {
+        $rep_enterprise = Rep_enterprise::where('inspeccion_id', $id)->first();
+        $rep_transformador = Rep_transformador::where('inspeccion_id', $id)->first();
 
-        $inspeccion_existe = Inspecciones::where( 'id', $id )
-        ->firstOrFail();
+        $inspeccion_existe = Inspecciones::where('id', $id)
+            ->firstOrFail();
 
-        if ( $inspeccion_existe->status_id === 4 ) {
-            $inspeccion = Inspecciones::find( $id );
+        if ($inspeccion_existe->status_id === 4) {
+            $inspeccion = Inspecciones::find($id);
             $inspeccion->status_id = 6;
-            $inspeccion->fecha_comienzo = date( 'Y-m-d H:i:s' );
+            $inspeccion->fecha_comienzo = date('Y-m-d H:i:s');
             $inspeccion->save();
         }
 
@@ -43,8 +46,9 @@ class TecnicoController extends Controller {
         );
     }
 
-    public function edificio( $id = '' ) {
-        $inspeccion = Inspecciones::where( 'id', $id )->first();
+    public function edificio($id = '')
+    {
+        $inspeccion = Inspecciones::where('id', $id)->first();
 
         return view(
             'tecnico.inspecciones.edificio',
@@ -60,8 +64,9 @@ class TecnicoController extends Controller {
         );
     }
 
-    public function electrica( $id = '' ) {
-        $inspeccion = Inspecciones::where( 'id', $id )->first();
+    public function electrica($id = '')
+    {
+        $inspeccion = Inspecciones::where('id', $id)->first();
 
         return view(
             'tecnico.inspecciones.electrica',
@@ -76,8 +81,9 @@ class TecnicoController extends Controller {
         );
     }
 
-    public function transformador( $id = '' ) {
-        $inspeccion = Inspecciones::where( 'id', $id )->first();
+    public function transformador($id = '')
+    {
+        $inspeccion = Inspecciones::where('id', $id)->first();
         return view(
             'tecnico.inspecciones.transformador',
             [
@@ -92,9 +98,10 @@ class TecnicoController extends Controller {
         );
     }
 
-    public function edificio_subir( Request $request ) {
+    public function edificio_subir(Request $request)
+    {
         $validated = Validator::make(
-            $request->except( 'id' ),
+            $request->except('id'),
             [
                 'extintores_no' => 'required|max:255',
                 'extintores_tipo_agente' => 'required|max:255',
@@ -217,8 +224,8 @@ class TecnicoController extends Controller {
             ],
         );
 
-        if ( $validated->fails() ) {
-            return response()->json( [ 'response' => false, 'errors' => $validated->errors() ] );
+        if ($validated->fails()) {
+            return response()->json(['response' => false, 'errors' => $validated->errors()]);
         }
 
         $rep_edificio = new Rep_enterprise();
@@ -246,57 +253,58 @@ class TecnicoController extends Controller {
         $rep_edificio->herreria_observaciones = $request->herreria_observaciones;
         //$rep_edificio->img1 = $request->img1;
 
-        if ( $request->img1 != null && $request->img1 != 'undefined' ) {
+        if ($request->img1 != null && $request->img1 != 'undefined') {
             $imageName = time() . 'img1' . auth()->id() . '.' . $request->img1->extension();
-            $request->img1->move( public_path( 'images/reportes/edificio' ), $imageName );
+            $request->img1->move(public_path('images/reportes/edificio'), $imageName);
             $rep_edificio->img1 = $imageName;
         }
 
-        if ( $request->img2 != null && $request->img2 != 'undefined' ) {
+        if ($request->img2 != null && $request->img2 != 'undefined') {
             $imageName = time() . 'img2' . auth()->id() . '.' . $request->img2->extension();
-            $request->img2->move( public_path( 'images/reportes/edificio' ), $imageName );
+            $request->img2->move(public_path('images/reportes/edificio'), $imageName);
             $rep_edificio->img2 = $imageName;
         }
 
-        if ( $request->img3 != null && $request->img3 != 'undefined' ) {
+        if ($request->img3 != null && $request->img3 != 'undefined') {
             $imageName = time() . 'img3' . auth()->id() . '.' . $request->img3->extension();
-            $request->img3->move( public_path( 'images/reportes/edificio' ), $imageName );
+            $request->img3->move(public_path('images/reportes/edificio'), $imageName);
             $rep_edificio->img3 = $imageName;
         }
 
-        if ( $request->img4 != null && $request->img4 != 'undefined' ) {
+        if ($request->img4 != null && $request->img4 != 'undefined') {
             $imageName = time() . 'img4' . auth()->id() . '.' . $request->img4->extension();
-            $request->img4->move( public_path( 'images/reportes/edificio' ), $imageName );
+            $request->img4->move(public_path('images/reportes/edificio'), $imageName);
             $rep_edificio->img4 = $imageName;
         }
 
-        if ( $request->img5 != null && $request->img5 != 'undefined' ) {
+        if ($request->img5 != null && $request->img5 != 'undefined') {
             $imageName = time() . 'img5' . auth()->id() . '.' . $request->img5->extension();
-            $request->img5->move( public_path( 'images/reportes/edificio' ), $imageName );
+            $request->img5->move(public_path('images/reportes/edificio'), $imageName);
             $rep_edificio->img5 = $imageName;
         }
 
-        if ( $request->img6 != null && $request->img6 != 'undefined' ) {
+        if ($request->img6 != null && $request->img6 != 'undefined') {
             $imageName = time() . 'img6' . auth()->id() . '.' . $request->img6->extension();
-            $request->img6->move( public_path( 'images/reportes/edificio' ), $imageName );
+            $request->img6->move(public_path('images/reportes/edificio'), $imageName);
             $rep_edificio->img6 = $imageName;
         }
 
         $rep_edificio->status_id = 5;
 
         $r = $rep_edificio->save();
-        if ( $r ) {
-            $inspeccion = Inspecciones::find( $request->inspeccion_id );
+        if ($r) {
+            $inspeccion = Inspecciones::find($request->inspeccion_id);
             $inspeccion->porcentaje = $inspeccion->porcentaje + 33;
-            $inspeccion->porcentaje == 100 ? ( $inspeccion->status_id = 5 ) : '';
+            $inspeccion->porcentaje == 100 ? ($inspeccion->status_id = 5) : '';
             $inspeccion->save();
         }
-        return response()->json( [ 'response' => $r ] );
+        return response()->json(['response' => $r]);
     }
 
-    public function transformador_subir( Request $request ) {
+    public function transformador_subir(Request $request)
+    {
         $validated = Validator::make(
-            $request->except( 'id' ),
+            $request->except('id'),
             [
                 'marca' => 'required|max:255',
                 'capacidad' => 'required|max:255',
@@ -475,8 +483,8 @@ class TecnicoController extends Controller {
             ],
         );
 
-        if ( $validated->fails() ) {
-            return response()->json( [ 'response' => false, 'errors' => $validated->errors() ] );
+        if ($validated->fails()) {
+            return response()->json(['response' => false, 'errors' => $validated->errors()]);
         }
 
         $rep_transformador = new Rep_transformador();
@@ -517,55 +525,309 @@ class TecnicoController extends Controller {
         $rep_transformador->boquillas_x3 = $request->boquillas_x3;
         $rep_transformador->observaciones = $request->observaciones;
 
-        if ( $request->img1 != null && $request->img1 != 'undefined' ) {
+        if ($request->img1 != null && $request->img1 != 'undefined') {
             $imageName = time() . 'img1' . auth()->id() . '.' . $request->img1->extension();
-            $request->img1->move( public_path( 'images/reportes/transformador' ), $imageName );
+            $request->img1->move(public_path('images/reportes/transformador'), $imageName);
             $rep_transformador->img1 = $imageName;
         }
 
-        if ( $request->img2 != null && $request->img2 != 'undefined' ) {
+        if ($request->img2 != null && $request->img2 != 'undefined') {
             $imageName = time() . 'img2' . auth()->id() . '.' . $request->img2->extension();
-            $request->img2->move( public_path( 'images/reportes/transformador' ), $imageName );
+            $request->img2->move(public_path('images/reportes/transformador'), $imageName);
             $rep_transformador->img2 = $imageName;
         }
 
-        if ( $request->img3 != null && $request->img3 != 'undefined' ) {
+        if ($request->img3 != null && $request->img3 != 'undefined') {
             $imageName = time() . 'img3' . auth()->id() . '.' . $request->img3->extension();
-            $request->img3->move( public_path( 'images/reportes/transformador' ), $imageName );
+            $request->img3->move(public_path('images/reportes/transformador'), $imageName);
             $rep_transformador->img3 = $imageName;
         }
 
-        if ( $request->img4 != null && $request->img4 != 'undefined' ) {
+        if ($request->img4 != null && $request->img4 != 'undefined') {
             $imageName = time() . 'img4' . auth()->id() . '.' . $request->img4->extension();
-            $request->img4->move( public_path( 'images/reportes/transformador' ), $imageName );
+            $request->img4->move(public_path('images/reportes/transformador'), $imageName);
             $rep_transformador->img4 = $imageName;
         }
 
-        if ( $request->img5 != null && $request->img5 != 'undefined' ) {
+        if ($request->img5 != null && $request->img5 != 'undefined') {
             $imageName = time() . 'img5' . auth()->id() . '.' . $request->img5->extension();
-            $request->img5->move( public_path( 'images/reportes/transformador' ), $imageName );
+            $request->img5->move(public_path('images/reportes/transformador'), $imageName);
             $rep_transformador->img5 = $imageName;
         }
 
-        if ( $request->img6 != null && $request->img6 != 'undefined' ) {
+        if ($request->img6 != null && $request->img6 != 'undefined') {
             $imageName = time() . 'img6' . auth()->id() . '.' . $request->img6->extension();
-            $request->img6->move( public_path( 'images/reportes/transformador' ), $imageName );
+            $request->img6->move(public_path('images/reportes/transformador'), $imageName);
             $rep_transformador->img6 = $imageName;
         }
 
         $rep_transformador->status_id = 5;
 
         $response = $rep_transformador->save();
-        if ( $response ) {
-            $inspeccion = Inspecciones::find( $request->inspeccion_id );
+        if ($response) {
+            $inspeccion = Inspecciones::find($request->inspeccion_id);
             $inspeccion->porcentaje = $inspeccion->porcentaje + 33;
-            $inspeccion->porcentaje == 100 ? ( $inspeccion->status_id = 5 ) : '';
+            $inspeccion->porcentaje == 100 ? ($inspeccion->status_id = 5) : '';
             $inspeccion->save();
         }
-        return response()->json( [ 'response' => $response ] );
+        return response()->json(['response' => $response]);
     }
+    public function electrica_subir(Request $request)
+    {
+        $validar = 'required|between:0,1';
 
-    public function anomalia( Request $request ) {
+        $validated = Validator::make(
+            $request->except('id'),
+            [
+                //MT
+                // DESASOLVE
+                'disasolve_req' => 'required|between:0,1',
+                'disasolve_cantidad' => 'required|max:255',
+                'mt_limpieza_req' => 'required|between:0,1',
+                'mt_limpieza_cantidad' => 'required|max:255',
+                // MT - SOPORTERIA
+                'ten_media_soporteria' => 'required|between:0,1',
+                'ten_media_soporteria_edo' => intval($request->ten_media_soporteria) === 1 ? $validar : 'between:0,1',
+                'ten_media_soporteria_faltante' => 'required|max:255',
+                // SISTEMAS DE TIERRA
+                'sis_tierra' => 'required|between:0,1',
+                'sis_tierra_edo' =>  intval($request->sis_tierra) === 1 ? $validar : 'between:0,1',
+                'sis_tierra_faltante' => 'required|max:255',
+                // CONEX. SISTEMAS TIERRA
+                'conex_tierra' => 'required|between:0,1',
+                'conex_tierra_edo' => intval($request->conex_tierra) === 1 ? $validar : 'between:0,1',
+                'conex_tierra_faltante' => 'required|max:255',
+                // SELLADO DE DUCTERIA
+                'sellado_ducteria' => 'required|between:0,1',
+                'sellado_ducteria_edo' => intval($request->sellado_ducteria) === 1 ? $validar : 'between:0,1',
+                'sellado_ducteria_faltante' => 'required|max:255',
+                // MT - OBSERVACIONES
+                'mt_observaciones' => 'required|max:255',
+                //BT
+                // TIPO CANALIZACIONES
+                'tipo_canalizacion' => 'required',
+                // BT - TORNILLERIA
+                'torni' => 'required|between:0,1',
+                'torni_cantidad' => 'required|max:255',
+                'torni_limpieza' => 'required|between:0,1',
+                // 'torni_limpieza_cantidad' => 'required|max:255',
+                // BT - SOPORTERIA
+                'bt_soporteria' => 'required|between:0,1',
+                'bt_soporteria_edo' => intval($request->bt_soporteria) === 1 ? $validar : 'between:0,1',
+                'bt_soporteria_faltante' => 'required|max:255',
+                // MB - OBSERVACIONES
+                'mb_observaciones' => 'required|max:255',
+                // INTERRUPTORES EN B.T
+                'int_no' => 'required|max:255',
+                'int_limpieza' => 'required|between:0,1',
+                'int_limpieza_cantidad' => 'required|max:255',
+                'int_edo' => 'required|between:0,1',
+                'int_torni' => 'required|between:0,1',
+                //SENALIZACION DE INTERRUPTORES
+                'int_senalizacion' => 'required|between:0,1',
+                'int_senalizacion_edo' => intval($request->int_senalizacion) === 1 ? $validar : 'between:0,1',
+                'int_senalizacion_faltante' => 'required|max:255',
+                //SENALIZACION CIRCUITOS
+                'circuitos' => 'required|between:0,1',
+                'circuitos_edo' => intval($request->circuitos) === 1 ? $validar : 'between:0,1',
+                'circuitos_faltante' => 'required|max:255',
+
+
+                'img1' => 'required|image|mimes:png,jpg,jpeg|max:2048',
+                'img2' => 'required|image|mimes:png,jpg,jpeg|max:2048',
+                'img3' => 'required|image|mimes:png,jpg,jpeg|max:2048',
+                'img4' => 'image|mimes:png,jpg,jpeg|max:2048',
+                'img5' => 'image|mimes:png,jpg,jpeg|max:2048',
+                'img6' => 'image|mimes:png,jpg,jpeg|max:2048',
+            ],
+            [
+                //DESASOLVE
+                'disasolve_req.required' => '¿Requiere disasolve?',
+                'disasolve_req.between' => 'El valor para requiere disasolve debe ser "si" o" no"',
+                'disasolve_cantidad.required' => 'Este campo es requerido',
+                'disasolve_cantidad.max' => 'Este campo no puede tener más de 255 caracteres',
+                //LIMPIEZA DESASOLVE
+                'mt_limpieza_req.required' => '¿Requiere limpieza?',
+                'mt_limpieza_req.between' => 'El valor para requiere limpieza debe ser "si" o" no"',
+                // LIMPIEZA DESASOLVE CANTIDAD
+                'mt_limpieza_cantidad.required' => 'Este campo es requerido',
+                'mt_limpieza_cantidad.max' => 'Este campo no puede tener más de 255 caracteres',
+                // MT - SOPORTERIA
+                'ten_media_soporteria.required' => 'Canalizaciones en M.T. ¿Se requiere soportería?',
+                'ten_media_soporteria_edo.between' => 'El valor para el estado de soportería en tensión media debe ser "si" o "no"',
+                'ten_media_soporteria_edo.required' => 'Especifique el estado de la soporteía en tensión media',
+                'ten_media_soporteria_faltante.required' => 'Este campo es requerido',
+                // SISTEMAS DE TIERRA
+                'sis_tierra.required' => '¿Cuenta con sistema de tierra?',
+                'sis_tierra.between' => 'El valor para el sistema de tierra debe ser "si" o "no"',
+                'sis_tierra_edo.between' => 'El valor para el estado sistema de tierra debe ser "si" o "no"',
+                'sis_tierra_edo.required' => 'Especifique el estado del sistema de tierra',
+                'sis_tierra_faltante.required' => 'Este campo es requerido',
+                'sis_tierra_faltante.max' => 'Este campo no puede tener más de 255 caracteres',
+                // CONEX. SISTEMAS TIERRA
+                'conex_tierra.required' => '¿Cuenta con conexión a tierra?',
+                'conex_tierra.between' => 'El valor para la conexión a tierra debe ser "si" o "no"',
+                'conex_tierra_edo.between' => 'El valor para el estado conexión a tierra debe ser "si" o "no"',
+                'conex_tierra_edo.required' => 'Especifique el estado de la conexión a tierra',
+                'conex_tierra_faltante.required' => 'Este campo es requerido',
+                'conex_tierra_faltante.max' => 'Este campo no puede tener más de 255 caracteres',
+                // SELLADO DE DUCTERIA
+                'sellado_ducteria.required' => '¿Cuenta con sellado de ductería?',
+                'sellado_ducteria.between' => 'El valor para el sellado de ductería debe ser "si" o "no"',
+                'sellado_ducteria_edo.between' => 'El valor para el estado sellado de ductería debe ser "si" o "no"',
+                'sellado_ducteria_edo.required' => 'Especifique el estado del sellado de ductería',
+                'sellado_ducteria_faltante.required' => 'Este campo es requerido',
+                'sellado_ducteria_faltante.max' => 'Este campo no puede tener más de 255 caracteres',
+                // MT - OBSERVACIONES
+                'mt_observaciones.required' => 'Este campo es requerido',
+                'mt_observaciones.max' => 'Este campo no puede tener más de 255 caracteres',
+                // CANALIZACIONES 
+                // TIPO CANALIZACIONES
+                'tipo_canalizacion.required' => '¿Qué tipo de canalización es?',
+                // BT - TORNILLERIA
+                'torni.required' => '¿Cuenta con tornillería?',
+                'torni.between' => 'El valor para la tornillería debe ser "si" o "no"',
+                'torni_cantidad.required' => 'Este campo es requerido',
+                'torni_cantidad.max' => 'Este campo no puede tener más de 255 caracteres',
+                'torni_limpieza.required' => '¿Requiere limpieza la tornillería?',
+                'torni_limpieza.between' => 'El valor para la limpieza de la tornillería debe ser "si" o "no"',
+
+                // BT - SOPORTERIA
+                'bt_soporteria.required' => 'Canalizaciones en BT. ¿Se requiere soportería?',
+                'bt_soporteria.between' => 'El valor para la soportería debe ser "si" o "no"',
+                'bt_soporteria_edo.between' => 'El valor para el estado de la soportería debe ser "si" o "no"',
+                'bt_soporteria_edo.required' => 'Especifique el estado de la soportería',
+                'bt_soporteria_faltante.required' => 'Este campo es requerido',
+                'bt_soporteria_faltante.max' => 'Este campo no puede tener más de 255 caracteres',
+                'mb_observaciones.required' => 'Este campo es requerido',
+                'mb_observaciones.max' => 'Este campo no puede tener más de 255 caracteres',
+                // INTERRUPTORES EN B.T. 
+                'int_no.required' => '¿Cuenta con interruptores en B.T.?',
+                'int_no.max' => 'Este campo no puede tener más de 255 caracteres',
+                'int_limpieza.required' => '¿Requiere limpieza los interruptores en B.T.?',
+                'int_limpieza.between' => 'El valor para la limpieza de los interruptores en B.T. debe ser "si" o "no"',
+                'int_limpieza_cantidad' => 'Este campo es requerido',
+                'int_limpieza_cantidad.max' => 'Este campo no puede tener más de 255 caracteres',
+                'int_edo' => '¿Cual es estado de los interruptores y/o gabinetes',
+                'int_edo.between' => 'El valor para el estado de los interruptores en B.T. debe ser "si" o "no"',
+                'int_torni' => '¿Los interruptores requieren tornillería?',
+                'int_torni.between' => 'El valor para la tornillería debe ser "si" o "no"',
+
+                'int_senalizacion.required' => '¿Cuenta con  señalización?',
+                'int_senalizacion.between' => 'El valor para la señalización debe ser "si" o "no"',
+                'int_senalizacion_edo.between' => 'El valor para el estado de la señalización debe ser "si" o "no"',
+                'int_senalizacion_edo.required' => 'Especifique el estado de la señalización',
+                'int_senalizacion_faltante.required' => 'Este campo es requerido',
+                'int_senalizacion_faltante.max' => 'Este campo no puede tener más de 255 caracteres',
+                //SENALIZACION CIRCUITOS
+                'circuitos.required' => '¿Cuenta con señalización de circuitos?',
+                'circuitos.between' => 'El valor para la señalización de circuitos debe ser "si" o "no"',
+                'circuitos_edo.between' => 'El valor para el estado de la señalización de circuitos debe ser "si" o "no"',
+                'circuitos_edo.required' => 'Especifique el estado de la señalización de circuitos',
+                'circuitos_faltante.required' => 'Este campo es requerido',
+                'circuitos_faltante.max' => 'Este campo no puede tener más de 255 caracteres',
+
+
+
+
+                'img1.required' => 'Este campo es requerido',
+                'img1.image' => 'El archivo debe ser una imagen',
+                'img1.mimes' => 'El archivo debe ser una imagen con formato png, jpg o jpeg',
+                'img1.max' => 'El archivo no puede pesar más de 2MB',
+
+                'img2.required' => 'Este campo es requerido',
+                'img2.image' => 'El archivo debe ser una imagen',
+                'img2.mimes' => 'El archivo debe ser una imagen con formato png, jpg o jpeg',
+                'img2.max' => 'El archivo no puede pesar más de 2MB',
+
+                'img3.required' => 'Este campo es requerido',
+                'img3.image' => 'El archivo debe ser una imagen',
+                'img3.mimes' => 'El archivo debe ser una imagen con formato png, jpg o jpeg',
+                'img3.max' => 'El archivo no puede pesar más de 2MB',
+
+                'img4.image' => 'El archivo debe ser una imagen',
+                'img4.mimes' => 'El archivo debe ser una imagen con formato png, jpg o jpeg',
+                'img4.max' => 'El archivo no puede pesar más de 2MB',
+
+                'img5.image' => 'El archivo debe ser una imagen',
+                'img5.mimes' => 'El archivo debe ser una imagen con formato png, jpg o jpeg',
+                'img5.max' => 'El archivo no puede pesar más de 2MB',
+
+                'img6.image' => 'El archivo debe ser una imagen',
+                'img6.mimes' => 'El archivo debe ser una imagen con formato png, jpg o jpeg',
+                'img6.max' => 'El archivo no puede pesar más de 2MB',
+            ],
+        );
+
+        if ($validated->fails()) {
+            return response()->json(['response' => false, 'errors' => $validated->errors()]);
+        }
+
+        $existe_reporte = Rep_electrica::where('inspeccion_id', $request->inspeccion_id)->first();
+
+        if ($existe_reporte) {
+            return response()->json(['response' => false, 'message' => 'Este reporte ya existe']);
+        }
+
+        $rep_electrico = new Rep_electrica();
+        $rep_electrico->inspeccion_id = $request->inspeccion_id;
+        $rep_electrico->disasolve_req = $request->disasolve_req;
+        $rep_electrico->disasolve_cantidad = $request->disasolve_cantidad;
+        $rep_electrico->mt_limpieza_req = $request->mt_limpieza_req;
+        $rep_electrico->mt_limpieza_cantidad = $request->mt_limpieza_cantidad;
+        $rep_electrico->ten_media_soporteria = $request->ten_media_soporteria;
+        $rep_electrico->ten_media_soporteria_edo = $request->ten_media_soporteria_edo;
+        $rep_electrico->ten_media_soporteria_faltante = $request->ten_media_soporteria_faltante;
+        $rep_electrico->sis_tierra = $request->sis_tierra;
+        $rep_electrico->sis_tierra_edo = $request->sis_tierra_edo;
+        $rep_electrico->sis_tierra_faltante = $request->sis_tierra_faltante;
+        $rep_electrico->mt_observaciones = $request->mt_observaciones;
+        $rep_electrico->conex_tierra = $request->conex_tierra;
+        $rep_electrico->conex_tierra_edo = $request->conex_tierra_edo;
+        $rep_electrico->conex_tierra_faltante = $request->conex_tierra_faltante;
+        $rep_electrico->sellado_ducteria = $request->sellado_ducteria;
+        $rep_electrico->sellado_ducteria_edo = $request->sellado_ducteria_edo;
+        $rep_electrico->sellado_ducteria_faltante = $request->sellado_ducteria_faltante;
+        $rep_electrico->tipo_canalizacion = $request->tipo_canalizacion;
+        $rep_electrico->torni = $request->torni;
+        $rep_electrico->torni_cantidad = $request->torni_cantidad;
+        $rep_electrico->torni_limpieza = $request->torni_limpieza;
+        $rep_electrico->bt_soporteria = $request->bt_soporteria;
+        $rep_electrico->bt_soporteria_edo = $request->bt_soporteria_edo;
+        $rep_electrico->bt_soporteria_faltante = $request->bt_soporteria_faltante;
+        $rep_electrico->mb_observaciones = $request->mb_observaciones;
+
+        $rep_electrico->int_no = $request->int_no;
+        $rep_electrico->int_limpieza_cantidad = $request->int_limpieza_cantidad;
+        $rep_electrico->int_limpieza = $request->int_limpieza;
+        $rep_electrico->int_edo = $request->int_edo;
+        $rep_electrico->int_torni = $request->int_torni;
+        $rep_electrico->int_senalizacion = $request->int_senalizacion;
+        $rep_electrico->int_senalizacion_edo = $request->int_senalizacion_edo;
+        $rep_electrico->int_senalizacion_faltante = $request->int_senalizacion_faltante;
+        $rep_electrico->circuitos = $request->circuitos;
+        $rep_electrico->circuitos_edo = $request->circuitos_edo;
+        $rep_electrico->circuitos_faltante = $request->circuitos_faltante;
+
+        // $rep_electrico->img1 = $request->img1;
+        // $rep_electrico->img2 = $request->img2;
+        // $rep_electrico->img3 = $request->img3;
+        // $rep_electrico->img4 = $request->img4;
+        // $rep_electrico->img5 = $request->img5;
+        // $rep_electrico->img6 = $request->img6;
+        $rep_electrico->status_id = 5;
+
+        $r = $rep_electrico->save();
+        if ($r) {
+            $inspeccion = Inspecciones::find($request->inspeccion_id);
+            $inspeccion->porcentaje = $inspeccion->porcentaje + 34;
+            $inspeccion->porcentaje >= 100 ? ($inspeccion->status_id = 5) : '';
+            $inspeccion->save();
+        }
+        return response()->json(['response' => $r]);
+    }
+    public function anomalia(Request $request)
+    {
         $anomalia = new Anomalias();
 
         $anomalia->urgencia = $request->urgencia;
@@ -573,21 +835,24 @@ class TecnicoController extends Controller {
         $anomalia->marca = $request->marca;
         $anomalia->medidas = $request->medidas;
         $anomalia->descripcion = $request->descripcion;
-        if ( $request->imagen != null && $request->imagen != 'undefined' ) {
+        if ($request->imagen != null && $request->imagen != 'undefined') {
             $cadena = Str::random(4);
             $imageName = 'anomalia' . $cadena . '.' . $request->imagen->extension();
-            $request->imagen->move( public_path( 'images/anomalias' ), $imageName );
+            $request->imagen->move(public_path('images/anomalias'), $imageName);
             $anomalia->imagen = $imageName;
         }
         $anomalia->inspeccion_id = $request->inspeccion_id;
         $anomalia->tipo_inspeccion_id = $request->tipo_inspeccion_id;
 
-        return response()->json( [ 'response' => $anomalia->save() ] );
+        $anomalia->cosa = $request->cosa ?? null;
+
+        return response()->json(['response' => $anomalia->save()]);
     }
 
-    public function anomalia_validar( Request $request ) {
+    public function anomalia_validar(Request $request)
+    {
         $validated = Validator::make(
-            $request->except( 'id' ),
+            $request->except('id'),
             [
                 'imagen' => 'required|image|mimes:png,jpg,jpeg|max:2048',
             ],
@@ -599,8 +864,8 @@ class TecnicoController extends Controller {
             ],
         );
 
-        if ( $validated->fails() ) {
-            return response()->json( [ 'response' => false, 'errors' => $validated->errors() ] );
+        if ($validated->fails()) {
+            return response()->json(['response' => false, 'errors' => $validated->errors()]);
         }
     }
 }

@@ -22,19 +22,19 @@ return new class extends Migration
             $table->tinyInteger('mt_limpieza_req');
 
             $table->tinyInteger('ten_media_soporteria');
-            $table->tinyInteger('ten_media_soporteria_edo');
+            $table->tinyInteger('ten_media_soporteria_edo')->nullable();
             $table->tinyText('ten_media_soporteria_faltante');
 
             $table->tinyInteger('sis_tierra');
-            $table->tinyInteger('sis_tierra_edo');
+            $table->tinyInteger('sis_tierra_edo')->nullable();
             $table->tinyText('sis_tierra_faltante');
 
             $table->tinyInteger('conex_tierra');
-            $table->tinyInteger('conex_tierra_edo');
+            $table->tinyInteger('conex_tierra_edo')->nullable();
             $table->tinyText('conex_tierra_faltante');
 
             $table->tinyInteger('sellado_ducteria');
-            $table->tinyInteger('sellado_ducteria_estado');
+            $table->tinyInteger('sellado_ducteria_estado')->nullable();
             $table->tinyText('sellado_ducteria_faltante');
 
             $table->text('mt_observaciones');
@@ -49,7 +49,7 @@ return new class extends Migration
             $table->tinyText('torni_faltante');
 
             $table->tinyInteger('ten_baja_soporteria');
-            $table->tinyInteger('ten_baja_soporteria_edo');
+            $table->tinyInteger('ten_baja_soporteria_edo')->nullable();
             $table->tinyText('ten_baja_soporteria_faltante');
 
             $table->tinyText('mb_limpieza_req');
@@ -64,44 +64,44 @@ return new class extends Migration
             $table->tinyText('int_torni');
 
             $table->tinyInteger('int_senalizacion');
-            $table->tinyInteger('int_senalizacion_edo');
+            $table->tinyInteger('int_senalizacion_edo')->nullable();
             $table->tinyText('int_senalizacion_faltante');
 
             $table->tinyInteger('circuitos');
-            $table->tinyInteger('circuitos_edo');
+            $table->tinyInteger('circuitos_edo')->nullable();
             $table->tinyText('circuito_faltante');
 
             $table->tinyText('disponible');
-            $table->tinyInteger('disponible_edo');
+            $table->tinyInteger('disponible_edo')->nullable();
             $table->tinyText('disponible_faltante');
 
             $table->tinyText('bt_observaciones');
 
-            $table->tinyInteger("acc_subterraneo_edo");
+            $table->tinyInteger("acc_subterraneo_edo")->nullable();
             $table->tinyText("codos");
             $table->tinyInteger("codos_edo");
             $table->tinyText("terminales");
-            $table->tinyInteger('terminales_edo');
+            $table->tinyInteger('terminales_edo')->nullable();
 
             $table->tinyText('fusibles');
             $table->tinyText('fusibles_capacidad');
-            $table->tinyInteger('fusibles_edo');
+            $table->tinyInteger('fusibles_edo')->nullable();
             $table->tinyText('fusibles_faltante');
 
             $table->tinyText('mecanismo');
-            $table->tinyInteger('mecanismo_edo');
+            $table->tinyInteger('mecanismo_edo')->nullable();
             $table->tinyText('mecanismo_danado');
 
             $table->tinyText('se_cable_acomodo');
 
             $table->tinyText('mabete');
-            $table->tinyInteger('mabete_edo');
+            $table->tinyInteger('mabete_edo')->nullable();
             $table->tinyText('mabete_faltante');
 
             $table->tinyText('se_observaciones');
 
             $table->tinyText('bt_cableado_cable_acomodo');
-            $table->tinyInteger('bt_cableado_conexiones_edo');
+            $table->tinyInteger('bt_cableado_conexiones_edo')->nullable();
             $table->tinyText('bt_cableado_conexiones_faltante');
             $table->tinyText('bt_cableado_observaciones');
 
