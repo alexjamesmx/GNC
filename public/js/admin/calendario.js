@@ -140,10 +140,10 @@ function empresa_calen(id, empresa, num_mes, mes) {
                                     <button type="button" class="btn btn-success" onclick="pdfEnterprise(${element.id})">
                                     <img src="${img_url[0]}"/>
                                     </button>
-                                    <button type="button" class="btn btn-warning">
+                                    <button type="button" class="btn btn-warning" onclick="pdfElecrica(${element.id})">
                                     <img src="${img_url[1]}"/>
                                     </button>
-                                    <button type="button" class="btn btn-danger">
+                                    <button type="button" class="btn btn-danger" onclick="pdfTransformador(${element.id})">
                                     <img src="${img_url[2]}"/>
                                     </button>
                                 </div>
@@ -171,9 +171,22 @@ function pdfEnterprise(id) {
     let url = route[3];
     console.log(url);
     url = url.replace(':id', id);
-    location.href = url;
-   
+    window.open(url);
+}
 
+function pdfTransformador(id) {
+    let url = route[4];
+    console.log(url);
+    url = url.replace(':id', id);
+    window.open(url);
+}
+
+function pdfElecrica(id) {
+    console.log("pdfElecrica");
+    let url = route[5];
+    console.log(url);
+    url = url.replace(':id', id);
+    window.open(url);
 }
 
 function atrasMes() {

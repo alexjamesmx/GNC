@@ -18,6 +18,8 @@
             "{{ route('calendario.c_empresas') }}",
             "{{ route('calendario.c_inpecciones') }}",
             "{{ route('reportes.enterprise', ['id' => ':id']) }}",
+            "{{ route('reportes.transformador', ['id' => ':id']) }}",
+            "{{ route('reportes.electrica', ['id' => ':id']) }}",
         ];
         var img_url = [
             "{{ asset('images/gnc/building-news-svgrepo-com.svg') }}",

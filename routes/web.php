@@ -79,6 +79,8 @@ Route::prefix('/admin/calendario')->middleware(['accesos', 'admin'])->controller
 
 Route::prefix('/admin/reportes')->middleware(['accesos', 'admin'])->controller(PDFController::class)->group(function () {
     Route::get('/edificio/{id}', 'enterprise')->name('reportes.enterprise');
+    Route::get('/transformador/{id}', 'transformador')->name('reportes.transformador');
+    Route::get('/electrica/{id}', 'electrica')->name('reportes.electrica');
 });
 //ADMINISTRAODR ************************************************************
 

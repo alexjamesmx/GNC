@@ -1,1 +1,1 @@
-<img src="{{ asset('images/gnc/logo_gnc2.png') }}" alt="GNC">
+<img alt="GNC" src="{{ asset('images/logo_gnc.png') }}" width="450">
