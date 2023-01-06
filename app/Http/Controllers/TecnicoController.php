@@ -8,22 +8,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Rep_enterprise;
 use App\Models\Rep_transformador;
+use Illuminate\Support\Str;
 
-class TecnicoController extends Controller
-{
+class TecnicoController extends Controller {
     private $role_type = 2;
-    public function test($id = '')
-    {
-        $rep_enterprise = Rep_enterprise::where('inspeccion_id', $id)->first();
-        $rep_transformador = Rep_transformador::where('inspeccion_id', $id)->first();
 
-        $inspeccion_existe = Inspecciones::where('id', $id)
-            ->firstOrFail();
+    public function test( $id = '' ) {
+        $rep_enterprise = Rep_enterprise::where( 'inspeccion_id', $id )->first();
+        $rep_transformador = Rep_transformador::where( 'inspeccion_id', $id )->first();
 
-        if ($inspeccion_existe->status_id === 4) {
-            $inspeccion = Inspecciones::find($id);
+        $inspeccion_existe = Inspecciones::where( 'id', $id )
+        ->firstOrFail();
+
+        if ( $inspeccion_existe->status_id === 4 ) {
+            $inspeccion = Inspecciones::find( $id );
             $inspeccion->status_id = 6;
-            $inspeccion->fecha_comienzo = date('Y-m-d H:i:s');
+            $inspeccion->fecha_comienzo = date( 'Y-m-d H:i:s' );
             $inspeccion->save();
         }
 
@@ -43,9 +43,8 @@ class TecnicoController extends Controller
         );
     }
 
-    public function edificio($id = '')
-    {
-        $inspeccion = Inspecciones::where('id', $id)->first();
+    public function edificio( $id = '' ) {
+        $inspeccion = Inspecciones::where( 'id', $id )->first();
 
         return view(
             'tecnico.inspecciones.edificio',
@@ -61,9 +60,8 @@ class TecnicoController extends Controller
         );
     }
 
-    public function electrica($id = '')
-    {
-        $inspeccion = Inspecciones::where('id', $id)->first();
+    public function electrica( $id = '' ) {
+        $inspeccion = Inspecciones::where( 'id', $id )->first();
 
         return view(
             'tecnico.inspecciones.electrica',
@@ -77,9 +75,9 @@ class TecnicoController extends Controller
             ]
         );
     }
-    public function transformador($id = '')
-    {
-        $inspeccion = Inspecciones::where('id', $id)->first();
+
+    public function transformador( $id = '' ) {
+        $inspeccion = Inspecciones::where( 'id', $id )->first();
         return view(
             'tecnico.inspecciones.transformador',
             [
@@ -93,10 +91,10 @@ class TecnicoController extends Controller
             ]
         );
     }
-    public function edificio_subir(Request $request)
-    {
+
+    public function edificio_subir( Request $request ) {
         $validated = Validator::make(
-            $request->except('id'),
+            $request->except( 'id' ),
             [
                 'extintores_no' => 'required|max:255',
                 'extintores_tipo_agente' => 'required|max:255',
@@ -219,8 +217,8 @@ class TecnicoController extends Controller
             ],
         );
 
-        if ($validated->fails()) {
-            return response()->json(['response' => false, 'errors' => $validated->errors()]);
+        if ( $validated->fails() ) {
+            return response()->json( [ 'response' => false, 'errors' => $validated->errors() ] );
         }
 
         $rep_edificio = new Rep_enterprise();
@@ -248,58 +246,57 @@ class TecnicoController extends Controller
         $rep_edificio->herreria_observaciones = $request->herreria_observaciones;
         //$rep_edificio->img1 = $request->img1;
 
-        if ($request->img1 != null && $request->img1 != 'undefined') {
+        if ( $request->img1 != null && $request->img1 != 'undefined' ) {
             $imageName = time() . 'img1' . auth()->id() . '.' . $request->img1->extension();
-            $request->img1->move(public_path('images/reportes/edificio'), $imageName);
+            $request->img1->move( public_path( 'images/reportes/edificio' ), $imageName );
             $rep_edificio->img1 = $imageName;
-        } 
-        
-        if ($request->img2 != null && $request->img2 != 'undefined') {
+        }
+
+        if ( $request->img2 != null && $request->img2 != 'undefined' ) {
             $imageName = time() . 'img2' . auth()->id() . '.' . $request->img2->extension();
-            $request->img2->move(public_path('images/reportes/edificio'), $imageName);
+            $request->img2->move( public_path( 'images/reportes/edificio' ), $imageName );
             $rep_edificio->img2 = $imageName;
         }
 
-        if ($request->img3 != null && $request->img3 != 'undefined') {
+        if ( $request->img3 != null && $request->img3 != 'undefined' ) {
             $imageName = time() . 'img3' . auth()->id() . '.' . $request->img3->extension();
-            $request->img3->move(public_path('images/reportes/edificio'), $imageName);
+            $request->img3->move( public_path( 'images/reportes/edificio' ), $imageName );
             $rep_edificio->img3 = $imageName;
         }
 
-        if ($request->img4 != null && $request->img4 != 'undefined') {
+        if ( $request->img4 != null && $request->img4 != 'undefined' ) {
             $imageName = time() . 'img4' . auth()->id() . '.' . $request->img4->extension();
-            $request->img4->move(public_path('images/reportes/edificio'), $imageName);
+            $request->img4->move( public_path( 'images/reportes/edificio' ), $imageName );
             $rep_edificio->img4 = $imageName;
         }
 
-        if ($request->img5 != null && $request->img5 != 'undefined') {
+        if ( $request->img5 != null && $request->img5 != 'undefined' ) {
             $imageName = time() . 'img5' . auth()->id() . '.' . $request->img5->extension();
-            $request->img5->move(public_path('images/reportes/edificio'), $imageName);
+            $request->img5->move( public_path( 'images/reportes/edificio' ), $imageName );
             $rep_edificio->img5 = $imageName;
         }
 
-        if ($request->img6 != null && $request->img6 != 'undefined') {
+        if ( $request->img6 != null && $request->img6 != 'undefined' ) {
             $imageName = time() . 'img6' . auth()->id() . '.' . $request->img6->extension();
-            $request->img6->move(public_path('images/reportes/edificio'), $imageName);
+            $request->img6->move( public_path( 'images/reportes/edificio' ), $imageName );
             $rep_edificio->img6 = $imageName;
         }
 
         $rep_edificio->status_id = 5;
 
         $r = $rep_edificio->save();
-        if ($r) {
-            $inspeccion = Inspecciones::find($request->inspeccion_id);
+        if ( $r ) {
+            $inspeccion = Inspecciones::find( $request->inspeccion_id );
             $inspeccion->porcentaje = $inspeccion->porcentaje + 33;
-            $inspeccion->porcentaje == 100 ? ($inspeccion->status_id = 5) : '';
+            $inspeccion->porcentaje == 100 ? ( $inspeccion->status_id = 5 ) : '';
             $inspeccion->save();
         }
-        return response()->json(['response' => $r]);
+        return response()->json( [ 'response' => $r ] );
     }
 
-    public function transformador_subir(Request $request)
-    {
+    public function transformador_subir( Request $request ) {
         $validated = Validator::make(
-            $request->except('id'),
+            $request->except( 'id' ),
             [
                 'marca' => 'required|max:255',
                 'capacidad' => 'required|max:255',
@@ -478,8 +475,8 @@ class TecnicoController extends Controller
             ],
         );
 
-        if ($validated->fails()) {
-            return response()->json(['response' => false, 'errors' => $validated->errors()]);
+        if ( $validated->fails() ) {
+            return response()->json( [ 'response' => false, 'errors' => $validated->errors() ] );
         }
 
         $rep_transformador = new Rep_transformador();
@@ -519,26 +516,56 @@ class TecnicoController extends Controller
         $rep_transformador->boquillas_x2 = $request->boquillas_x2;
         $rep_transformador->boquillas_x3 = $request->boquillas_x3;
         $rep_transformador->observaciones = $request->observaciones;
-        $rep_transformador->img1 = $request->img1;
-        $rep_transformador->img2 = $request->img2;
-        $rep_transformador->img3 = $request->img3;
-        $rep_transformador->img4 = $request->img4;
-        $rep_transformador->img5 = $request->img5;
-        $rep_transformador->img6 = $request->img6;
+
+        if ( $request->img1 != null && $request->img1 != 'undefined' ) {
+            $imageName = time() . 'img1' . auth()->id() . '.' . $request->img1->extension();
+            $request->img1->move( public_path( 'images/reportes/transformador' ), $imageName );
+            $rep_transformador->img1 = $imageName;
+        }
+
+        if ( $request->img2 != null && $request->img2 != 'undefined' ) {
+            $imageName = time() . 'img2' . auth()->id() . '.' . $request->img2->extension();
+            $request->img2->move( public_path( 'images/reportes/transformador' ), $imageName );
+            $rep_transformador->img2 = $imageName;
+        }
+
+        if ( $request->img3 != null && $request->img3 != 'undefined' ) {
+            $imageName = time() . 'img3' . auth()->id() . '.' . $request->img3->extension();
+            $request->img3->move( public_path( 'images/reportes/transformador' ), $imageName );
+            $rep_transformador->img3 = $imageName;
+        }
+
+        if ( $request->img4 != null && $request->img4 != 'undefined' ) {
+            $imageName = time() . 'img4' . auth()->id() . '.' . $request->img4->extension();
+            $request->img4->move( public_path( 'images/reportes/transformador' ), $imageName );
+            $rep_transformador->img4 = $imageName;
+        }
+
+        if ( $request->img5 != null && $request->img5 != 'undefined' ) {
+            $imageName = time() . 'img5' . auth()->id() . '.' . $request->img5->extension();
+            $request->img5->move( public_path( 'images/reportes/transformador' ), $imageName );
+            $rep_transformador->img5 = $imageName;
+        }
+
+        if ( $request->img6 != null && $request->img6 != 'undefined' ) {
+            $imageName = time() . 'img6' . auth()->id() . '.' . $request->img6->extension();
+            $request->img6->move( public_path( 'images/reportes/transformador' ), $imageName );
+            $rep_transformador->img6 = $imageName;
+        }
+
         $rep_transformador->status_id = 5;
 
         $response = $rep_transformador->save();
-        if ($response) {
-            $inspeccion = Inspecciones::find($request->inspeccion_id);
+        if ( $response ) {
+            $inspeccion = Inspecciones::find( $request->inspeccion_id );
             $inspeccion->porcentaje = $inspeccion->porcentaje + 33;
-            $inspeccion->porcentaje == 100 ? ($inspeccion->status_id = 5) : '';
+            $inspeccion->porcentaje == 100 ? ( $inspeccion->status_id = 5 ) : '';
             $inspeccion->save();
         }
-        return response()->json(['response' => $response]);
+        return response()->json( [ 'response' => $response ] );
     }
 
-    public function anomalia(Request $request)
-    {
+    public function anomalia( Request $request ) {
         $anomalia = new Anomalias();
 
         $anomalia->urgencia = $request->urgencia;
@@ -546,17 +573,21 @@ class TecnicoController extends Controller
         $anomalia->marca = $request->marca;
         $anomalia->medidas = $request->medidas;
         $anomalia->descripcion = $request->descripcion;
-        $anomalia->imagen = $request->imagen;
+        if ( $request->imagen != null && $request->imagen != 'undefined' ) {
+            $cadena = Str::random(4);
+            $imageName = 'anomalia' . $cadena . '.' . $request->imagen->extension();
+            $request->imagen->move( public_path( 'images/anomalias' ), $imageName );
+            $anomalia->imagen = $imageName;
+        }
         $anomalia->inspeccion_id = $request->inspeccion_id;
         $anomalia->tipo_inspeccion_id = $request->tipo_inspeccion_id;
 
-        return response()->json(['response' => $anomalia->save()]);
+        return response()->json( [ 'response' => $anomalia->save() ] );
     }
 
-    public function anomalia_validar(Request $request)
-    {
+    public function anomalia_validar( Request $request ) {
         $validated = Validator::make(
-            $request->except('id'),
+            $request->except( 'id' ),
             [
                 'imagen' => 'required|image|mimes:png,jpg,jpeg|max:2048',
             ],
@@ -568,8 +599,8 @@ class TecnicoController extends Controller
             ],
         );
 
-        if ($validated->fails()) {
-            return response()->json(['response' => false, 'errors' => $validated->errors()]);
+        if ( $validated->fails() ) {
+            return response()->json( [ 'response' => false, 'errors' => $validated->errors() ] );
         }
     }
 }

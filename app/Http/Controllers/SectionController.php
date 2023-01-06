@@ -28,7 +28,8 @@ class SectionController extends Controller
     public function empresa()
     {
         $role = 'empresa';
-        return view('empresa.general', ['section' => 'dashboard', 'section_cute' => 'Dashboard', 'role' => $role, 'role_cute' => 'Empresa']);
+        $role_type = Auth::user()->role_id;
+        return view('empresa.general', ['section' => 'dashboard', 'section_cute' => 'Dashboard', 'role' => $role, 'role_cute' => 'Empresa', 'role_type' => $role_type]);
     }
 
     public function back()
