@@ -1,4 +1,4 @@
-var ten_media_soporteria_edo, sis_tierra_edo, conex_tierra_edo, sellado_ducteria, tipo_canalizacion;
+var ten_media_soporteria_edo, sis_tierra_edo, conex_tierra_edo, sellado_ducteria_edo, tipo_canalizacion, bt_soporteria_edo, int_senalizacion_edo,int_edo, circuitos_edo;
 $( '#ten_media_soporteria_si' ).on( 'click', () =>
 {
     $( '#ten_media_soporteria_edo_si' ).attr( 'disabled', false ).next().removeClass( 'opacity-50' )
@@ -52,13 +52,52 @@ $( '#sellado_ducteria_no' ).on( 'click', () =>
 } )
 
 $('#tipo_canalizacion_otro').on('click', () => {
-    console.log('hola')
     $('#tipo_canalizacion_otro_input').attr('disabled', false)
 } )
 
+$( '#sellado_ducteria_si' ).on( 'click', () =>
+{
+    $( '#sellado_ducteria_edo_si' ).attr( 'disabled', false ).next().removeClass( 'opacity-50' )
+    $( '#sellado_ducteria_edo_no' ).attr( 'disabled', false ).next().removeClass( 'opacity-50' )
+} )
+
+$( '#bt_soporteria_no' ).on( 'click', () =>
+{
+    $( '#bt_soporteria_edo_si' ).attr( 'disabled', true ).prop( 'checked', false ).next().addClass( 'opacity-50' ).prop( 'checked', false )
+
+    $( '#bt_soporteria_edo_no' ).attr( 'disabled', true ).prop( 'checked', false ).next().addClass( 'opacity-50' )
+} )
+
+$( '#bt_soporteria_si' ).on( 'click', () =>
+{
+    $( '#bt_soporteria_edo_si' ).attr( 'disabled', false ).next().removeClass( 'opacity-50' )
+    $( '#bt_soporteria_edo_no' ).attr( 'disabled', false ).next().removeClass( 'opacity-50' )
+} )
+
+$('#int_senalizacion_si').on('click', () => {
+    $('#int_senalizacion_edo_si').attr('disabled', false).next().removeClass('opacity-50')
+    $('#int_senalizacion_edo_no').attr('disabled', false).next().removeClass('opacity-50')
+})
+
+$('#int_senalizacion_no').on('click', () => {
+    $('#int_senalizacion_edo_si').attr('disabled', true).prop('checked', false).next().addClass('opacity-50').prop('checked', false)
+    
+    $('#int_senalizacion_edo_no').attr('disabled', true).prop('checked', false).next().addClass('opacity-50')
+})
+
+
+$('#circuitos_si').on('click', () => {
+    $('#circuitos_edo_si').attr('disabled', false).next().removeClass('opacity-50')
+    $('#circuitos_edo_no').attr('disabled', false).next().removeClass('opacity-50')
+})
+
+$('#circuitos_no').on('click', () => {
+    $('#circuitos_edo_si').attr('disabled', true).prop('checked', false).next().addClass('opacity-50').prop('checked', false)
+
+    $('#circuitos_edo_no').attr('disabled', true).prop('checked', false).next().addClass('opacity-50')
+})
 
 function disableOtro(){
-    console.log('jijija')
     $('#tipo_canalizacion_otro_input').attr('disabled', true)
     $('#tipo_canalizacion_otro_input').removeClass('is-invalid').removeClass('is-valid').val('').next().html('')
 }
@@ -84,7 +123,7 @@ function saveInspeccion( id )
 {
 
     const body = new FormData( $( '#form-inspecciones' )[ 0 ] );
-    console.log( body )
+    console.trace( 'BODY ----> ', body )
     const url = route[ 0 ];
 
     $( 'input[existe=1]' ).each( function ( i, e )
@@ -103,17 +142,21 @@ function saveInspeccion( id )
 
             const data = res.data
             const errors = data.errors
-            console.log( errors );
+            console.trace('ERORRES ->', errors );
             if ( !errors && data.response == true )
             {
                 checkAllFields()
-                console.log( 'que' )
+                console.log( '--BIEN--' )
                 const anomaliasArr = [
                     ten_media_soporteria_edo,
                     sis_tierra_edo,
                     conex_tierra_edo,
-                    sellado_ducteria,
+                    sellado_ducteria_edo,
                     tipo_canalizacion,
+                    bt_soporteria_edo,
+                    int_senalizacion_edo,
+                    int_edo,
+                    circuitos_edo
                 ];
                 const url = route[ 2 ];
                 let promises = [];
@@ -124,7 +167,6 @@ function saveInspeccion( id )
                 ( async () =>
                 {
                     await subiendo();
-
                     const anyIsFilled = promises.some( ( p ) => p !== null )
                     console.log( 'Vacio? => ', anomaliasArr, anyIsFilled )
                     if ( anyIsFilled )
@@ -140,9 +182,6 @@ function saveInspeccion( id )
                         message( '!Bien! redireccionado...' )
                         // location.href = route[ 3 ].replace( ":id", id );
                     }
-
-
-
                 } )()
             }
 
@@ -232,12 +271,13 @@ function handleAnomalia( anomaliaTipo )
     popup.classList.add( "active" );
     $( '#form-anomalias' ).attr( 'data-anomalia', anomaliaTipo )
 
+
+
     // formAnomalias.setAttribute( "data-anomalia", anomaliaTipo );
 }
 
 function cleanAnomalia()
 {
-    console.log('QUEEEEEE')
     $( 'input[anomalia=1], textarea[anomalia=1], select[anomalia=1]' ).each( function ( i, e )
     {
         $( e ).val( '' )
@@ -254,10 +294,11 @@ function saveAnomalia()
     if ( !validado ) return false;
     const anomalia = $( '#form-anomalias' ).attr( 'data-anomalia' )
 
+    console.log(anomalia)
     let anomaliaData = new FormData( $( '#form-anomalias' )[ 0 ] );
     anomaliaData.append( 'cosa', anomalia )
 
-    console.log( anomalia )
+    console.trace('ANOMALIA -----> ', anomalia )
     if ( anomalia === "ten_media_soporteria_edo" )
     {
         ten_media_soporteria_edo = anomaliaData;
@@ -276,7 +317,19 @@ function saveAnomalia()
 
     if ( anomalia === "sellado_ducteria_edo" )
     {
-        sellado_ducteria = anomaliaData
+        sellado_ducteria_edo = anomaliaData
+    }
+    if(anomalia === "int_senalizacion_edo"){
+        int_senalizacion_edo = anomaliaData
+    }
+    if(anomalia === "bt_soporteria_edo"){
+        bt_soporteria_edo = anomaliaData
+    }
+    if(anomalia === "int_edo"){
+        int_edo = anomaliaData
+    }
+    if(anomalia === "circuitos_edo"){
+        circuitos_edo = anomaliaData
     }
     const url = route[ 1 ]
 
@@ -372,13 +425,18 @@ function disabledAnomalias()
     // remove the last character
     anomaliaTipo = anomaliaTipo.substring( 0, anomaliaTipo.length - 4 );
 
-    console.log( anomaliaTipo )
+    console.log('ANOMALIAAA-> ', anomaliaTipo)
 
+    //EXCEPCION CON EL CAMPO DE LA BD INT_EDO YA QUE NO EXISTE UN CAMPO "INT" 
+    if(anomaliaTipo === 'int'){
+        anomaliaTipo = 'int_edo'
+    }
     const inputsToDisabled = $( `input[tipo="${anomaliaTipo}"], label[tipo="${anomaliaTipo}"]` )
-    console.log( inputsToDisabled )
-
     inputsToDisabled.each( function ( i, e )
     {
+        console.log('ANOMALIAAA-> ', inputsToDisabled)
+
+        
         $( e ).attr( 'disabled', true ).addClass( 'opacity-50' )
 
 
