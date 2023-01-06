@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Inspecciones;
 use App\Models\Anomalias;
+use App\Models\Rep_electrica;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Rep_enterprise;
@@ -506,16 +507,39 @@ class TecnicoController extends Controller
     }
     public function electrica_subir(Request $request)
     {
+        $validar = 'required|between:0,1';
 
-        // dd($request->all());
+        // dd(intval($request->ten_media_soporteria) === 1 ? $validar : 'between:0,1');
+
+
         $validated = Validator::make(
             $request->except('id'),
             [
                 'disasolve_req' => 'required|between:0,1',
                 'disasolve_cantidad' => 'required|max:255',
+                'mt_limpieza_req' => 'required|between:0,1',
+                'mt_limpieza_cantidad' => 'required|max:255',
+
                 'ten_media_soporteria' => 'required|between:0,1',
-                'ten_media_soporteria_edo' => 'between:0,1',
+                'ten_media_soporteria_edo' => intval($request->ten_media_soporteria) === 1 ? $validar : 'between:0,1',
                 'ten_media_soporteria_faltante' => 'required|max:255',
+
+                'sis_tierra' => 'required|between:0,1',
+                'sis_tierra_edo' =>  intval($request->sis_tierra) === 1 ? $validar : 'between:0,1',
+                'sis_tierra_faltante' => 'required|max:255',
+
+                'conex_tierra' => 'required|between:0,1',
+                'conex_tierra_edo' => intval($request->conex_tierra) === 1 ? $validar : 'between:0,1',
+                'conex_tierra_faltante' => 'required|max:255',
+
+                'sellado_ducteria' => 'required|between:0,1',
+                'sellado_ducteria_edo' => intval($request->sellado_ducteria) === 1 ? $validar : 'between:0,1',
+                'sellado_ducteria_faltante' => 'required|max:255',
+
+                'tipo_canalizacion' => 'required',
+
+                'torni' => 'required|between:0,1',
+                'torni_cantidad' => 'required|max:255',
 
                 'mt_observaciones' => 'required|max:255',
                 'img1' => 'required|image|mimes:png,jpg,jpeg|max:2048',
@@ -526,24 +550,59 @@ class TecnicoController extends Controller
                 'img6' => 'image|mimes:png,jpg,jpeg|max:2048',
             ],
             [
-                'disasolve_req.required' => 'Este campo es requerido',
-                'disasolve_req.between' => 'Este campo debe ser 0 o 1',
+                'disasolve_req.required' => '¿Requiere disasolve?',
+                'disasolve_req.between' => 'El valor para requiere disasolve debe ser "si" o" no"',
 
                 'disasolve_cantidad.required' => 'Este campo es requerido',
                 'disasolve_cantidad.max' => 'Este campo no puede tener más de 255 caracteres',
 
-                'ten_media_soporteria.required' => 'Este campo es requerido',
+                'mt_limpieza_req.required' => '¿Requiere limpieza?',
+                'mt_limpieza_req.between' => 'El valor para requiere limpieza debe ser "si" o" no"',
 
-                'ten_media_soporteria_edo.between' => 'Este campo debe ser 0 o 1',
+                'mt_limpieza_cantidad.required' => 'Este campo es requerido',
+                'mt_limpieza_cantidad.max' => 'Este campo no puede tener más de 255 caracteres',
+
+                'ten_media_soporteria.required' => 'Tensión media: ¿Se requiere soportería?',
+
+                'ten_media_soporteria_edo.between' => 'El valor para el estado de soportería en tensión media debe ser "si" o "no"',
+
+                'ten_media_soporteria_edo.required' => 'Especifique el estado de la soporteía en tensión media',
 
                 'ten_media_soporteria_faltante.required' => 'Este campo es requerido',
+
+                'sis_tierra.required' => '¿Cuenta con sistema de tierra?',
+                'sis_tierra.between' => 'El valor para el sistema de tierra debe ser "si" o "no"',
+
+                'sis_tierra_edo.between' => 'El valor para el estado sistema de tierra debe ser "si" o "no"',
+                'sis_tierra_edo.required' => 'Especifique el estado del sistema de tierra',
+
+                'sis_tierra_faltante.required' => 'Este campo es requerido',
+                'sis_tierra_faltante.max' => 'Este campo no puede tener más de 255 caracteres',
+
+                'conex_tierra.required' => '¿Cuenta con conexión a tierra?',
+                'conex_tierra.between' => 'El valor para la conexión a tierra debe ser "si" o "no"',
+                'conex_tierra_edo.between' => 'El valor para el estado conexión a tierra debe ser "si" o "no"',
+                'conex_tierra_edo.required' => 'Especifique el estado de la conexión a tierra',
+                'conex_tierra_faltante.required' => 'Este campo es requerido',
+                'conex_tierra_faltante.max' => 'Este campo no puede tener más de 255 caracteres',
+
+                'sellado_ducteria.required' => '¿Cuenta con sellado de ductería?',
+                'sellado_ducteria.between' => 'El valor para el sellado de ductería debe ser "si" o "no"',
+                'sellado_ducteria_edo.between' => 'El valor para el estado sellado de ductería debe ser "si" o "no"',
+                'sellado_ducteria_edo.required' => 'Especifique el estado del sellado de ductería',
+                'sellado_ducteria_faltante.required' => 'Este campo es requerido',
+                'sellado_ducteria_faltante.max' => 'Este campo no puede tener más de 255 caracteres',
 
                 'mt_observaciones.required' => 'Este campo es requerido',
                 'mt_observaciones.max' => 'Este campo no puede tener más de 255 caracteres',
 
+                'tipo_canalizacion.required' => '¿Qué tipo de canalización es?',
 
-                'observaciones.required' => 'Este campo es requerido',
-                'observaciones.max' => 'Este campo no puede tener más de 255 caracteres',
+                'torni.required' => '¿Cuenta con tornillería?',
+                'torni.between' => 'El valor para la tornillería debe ser "si" o "no"',
+                'torni_cantidad.required' => 'Este campo es requerido',
+                'torni_cantidad.max' => 'Este campo no puede tener más de 255 caracteres',
+
 
                 'img1.required' => 'Este campo es requerido',
                 'img1.image' => 'El archivo debe ser una imagen',
@@ -578,7 +637,52 @@ class TecnicoController extends Controller
             return response()->json(['response' => false, 'errors' => $validated->errors()]);
         }
 
-        return response()->json(['response' => true]);
+        $existe_reporte = Rep_electrica::where('inspeccion_id', $request->inspeccion_id)->first();
+
+        if ($existe_reporte) {
+            return response()->json(['response' => false, 'message' => 'Este reporte ya existe']);
+        }
+
+        $rep_electrico = new Rep_electrica();
+
+        // $rep_electrico->disasolve_req = $request->disasolve_req;
+        // $rep_electrico->disasolve_cantidad = $request->disasolve_cantidad;
+        // $rep_electrico->mt_limpieza_req = $request->mt_limpieza_req;
+        // $rep_electrico->mt_limpieza_cantidad = $request->mt_limpieza_cantidad;
+        // $rep_electrico->ten_media_soporteria = $request->ten_media_soporteria;
+        // $rep_electrico->ten_media_soporteria_edo = $request->ten_media_soporteria_edo;
+        // $rep_electrico->ten_media_soporteria_faltante = $request->ten_media_soporteria_faltante;
+        // $rep_electrico->sis_tierra = $request->sis_tierra;
+        // $rep_electrico->sis_tierra_edo = $request->sis_tierra_edo;
+        // $rep_electrico->sis_tierra_faltante = $request->sis_tierra_faltante;
+        // $rep_electrico->mt_observaciones = $request->mt_observaciones;
+        // $rep_electrico->conex_tierra = $request->conex_tierra;
+        // $rep_electrico->conex_tierra_edo = $request->conex_tierra_edo;
+        // $rep_electrico->conex_tierra_faltante = $request->conex_tierra_faltante;
+        // $rep_electrico->sellado_ducteria = $request->sellado_ducteria;
+        // $rep_electrico->sellado_ducteria_edo = $request->sellado_ducteria_edo;
+        // $rep_electrico->sellado_ducteria_faltante = $request->sellado_ducteria_faltante;
+        // $rep_electrico->tipo_canalizacion = $request->tipo_canalizacion;
+        // $rep_electrico->torni = $request->torni;
+        // $rep_electrico->torni_cantidad = $request->torni_cantidad;
+
+        $rep_electrico->inspeccion_id = $request->inspeccion_id;
+        // $rep_electrico->img1 = $request->img1;
+        // $rep_electrico->img2 = $request->img2;
+        // $rep_electrico->img3 = $request->img3;
+        // $rep_electrico->img4 = $request->img4;
+        // $rep_electrico->img5 = $request->img5;
+        // $rep_electrico->img6 = $request->img6;
+        $rep_electrico->status_id = 5;
+
+        $r = $rep_electrico->save();
+        if ($r) {
+            $inspeccion = Inspecciones::find($request->inspeccion_id);
+            $inspeccion->porcentaje = $inspeccion->porcentaje + 34;
+            $inspeccion->porcentaje >= 100 ? ($inspeccion->status_id = 5) : '';
+            $inspeccion->save();
+        }
+        return response()->json(['response' => $r]);
     }
     public function anomalia(Request $request)
     {
@@ -592,6 +696,8 @@ class TecnicoController extends Controller
         $anomalia->imagen = $request->imagen;
         $anomalia->inspeccion_id = $request->inspeccion_id;
         $anomalia->tipo_inspeccion_id = $request->tipo_inspeccion_id;
+
+        $anomalia->cosa = $request->cosa ?? null;
 
         return response()->json(['response' => $anomalia->save()]);
     }

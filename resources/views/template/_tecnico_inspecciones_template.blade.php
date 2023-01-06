@@ -11,8 +11,10 @@
             <div class="main-panel">
                 <div class="content-wrapper ">
 
+
                     @yield('test_body')
 
+                    @include('template._tecnico_inspecciones_template_anomalias')
                     @include('template._footer')
                 </div>
             </div>

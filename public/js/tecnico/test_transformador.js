@@ -1,4 +1,3 @@
-
 const formMarca = document.getElementById('marca'),
 formMarca_error = document.getElementById('marca_error'),
 
@@ -863,21 +862,6 @@ img3.addEventListener( "change", () =>
         img3_error.innerHTML = "";
     }
 } );
-
-document.querySelector( "#btn-cancelar" ).addEventListener( "click", () =>
-{
-    const confirmar = confirm( "¿Está seguro que desea cancelar?" );
-    if ( !confirmar ) return false;
-    console.log( route );
-    const id = document.querySelector( "#inspeccion_id" ).value;
-    const url = route[ 3 ].replace( ":id", id );
-    console.log( url );
-    window.location.href = url;
-} );
-
-
-
-
 
 const formInspecciones = document.querySelector( "#form-inspecciones" );
 function saveInspeccion( id )

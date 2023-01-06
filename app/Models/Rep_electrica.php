@@ -27,7 +27,7 @@ class Rep_electrica extends Model
         'conex_tierra_edo',
         'conex_tierra_faltante',
         'sellado_ducteria',
-        'sellado_ducteria_estado',
+        'sellado_ducteria_edo',
         'sellado_ducteria_faltante',
         'mt_observaciones',
         'tipo_canalizacion',
