@@ -3,7 +3,7 @@
         <a class="navbar-brand brand-logo" href="{{ route('access') }}">
             <img src="{{ asset('images/logo_gnc.png') }}" alt="logo" /> </a>
         <a class="navbar-brand brand-logo-mini" href="../../index.html">
-            <img src="{{ asset('images//logo_gnc.png') }}" alt="logo" /> </a>
+            <img src="{{ asset('images/favicon.ico') }}" alt="logo" /> </a>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-center">
         <ul class="navbar-nav">

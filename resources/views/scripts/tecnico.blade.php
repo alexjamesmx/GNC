@@ -21,15 +21,17 @@
 @if ($role === 'tecnico' && $section === 'test' && $subsection !== '')
     <script>
         //CANCELAR
-        document.querySelector("#btn-cancelar").addEventListener("click", () => {
-            const confirmar = confirm("¿Está seguro que desea cancelar?");
+
+        function cancelar(){
+            const confirmar = confirm("Los cambios no se guardaran. Puedes ingresar más tarde");
             if (!confirmar) return false;
             console.log(route);
             const id = document.querySelector("#inspeccion_id").value;
             const url = test_url.replace(":id", id);
             console.log(url);
             window.location.href = url;
-        });
+        }
+    
 
         //MENSAJE SUBIENDO INSPECCION
         async function subiendo() {
@@ -47,13 +49,7 @@
             formAnomalias.setAttribute("data-anomalia", anomaliaTipo);
         }
 
-        $('#btn-cerrar-popup').on('click', function(e) {
-            e.preventDefault();
-            overlay.classList.remove("active");
-            popup.classList.remove("active");
-            cleanAnomalia();
-            uncheckedAnomalia()
-        })
+        
     </script>
 @endif
 
@@ -62,11 +58,12 @@
     <div hidden id="data-tecnico" data-data=@json($data)></div>
     <div hidden id="data-inspecciones">@json($inspecciones_activas)</div>
     <script src="{{ asset('js/tecnico/dashboard.js') }}"></script>
+    <script src="{{asset('js/tecnico/modal.js')}}"></script>
 @endif
 {{-- en el menu general de los test --}}
 @if ($role === 'tecnico' && $section === 'test' && $subsection === '')
     <div hidden id="data-rep-edificio">@json($rep_enterprise)</div>
-    {{-- <div id="data-rep-eletrcia">@json($rep_enterprise)</div> --}}
+    <div hidden id="data-rep-electrico">@json($rep_electrico)</div>
     <div hidden id="data-rep-transformador">@json($rep_transformador)</div>
     <script src="{{ asset('js/tecnico/test_navigation.js') }}"></script>
 @endif
@@ -85,7 +82,9 @@
             "{{ route('tecnico.electrica_subir') }}",
             "{{ route('tecnico.anomalia_validar') }}",
             "{{ route('tecnico.anomalia') }}",
+               "{{ route('tecnico.test', ['id' => ':id']) }}",
         ];
     </script>
     <script src="{{ asset('js/tecnico/test_electrico.js') }}"></script>
+    <script src="{{ asset('js/tecnico/modules/constants.js') }}"></script>
 @endif

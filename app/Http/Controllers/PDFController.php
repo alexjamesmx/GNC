@@ -33,6 +33,7 @@ class PDFController extends Controller
             'anomalias' => $anomalias
         ];
         //dd($datas);
+
         $pdf = PDF::loadView('reportes/empresa/empresa', $datas);
 
         return $pdf->stream();
@@ -80,7 +81,7 @@ class PDFController extends Controller
             'data' => $rep_electrica,
             'anomalias' => $anomalias
         ];
-        dd($datas);
+        // dd($datas);
 
 
         $pdf = PDF::loadView('reportes/electrica/electrica', $datas);

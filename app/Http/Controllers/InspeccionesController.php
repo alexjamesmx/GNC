@@ -121,4 +121,15 @@ class InspeccionesController extends Controller
         $response = Inspecciones::where('id', $id)->update(['status_id' => 1]);
         return response()->json(['response' =>  $response], 200);
     }
+
+    public function verificar_i(Request $request)
+    {
+        if (!$request->isMethod('post')) {
+            return dd('error');
+        }
+        
+        $inspeccion = Inspecciones::findOrFail($request->id);
+        $inspeccion->status_id = 7;
+        return response()->json(['response' => $inspeccion->save()]);
+    }
 }

@@ -28,3 +28,17 @@
         ];
     </script>
 @endif
+
+@if ($role_type === 1 && $section === 'verificar')
+    <script src="{{ asset('js/admin/verificar.js') }}"></script>
+
+    <script>
+        var route = [
+            "{{ route('reportes.enterprise', ['id' => ':id']) }}",
+            "{{ route('reportes.transformador', ['id' => ':id']) }}",
+            "{{ route('reportes.electrica', ['id' => ':id']) }}",
+            "{{ route('inspeccion.verificar_i') }}",
+        ];
+    </script>
+   
+@endif

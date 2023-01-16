@@ -18,11 +18,11 @@
             </tr>
             <tr>
                 <td colspan="12">
-                    <img alt="Imagen de la anomalia" src="http://31.220.57.169/images/hacker.jpg"
+                    <img alt="Imagen de la anomalia" src="{{ storage_path('images/anomalias/' . $data[0]->inspeccion_id . '/' . $anomalia->imagen) }}"
                         style="width: 400px; height: 225px;">
-                    <p>{{ asset('images/reportes/edificio/' . $anomalia->imagen) }}</p>
                 </td>
             </tr>
         </tbody>
     </table>
+    <hr>
 @endforeach

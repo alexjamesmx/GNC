@@ -18,10 +18,22 @@
         </a>
     </li>
     <li class="nav-item nav-category">En inspección</li>
-    <li id="nav_dashboard"class="nav-item">
-        <a class="flex justify-start mt-2 px-4 py-3 rounded nav-custom" href="{{ route('tecnico.test', $inspeccion->id) }}">
+    <li id="nav_dashboard"class="nav-item" >
+        <a href="#"class="flex justify-start mt-2 px-4 py-3 rounded nav-custom" data-url="{{ route('tecnico.test', $inspeccion->id) }}" onclick="atras(this)">
             <i class="fas fa-arrow-alt-circle-left text-white ml-12 self-center"></i>
             <span class="menu-title text-white ml-12 text-lg">Atrás</span>
         </a>
     </li>
+
+
+
+    <script>
+        function atras(e){
+            console.log(e)
+            const confirmar = confirm("Los cambios no se guardaran. Puedes ingresar más tarde");
+            if (!confirmar) return false;
+            window.location.href = $(e).attr('data-url');
+
+        }
+    </script>
 @endsection

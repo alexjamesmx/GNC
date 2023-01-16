@@ -100,6 +100,8 @@ class Rep_electrica extends Model
         'img4',
         'img5',
         'img6',
-        'status_id'
+        'status_id',
+        'adpt_tierra_faltante',
+        'barras_tierra_faltante'
     ];
 }

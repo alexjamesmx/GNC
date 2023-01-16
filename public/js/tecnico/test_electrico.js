@@ -1,107 +1,14 @@
-var ten_media_soporteria_edo, sis_tierra_edo, conex_tierra_edo, sellado_ducteria_edo, tipo_canalizacion, bt_soporteria_edo, int_senalizacion_edo,int_edo, circuitos_edo;
-$( '#ten_media_soporteria_si' ).on( 'click', () =>
-{
-    $( '#ten_media_soporteria_edo_si' ).attr( 'disabled', false ).next().removeClass( 'opacity-50' )
-    $( '#ten_media_soporteria_edo_no' ).attr( 'disabled', false ).next().removeClass( 'opacity-50' )
-} )
-
-$( '#ten_media_soporteria_no' ).on( 'click', () =>
-{
-    $( '#ten_media_soporteria_edo_si' ).attr( 'disabled', true ).prop( 'checked', false ).next().addClass( 'opacity-50' ).prop( 'checked', false )
-
-    $( '#ten_media_soporteria_edo_no' ).attr( 'disabled', true ).prop( 'checked', false ).next().addClass( 'opacity-50' )
-} )
-
-$( '#sis_tierra_si' ).on( 'click', () =>
-{
-    $( '#sis_tierra_edo_si' ).attr( 'disabled', false ).next().removeClass( 'opacity-50' )
-    $( '#sis_tierra_edo_no' ).attr( 'disabled', false ).next().removeClass( 'opacity-50' )
-} )
-
-$( '#sis_tierra_no' ).on( 'click', () =>
-{
-    $( '#sis_tierra_edo_si' ).attr( 'disabled', true ).prop( 'checked', false ).next().addClass( 'opacity-50' ).prop( 'checked', false )
-
-    $( '#sis_tierra_edo_no' ).attr( 'disabled', true ).prop( 'checked', false ).next().addClass( 'opacity-50' )
-} )
-
-$( '#conex_tierra_si' ).on( 'click', () =>
-{
-    $( '#conex_tierra_edo_si' ).attr( 'disabled', false ).next().removeClass( 'opacity-50' )
-    $( '#conex_tierra_edo_no' ).attr( 'disabled', false ).next().removeClass( 'opacity-50' )
-} )
-
-$( '#conex_tierra_no' ).on( 'click', () =>
-{
-    $( '#conex_tierra_edo_si' ).attr( 'disabled', true ).prop( 'checked', false ).next().addClass( 'opacity-50' ).prop( 'checked', false )
-
-    $( '#conex_tierra_edo_no' ).attr( 'disabled', true ).prop( 'checked', false ).next().addClass( 'opacity-50' )
-} )
-
-$( '#sellado_ducteria_si' ).on( 'click', () =>
-{
-    $( '#sellado_ducteria_edo_si' ).attr( 'disabled', false ).next().removeClass( 'opacity-50' )
-    $( '#sellado_ducteria_edo_no' ).attr( 'disabled', false ).next().removeClass( 'opacity-50' )
-} )
-
-$( '#sellado_ducteria_no' ).on( 'click', () =>
-{
-    $( '#sellado_ducteria_edo_si' ).attr( 'disabled', true ).prop( 'checked', false ).next().addClass( 'opacity-50' ).prop( 'checked', false )
-
-    $( '#sellado_ducteria_edo_no' ).attr( 'disabled', true ).prop( 'checked', false ).next().addClass( 'opacity-50' )
-} )
-
-$('#tipo_canalizacion_otro').on('click', () => {
-    $('#tipo_canalizacion_otro_input').attr('disabled', false)
-} )
-
-$( '#sellado_ducteria_si' ).on( 'click', () =>
-{
-    $( '#sellado_ducteria_edo_si' ).attr( 'disabled', false ).next().removeClass( 'opacity-50' )
-    $( '#sellado_ducteria_edo_no' ).attr( 'disabled', false ).next().removeClass( 'opacity-50' )
-} )
-
-$( '#bt_soporteria_no' ).on( 'click', () =>
-{
-    $( '#bt_soporteria_edo_si' ).attr( 'disabled', true ).prop( 'checked', false ).next().addClass( 'opacity-50' ).prop( 'checked', false )
-
-    $( '#bt_soporteria_edo_no' ).attr( 'disabled', true ).prop( 'checked', false ).next().addClass( 'opacity-50' )
-} )
-
-$( '#bt_soporteria_si' ).on( 'click', () =>
-{
-    $( '#bt_soporteria_edo_si' ).attr( 'disabled', false ).next().removeClass( 'opacity-50' )
-    $( '#bt_soporteria_edo_no' ).attr( 'disabled', false ).next().removeClass( 'opacity-50' )
-} )
-
-$('#int_senalizacion_si').on('click', () => {
-    $('#int_senalizacion_edo_si').attr('disabled', false).next().removeClass('opacity-50')
-    $('#int_senalizacion_edo_no').attr('disabled', false).next().removeClass('opacity-50')
-})
-
-$('#int_senalizacion_no').on('click', () => {
-    $('#int_senalizacion_edo_si').attr('disabled', true).prop('checked', false).next().addClass('opacity-50').prop('checked', false)
-    
-    $('#int_senalizacion_edo_no').attr('disabled', true).prop('checked', false).next().addClass('opacity-50')
-})
+const reg = new RegExp( '^[0-9]+$' );
 
 
-$('#circuitos_si').on('click', () => {
-    $('#circuitos_edo_si').attr('disabled', false).next().removeClass('opacity-50')
-    $('#circuitos_edo_no').attr('disabled', false).next().removeClass('opacity-50')
-})
 
-$('#circuitos_no').on('click', () => {
-    $('#circuitos_edo_si').attr('disabled', true).prop('checked', false).next().addClass('opacity-50').prop('checked', false)
+$(function() {
+$('#tipo_inspeccion_id').val(2)
+});
 
-    $('#circuitos_edo_no').attr('disabled', true).prop('checked', false).next().addClass('opacity-50')
-})
 
-function disableOtro(){
-    $('#tipo_canalizacion_otro_input').attr('disabled', true)
-    $('#tipo_canalizacion_otro_input').removeClass('is-invalid').removeClass('is-valid').val('').next().html('')
-}
 
+//Validaciones por cada letra escrita donde se valida que el campo no se encuentre vacio y que no supere los 255 caracteres
 $( 'input[requerido_generico=1], textarea' ).on( 'input', ( e ) =>
 {
     const val = e.target.value
@@ -118,10 +25,47 @@ $( 'input[requerido_generico=1], textarea' ).on( 'input', ( e ) =>
         $( e.target ).removeClass( 'is-invalid' ).addClass( 'is-valid' ).next().html( '' )
     }
 } )
+//Validaciones por cada letra escrita donde se valida que el campo no se encuentre vacio y que sean SOLO cantidades
+$( 'input[requerido_generico=2]' ).on( 'input', ( e ) =>
+{
+    const val = e.target.value
+    if ( val.length === 0 )
+    {
+        $( e.target ).addClass( 'is-invalid' ).next().html( 'Este campo es requerido' )
+    }
+    else if ( reg.test( val ) === false )
+    {
+        $( e.target ).addClass( 'is-invalid' ).next().html( 'Sólo cantidades' )
+    }
+    else
+    {
+        $( e.target ).removeClass( 'is-invalid' ).addClass( 'is-valid' ).next().html( '' )
+    }
+} )
 
-function saveInspeccion( id )
+function esconderCantidad( e )
+{
+    const l = $( 'label[for="disponible_cantidad"]' )[ 0 ]
+    const i = $( 'input[name="disponible_cantidad"]' )[ 0 ]
+    $( l ).addClass( 'opacity-70' )
+    $( i ).addClass( 'opacity-70' )
+    $( i ).attr( 'disabled', true )
+    $( i ).val( '' )
+    $( i ).removeClass( 'is-invalid' ).removeClass( 'is-valid' )
+    $( i ).next().html( '' )
+}
+function mostrarCantidad( e )
 {
 
+    const l = $( 'label[for="disponible_cantidad"]' )[ 0 ]
+    const i = $( 'input[name="disponible_cantidad"]' )[ 0 ]
+    $( l ).removeClass( 'opacity-70' )
+    $( i ).removeClass( 'opacity-70' )
+    $( i ).attr( 'disabled', false )
+
+}
+function saveInspeccion( id )
+{
     const body = new FormData( $( '#form-inspecciones' )[ 0 ] );
     console.trace( 'BODY ----> ', body )
     const url = route[ 0 ];
@@ -142,45 +86,33 @@ function saveInspeccion( id )
 
             const data = res.data
             const errors = data.errors
-            console.trace('ERORRES ->', errors );
+            console.trace( 'ERORRES ->', errors );
             if ( !errors && data.response == true )
             {
                 checkAllFields()
-                console.log( '--BIEN--' )
-                const anomaliasArr = [
-                    ten_media_soporteria_edo,
-                    sis_tierra_edo,
-                    conex_tierra_edo,
-                    sellado_ducteria_edo,
-                    tipo_canalizacion,
-                    bt_soporteria_edo,
-                    int_senalizacion_edo,
-                    int_edo,
-                    circuitos_edo
-                ];
                 const url = route[ 2 ];
                 let promises = [];
-                for ( i = 0; i < anomaliasArr.length; i++ )
+                for ( i = 0; i < anomaliasArrPost.length; i++ )
                 {
-                    anomaliasArr[ i ] != undefined && promises.push( axios.post( url, anomaliasArr[ i ] ) )
+                    anomaliasArrPost[ i ] != undefined && promises.push( axios.post( url, anomaliasArrPost[ i ] ) )
                 }
                 ( async () =>
                 {
                     await subiendo();
                     const anyIsFilled = promises.some( ( p ) => p !== null )
-                    console.log( 'Vacio? => ', anomaliasArr, anyIsFilled )
+                    console.log( 'Vacio? => ', anomaliasArrPost, anyIsFilled )
                     if ( anyIsFilled )
                     {
                         Promise.all( promises ).then( ( res ) =>
                         {
                             message( '!Bien! redireccionado...' )
-                            // location.href = route[ 3 ].replace( ":id", id );
+                            location.href = route[ 3 ].replace( ":id", id );
                         } ).catch( ( err ) => { console.error( err ) } )
                     }
                     else
                     {
                         message( '!Bien! redireccionado...' )
-                        // location.href = route[ 3 ].replace( ":id", id );
+                        location.href = route[ 3 ].replace( ":id", id );
                     }
                 } )()
             }
@@ -189,9 +121,10 @@ function saveInspeccion( id )
             else if ( data.response === false && data.errors === undefined )
             {
                 message( 'Este reporte ya ha sido guardado...' )
+                
                 setTimeout( () =>
                 {
-                    // location.href = route[ 3 ].replace( ":id", id );
+                    location.href = route[ 3 ].replace( ":id", id );
                 }, 3000 )
             }
 
@@ -205,7 +138,8 @@ function saveInspeccion( id )
                     //por cada input que tenga el atributo name igual al key del arreglo le agregamos la clase is-invalid y le ponemos el texto del error, esto ultimo a menos que sea un radio button
                     $( `input[name=${key}]` ).each( ( i, input ) =>
                     {
-                        if(input.disabled == false){
+                        if ( input.disabled == false )
+                        {
                             $( input ).addClass( 'is-invalid' )
                         }
                         if ( $( input ).attr( 'type' ) !== 'radio' )
@@ -232,6 +166,7 @@ function saveInspeccion( id )
                         // si el input tiene la clase is-invalid y no esta en el array de errores entonces le quitamos la clase is-invalid y le ponemos la clase is-valid
                         if ( !Object.keys( res.data.errors ).includes( $( input ).attr( 'name' ) ) )
                         {
+                            console.log( input )
                             $( input ).addClass( 'is-valid' )
                             $( input ).removeClass( 'is-invalid' )
                         }
@@ -239,10 +174,11 @@ function saveInspeccion( id )
                     // si no tiene clase invalida signidica que no tiene errores, por lo tanto se le agrega la clase is-valid
                     else
                     {
-                        if(input.value.length > 0 && input.disabled == false){
+                        if ( input.disabled == false )
+                        {
                             $( input ).addClass( 'is-valid' )
                             $( input ).removeClass( 'is-invalid' )
-                            
+
                         }
                     }
                 } )
@@ -265,15 +201,10 @@ function checkAllFields()
 }
 function handleAnomalia( anomaliaTipo )
 {
-   cleanAnomalia()
-
+    cleanAnomalia()
     overlay.classList.add( "active" );
     popup.classList.add( "active" );
     $( '#form-anomalias' ).attr( 'data-anomalia', anomaliaTipo )
-
-
-
-    // formAnomalias.setAttribute( "data-anomalia", anomaliaTipo );
 }
 
 function cleanAnomalia()
@@ -294,47 +225,14 @@ function saveAnomalia()
     if ( !validado ) return false;
     const anomalia = $( '#form-anomalias' ).attr( 'data-anomalia' )
 
-    console.log(anomalia)
     let anomaliaData = new FormData( $( '#form-anomalias' )[ 0 ] );
     anomaliaData.append( 'cosa', anomalia )
+    const i = anomaliasArr.indexOf(anomalia)
+    if( i > -1){
+        anomaliasArrPost.push(anomaliaData)
 
-    console.trace('ANOMALIA -----> ', anomalia )
-    if ( anomalia === "ten_media_soporteria_edo" )
-    {
-        ten_media_soporteria_edo = anomaliaData;
-    }
-
-
-    if ( anomalia === "sis_tierra_edo" )
-    {
-        sis_tierra_edo = anomaliaData;
-    }
-
-    if ( anomalia === "conex_tierra_edo" )
-    {
-        conex_tierra_edo = anomaliaData;
-    }
-
-    if ( anomalia === "sellado_ducteria_edo" )
-    {
-        sellado_ducteria_edo = anomaliaData
-    }
-    if(anomalia === "int_senalizacion_edo"){
-        int_senalizacion_edo = anomaliaData
-    }
-    if(anomalia === "bt_soporteria_edo"){
-        bt_soporteria_edo = anomaliaData
-    }
-    if(anomalia === "int_edo"){
-        int_edo = anomaliaData
-    }
-    if(anomalia === "circuitos_edo"){
-        circuitos_edo = anomaliaData
     }
     const url = route[ 1 ]
-
-
-
     axios.post( url, anomaliaData ).then( res =>
     {
         if ( res.data.errors )
@@ -419,31 +317,131 @@ function checkedAnomalia()
     input.checked = true
 }
 
+//DESHABILITAR INPUTS DONDE SE SUBE LA ANOMALIA
 function disabledAnomalias()
 {
     let anomaliaTipo = $( '#form-anomalias' ).attr( 'data-anomalia' )
     // remove the last character
     anomaliaTipo = anomaliaTipo.substring( 0, anomaliaTipo.length - 4 );
 
-    console.log('ANOMALIAAA-> ', anomaliaTipo)
 
-    //EXCEPCION CON EL CAMPO DE LA BD INT_EDO YA QUE NO EXISTE UN CAMPO "INT" 
-    if(anomaliaTipo === 'int'){
+    console.log('ANOMALIA TIPO AQUIIIII', anomaliaTipo)
+    //EXCEPCIONES CON LOS CAMPOS DE LA BD YA QUE NO TIENEN TERMINACION 'EDO'
+    if ( anomaliaTipo === 'int' )
+    {
         anomaliaTipo = 'int_edo'
     }
+    if ( anomaliaTipo === 'acc_subterraneo' )
+    {
+        anomaliaTipo = 'acc_subterraneo_edo'
+    }
+    if(anomaliaTipo === 'bt_cableado_cable_aco'){
+        console.log('AQUI ENTRA JAJAJJAS')
+        anomaliaTipo ='bt_cableado_cable_acomodo'
+    }
+    if(anomaliaTipo === 'bt_cableado_conexi'){
+        anomaliaTipo = 'bt_cableado_conexiones'
+    }
+
+
     const inputsToDisabled = $( `input[tipo="${anomaliaTipo}"], label[tipo="${anomaliaTipo}"]` )
     inputsToDisabled.each( function ( i, e )
     {
-        console.log('ANOMALIAAA-> ', inputsToDisabled)
-
-        
         $( e ).attr( 'disabled', true ).addClass( 'opacity-50' )
-
-
     } )
-
-
-
-    // const input = inputs[ 1 ]
-
 }
+
+function tipoCanalizacion()
+{
+    $( '#tipo_canalizacion_otro_input' ).attr( 'disabled', true )
+    $( '#tipo_canalizacion_otro_input' ).removeClass( 'is-invalid' ).removeClass( 'is-valid' ).val( '' ).next().html( '' )
+}
+
+function activarEstadoDeNoCodosOCC(e){
+    if(e.value > 0 ){
+
+        if($('#codos_occ_edo_no').prop('checked')===false){   
+        $('input[name="codos_occ_edo"]').each((i,e) => {
+            console.log(e)
+            $(e).prop('disabled', false).prop('checked', false).next().removeClass('opacity-50')
+        })
+    }
+    }
+        else{
+            if($('#codos_occ_edo_no').prop('checked') === false){   
+            console.log('oa')
+            $('input[name="codos_occ_edo"]').each((i,e) => {
+                console.log(e)
+                $(e).prop('disabled', true).prop('checked', false).next().addClass('opacity-50')
+            }) }
+    }
+}
+
+function activarEstadoDeNoInsertosOCC(e){
+    if(e.value > 0 ){
+
+        if($('#insertos_occ_edo_no').prop('checked')===false){   
+        $('input[name="insertos_occ_edo"]').each((i,e) => {
+            console.log(e)
+            $(e).prop('disabled', false).prop('checked', false).next().removeClass('opacity-50')
+        })
+    }
+    }
+        else{
+            if($('#insertos_occ_edo_no').prop('checked') === false){   
+            console.log('oa')
+            $('input[name="insertos_occ_edo"]').each((i,e) => {
+                console.log(e)
+                $(e).prop('disabled', true).prop('checked', false).next().addClass('opacity-50')
+            }) }
+    }
+}
+
+function activarEstadoDeAdptTiera(e){
+    if(e.value > 0 ){
+
+        if($('#adpt_tierra_edo_no').prop('checked')===false){   
+        $('input[name="adpt_tierra_edo"]').each((i,e) => {
+            console.log(e)
+            $(e).prop('disabled', false).prop('checked', false).next().removeClass('opacity-50')
+        })
+    }
+    }
+        else{
+            if($('#adpt_tierra_edo_no').prop('checked') === false){   
+            console.log('oa')
+            $('input[name="adpt_tierra_edo"]').each((i,e) => {
+                console.log(e)
+                $(e).prop('disabled', true).prop('checked', false).next().addClass('opacity-50')
+            }) }
+    }
+}
+
+function activarEstadoDeBarraTiera(e){
+    if(e.value > 0 ){
+
+        if($('#barras_tierra_edo_no').prop('checked')===false){   
+        $('input[name="barras_tierra_edo"]').each((i,e) => {
+            console.log(e)
+            $(e).prop('disabled', false).prop('checked', false).next().removeClass('opacity-50')
+        })
+    }
+    }
+        else{
+            if($('#barras_tierra_edo_no').prop('checked') === false){   
+            console.log('oa')
+            $('input[name="barras_tierra_edo"]').each((i,e) => {
+                console.log(e)
+                $(e).prop('disabled', true).prop('checked', false).next().addClass('opacity-50')
+            }) }
+    }
+}
+
+
+$('#btn-cerrar-popup').on('click', function(e) {
+    e.preventDefault();
+    overlay.classList.remove("active");
+    popup.classList.remove("active");
+    cleanAnomalia();
+    uncheckedAnomalia()
+})

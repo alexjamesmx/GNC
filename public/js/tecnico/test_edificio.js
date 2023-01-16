@@ -17,6 +17,11 @@ const formAnomalias = document.querySelector( "#form-anomalias" ),
     formDescriptionError = document.querySelector( "#form-description-error" ),
     formInspecciones = document.querySelector( "#form-inspecciones" );
 
+    $(function() {
+        $('#tipo_inspeccion_id').val(1)
+        });
+        
+        
 
 
 function saveAnomalia()
@@ -117,6 +122,7 @@ function saveInspeccion( id )
         .post( url, body )
         .then( ( res ) =>
         {
+            console.log(res)
             if ( !res.data.errors && res.data.response == true )
             {
                 cleanFormErrors();
@@ -144,6 +150,16 @@ function saveInspeccion( id )
 
                 } )()
             } 
+                 // EL REPORTE YA EXISTE
+                 else if ( res.data.response === false && res.data.errors === undefined )
+                 {
+                     message( 'Este reporte ya ha sido guardado...' )
+                     
+                     setTimeout( () =>
+                     {
+                        //  location.href = route[ 3 ].replace( ":id", id );
+                     }, 3000 )
+                 }
             // HUBO ALGUN ERROR DE VALIDACION
             else
             {
@@ -1109,3 +1125,11 @@ function cleanFormErrors()
 }
 
 
+
+
+$('#btn-cerrar-popup').on('click', function(e) {
+    e.preventDefault();
+    overlay.classList.remove("active");
+    popup.classList.remove("active");
+    cleanAnomalia();
+})

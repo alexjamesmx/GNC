@@ -11,6 +11,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\InspeccionesController;
 use App\Http\Controllers\TecnicoController;
 use App\Http\Controllers\CalendarioController;
+use App\Http\Controllers\VerificarController;
 use App\Http\Controllers\PDFController;
 use Illuminate\Support\Facades\Route;
 
@@ -69,6 +70,10 @@ Route::prefix('/admin/inspecciones')->middleware(['accesos', 'admin'])->controll
     Route::post('/delete/{id}',     'delete')->name('inspeccion.delete');
     Route::post('/getParques',    'getParques')->name('inspeccion.getParques');
     Route::post('/getSubestaciones',    'getSubestaciones')->name('inspeccion.getSubestaciones');
+    Route::post('/verificar',    'verificar_i')->name('inspeccion.verificar_i');
+});
+Route::prefix('/admin/verificar')->middleware(['accesos', 'admin'])->controller(VerificarController::class)->group(function () {
+    Route::get('/', 'home')->name('verificar.home');
 });
 Route::prefix('/admin/calendario')->middleware(['accesos', 'admin'])->controller(CalendarioController::class)->group(function () {
     Route::get('/', 'home')->name('calendario.home');
@@ -77,7 +82,7 @@ Route::prefix('/admin/calendario')->middleware(['accesos', 'admin'])->controller
     Route::post('/mes_inpecciones', 'c_inpecciones')->name('calendario.c_inpecciones');
 });
 
-Route::prefix('/admin/reportes')->middleware(['accesos', 'admin'])->controller(PDFController::class)->group(function () {
+Route::prefix('/admin/reportes')->middleware(['accesos', 'reportes'])->controller(PDFController::class)->group(function () {
     Route::get('/edificio/{id}', 'enterprise')->name('reportes.enterprise');
     Route::get('/transformador/{id}', 'transformador')->name('reportes.transformador');
     Route::get('/electrica/{id}', 'electrica')->name('reportes.electrica');
@@ -100,7 +105,15 @@ Route::prefix('/tecnico')->controller(TecnicoController::class)->group(function 
     Route::post('/transformador/subir',     'transformador_subir')->middleware(['accesos', 'tecnico'])->name('tecnico.ins_transformador_subir');
     Route::post('electrica/subir', 'electrica_subir')->middleware(['accesos', 'tecnico'])->name('tecnico.electrica_subir');
 });
+
+
 Route::get('/empresa', [SectionController::class, 'empresa'])->middleware(['accesos', 'empresa'])->name('empresa');
+
+Route::prefix('/empresa/reportes')->middleware(['accesos', 'empresa'])->controller(PDFController::class)->group(function () {
+    Route::get('/edificio/{id}', 'enterprise')->name('reportes.enterpriseE');
+    Route::get('/transformador/{id}', 'transformador')->name('reportes.transformadorE');
+    Route::get('/electrica/{id}', 'electrica')->name('reportes.electricaE');
+});
 
 //TECNICO ************************************************************
 //LOGIN ************************************************************

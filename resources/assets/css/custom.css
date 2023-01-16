@@ -71,6 +71,7 @@ p{
 :not(#municipio)
 :not(#codigo)
 :not(#subestacion)
+:not(#phone_user)
 + .input-label-custom  {
     transform: translate(10px, -14px) scale(0.8);
     color: rgb(255, 255, 255);
@@ -96,7 +97,8 @@ p{
 #calle:not(:placeholder-shown) + .input-label-custom ,
 #municipio:not(:placeholder-shown) + .input-label-custom ,
 #codigo:not(:placeholder-shown) + .input-label-custom,
-#subestacion:not(:placeholder-shown) + .input-label-custom
+#subestacion:not(:placeholder-shown) + .input-label-custom,
+#phone_user:not(:placeholder-shown) + .input-label-custom
 
 {
     transform: translate(10px, -14px) scale(0.8);

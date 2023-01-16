@@ -26,7 +26,12 @@
                     @if ($section === 'dashboard')
                         <div class="inspecciones-activas oculto"> @include('tecnico.general._activas') </div>
                         <div class="inspecciones-completas oculto"> @include('tecnico.general._completas') </div>
-                        <div class="dashboard oculto"></div>
+                        <div class="dashboard md:w-1/2 m-auto h-full grid place-content-center">
+                            
+                        
+                        @include('tecnico.general._inicio')    
+                  
+                        </div>
                     @endif
                 </div>
                 @include('template._footer')

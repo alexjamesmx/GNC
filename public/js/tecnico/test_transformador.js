@@ -1,6 +1,9 @@
 const formMarca = document.getElementById('marca'),
 formMarca_error = document.getElementById('marca_error'),
 
+formNo_serie = document.getElementById('no_serie'),
+formNo_serie_error = document.getElementById('no_serie_error')
+
 formCapacidad = document.getElementById('capacidad'),
 formCapacidad_error = document.getElementById('capacidad_error'),
 
@@ -136,7 +139,26 @@ formMarca.addEventListener( "change", () =>
         formMarca_error.innerHTML = "";
     }
 } );
-
+formNo_serie.addEventListener( "change", () =>
+{
+    if ( formNo_serie.value === "" )
+    {
+        formNo_serie.classList.remove( "is-valid" );
+        formNo_serie.classList.add( "is-invalid" );
+        formNo_serie_error.innerHTML = "Este campo es requerido";
+    } else if ( formNo_serie.value.length > 255 )
+    {
+        formNo_serie.classList.remove( "is-valid" );
+        formNo_serie.classList.add( "is-invalid" );
+        formNo_serie_error.innerHTML =
+            "Este campo no puede tener más de 255 caracteres";
+    } else
+    {
+        formNo_serie.classList.remove( "is-invalid" );
+        formNo_serie.classList.add( "is-valid" );
+        formNo_serie_error.innerHTML = "";
+    }
+} );
 formCapacidad.addEventListener( "change", () =>
 {
     if ( formCapacidad.value === "" )

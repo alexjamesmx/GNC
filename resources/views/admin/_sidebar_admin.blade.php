@@ -54,6 +54,12 @@
             <span class="menu-title">Inspecciones</span>
         </a>
     </li>
+    <li class="nav-item  {{ $section === 'verificar' ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('verificar.home') }}">
+            <i class="menu-icon typcn typcn-user-outline"></i>
+            <span class="menu-title">Inspecciones por verificar</span>
+        </a>
+    </li>
     <li class="nav-item  {{ $section === 'calendario' ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('calendario.home') }}">
             <i class="menu-icon typcn typcn-user-outline"></i>

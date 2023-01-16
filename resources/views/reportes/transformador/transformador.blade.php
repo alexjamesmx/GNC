@@ -54,16 +54,16 @@
 
     <!-- evidencias -->
     @include('reportes.transformador.evidenciasTransformador')
-    <div class="page-break"></div>
+    <!-- <div class="page-break"></div> -->
 
-    <!-- anomalias -->
+    <!-- anomalias
     @if (is_null($anomalias) || $anomalias->isEmpty())
         <center>
             <h3>No hay anomalias</h3>
             <center>
             @else
                 @include('reportes.transformador.anomaliasTransformador')
-    @endif
+    @endif -->
 
 
 </body>

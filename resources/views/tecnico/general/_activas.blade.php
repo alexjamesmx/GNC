@@ -39,10 +39,10 @@
                                         {{-- ID --}}
                                         <td scope="row" style="min-width:fit-content;width:1rem">
                                             <p id="row_inspeccion_id_{{ $inspeccion->id }}"
-                                                class='p-0 m-0 text-xs text-gray-500 text-center'>
+                                                class='p-0 m-0'>
                                                 {{ $inspeccion->id }}
+                                            </p>
                                         </td>
-                                        </p>
                                         {{-- EMPRESA --}}
                                         <td scope="row" style="min-width:fit-content;width:15rem">
                                             <div class="flex">
@@ -80,7 +80,7 @@
                                         </td>
                                         {{-- FECHA --}}
                                         <td scope="row" style="min-width:fit-content;width:1rem"
-                                            class="text-base text-center"
+                                            class="text-base"
                                             id="field_fecha_inicio_{{ $inspeccion->id }}">
                                             {{ $inspeccion->fecha_inicio }}
                                         </td>

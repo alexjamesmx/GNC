@@ -18,10 +18,10 @@
         </a>
     </li>
     <li class="nav-item nav-category">Menú principal</li>
-    <li id="nav_dashboard"class="nav-item {{ $section === 'dashboard' ? 'active' : '' }} hover:bg-cyan-400">
+    <li id="nav_dashboard"class="nav-item {{ $section === 'dashboard' ? 'active' : '' }}">
         <a class="nav-link" href="#dashboard"onclick="handle_dashboard()">
             <i class="menu-icon typcn typcn-document-text"></i>
-            <span class="menu-title">Dashboard </span>
+            <span class="menu-title">Inicio</span>
         </a>
     </li>
     <li class="nav-item" id="nav_inspecciones">

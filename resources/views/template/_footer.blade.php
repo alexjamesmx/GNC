@@ -1,6 +1,7 @@
-<footer class="footer">
+
+<footer class="footer bg-svg"
     <div class="container-fluid clearfix">
-        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright ©
+        <span class="text-black semi-bold d-block text-center text-sm-left d-sm-inline-block">Copyright ©
             Impactos Digitales</span>
     </div>
 </footer>

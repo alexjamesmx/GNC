@@ -50,6 +50,8 @@
 
     @include('scripts.admin')
 
+    @include('scripts.empresa')
+
 
 </body>
 

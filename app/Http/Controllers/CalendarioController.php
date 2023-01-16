@@ -70,7 +70,7 @@ class CalendarioController extends Controller
 
     public function c_inpecciones(Request $request)
     {
-        $inspecciones = Inspecciones::where('status_id', '=', '5')
+        $inspecciones = Inspecciones::where('status_id', '=', '7')
             ->where('enterprise_id', '=', $request->id)
             ->whereMonth('fecha_fin', '=', $request->mes)
             ->whereYear('fecha_fin', '=', $request->year)

@@ -28,6 +28,7 @@ class ProfileController extends Controller
             return view('admin.admin', ['section' => 'profile', 'section_cute' => 'Perfil', 'role' => $role, 'user' => $request->user(), 'role_type' => $role_type]);
         } elseif ($role_type == 2) {
             $role = 'enterprise';
+            return view('empresa.general', ['section' => 'profile', 'section_cute' => 'Perfil', 'role' => $role, 'user' => $request->user(), 'role_type' => $role_type]);
         } elseif ($role_type == 3) {
             $role = 'tecnico';
             return view('tecnico.general.general', ['section' => 'profile', 'section_cute' => 'Perfil', 'role' => $role, 'role_cute' => 'Técnico', 'user' => $request->user(), 'role_type' => $role_type]);

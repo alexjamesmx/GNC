@@ -56,6 +56,7 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\Admin::class,
         'tecnico' =>  \App\Http\Middleware\Tecnico::class,
         'empresa' => \App\Http\Middleware\Empresa::class,
+        'reportes' => \App\Http\Middleware\Reportes::class,
         'accesos' => \App\Http\Middleware\Accesos::class,
         'inspeccion_edificio' => \App\Http\Middleware\Inspeccion_edificio::class,
         'inspeccion_transformador' => \App\Http\Middleware\Inspeccion_transformador::class,

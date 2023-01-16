@@ -26,7 +26,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-4 mt-5">
-                                <div id="nav_electrica" onclick="electrica({{ $id }})"
+                                <div id="nav_electrico" onclick="electrica({{ $id }})"
                                     class="card hover:bg-amber-100 cursor-pointer"style="height:75vh; min-width:fit-content">
                                     <div class="card-body grid ">
                                         <p class="text-2xl font-semibold m-0 p-0 text-center capitalize self-center">

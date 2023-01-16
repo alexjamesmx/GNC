@@ -44,6 +44,9 @@
                         @include('admin._body_inspecciones')
                         @include('admin._modal_inspecciones_detalle')
                     @endif
+                    @if ($section === 'verificar')
+                        @include('admin._body_verificar')
+                    @endif
                     @if ($section === 'profile')
                         @include('profile.edit')
                     @endif

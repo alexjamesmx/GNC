@@ -105,6 +105,10 @@
                                                 <p class="text-white bg-green-600 px-2 py-1 rounded font-bold">
                                                     Finalizada
                                                 </p>
+                                            @elseif ($inspeccion->status->id === 7)
+                                                <p class="text-white bg-green-600 px-2 py-1 rounded font-bold">
+                                                    Verificada
+                                                </p>
                                             @endif
                                         </td>
                                         <td scope="row" style="min-width:fit-content; white-space:initial"

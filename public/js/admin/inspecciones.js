@@ -255,15 +255,20 @@ console.log(parque)
 console.log(enterprise)
 console.log(subestacion)
 console.log(status)
+
 $('#parque').text(parque.parque)
 $('#empresa').text(enterprise.enterprise)
 $('#subestacion').text(subestacion.subestacion)
 if(status.id === 4){
-    $('#status').text('Por comenzar')
+    $('#status').text('POR COMENZAR')
     $('#resumen').text('Inspeccion asignada, el técnico no ha comenzado la inspeccion')
 }
+if(status.id === 5){
+    $('#status').text('FINALIZADA')
+    $('#resumen').text('Inspeccion finalizada')
+}
 if(status.id === 6){
-    $('#status').text('En proceso')
+    $('#status').text('EN PROCESO')
     $('#resumen').text('Esta inspeccion se encuentra en proceso de ejecución... ' + inspeccion.porcentaje + '%')
 }
 $('#asignada').text(inspeccion.fecha_inicio)

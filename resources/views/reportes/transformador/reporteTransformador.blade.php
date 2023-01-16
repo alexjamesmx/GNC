@@ -20,7 +20,7 @@
                     <td>Marca</td>
                     <td colspan="3">{{ $item->marca }}</td>
                     <td># Serie</td>
-                    <td colspan="4">-</td>
+                    <td colspan="4">{{ $item->no_serie }}</td>
                     <td>Capacidad</td>
                     <td colspan="2">{{ $item->capacidad }}</td>
                 </tr>
